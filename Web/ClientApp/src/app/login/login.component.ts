@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/api/auth.service';
 import { UserService } from '../shared/core/user.service';
@@ -20,9 +19,11 @@ export class LoginComponent {
 
   async onSubmit() {
     try {
-      let usr = await this.service.login(this.loginForm);
-      this.userService.User = usr;
-      this.router.navigateByUrl('/chat');
+      if (this.loginForm.valid) {
+        let usr = await this.service.login(this.loginForm);
+        this.userService.User = usr;
+        this.router.navigateByUrl('/chat');
+      }
     }
     catch {
       alert("не подходит");
