@@ -4,8 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { HomeComponent } from './home/home.component';
 import { LoginModule } from './login/login.module';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -17,9 +15,7 @@ import { UserModel } from './shared/models/user.model';
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
-    CounterComponent,
-    FetchDataComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -28,9 +24,7 @@ import { UserModel } from './shared/models/user.model';
     ChatModule,
     LoginModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: '', component: HomeComponent, pathMatch: 'full' }
     ])
   ],
   providers: [UserModel],
