@@ -2,10 +2,22 @@
   width: 100%;
 
 }
+.app {
+  width: 100%;
+  height: 450px;
+  position: relative;
+}
 .chat {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 450px;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  border-top: 1px dashed black;
+}
+.chat-fix {
+  height: 450px;
 }
 .chat-container {
   flex: 1;

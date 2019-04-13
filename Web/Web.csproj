@@ -25,11 +25,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\shared\form-models\login-form.model.ts" />
     <None Remove="ClientApp\src\app\shared\models\chat.model.ts" />
+    <None Remove="ClientApp\src\app\shared\models\user.model.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Atheneum\Atheneum.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\shared\form-models\login-form.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\models\user.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\chat.model.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ClientApp\src\app\shared\models\user.model.js">
+      <DependentUpon>user.model.ts</DependentUpon>
+    </None>
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

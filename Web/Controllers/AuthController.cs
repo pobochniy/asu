@@ -2,7 +2,6 @@
 using Atheneum.Interface;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Security.Claims;
@@ -10,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Web.Controllers
 {
+    [Route("api/[controller]")]
     public class AuthController : Controller
     {
         private readonly IAuthService service;
@@ -19,19 +19,8 @@ namespace Web.Controllers
             this.service = service;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        [AllowAnonymous]
-        public IActionResult Register()
-        {
-            return View();
-        }
-
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Route("[action]")]
         public async Task<IActionResult> Register(RegisterDto model)
         {
             if (ModelState.IsValid)
@@ -42,15 +31,9 @@ namespace Web.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public IActionResult LogIn()
-        {
-            return View();
-        }
-
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LogIn(LoginDto model)
+        [Route("[action]")]
+        public async Task<IActionResult> LogIn([FromBody]LoginDto model)
         {
             if (ModelState.IsValid)
             {
@@ -71,7 +54,8 @@ namespace Web.Controllers
             return View(model);
         }
 
-        //[HttpPost]
+        [HttpPost]
+        [Route("[action]")]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
