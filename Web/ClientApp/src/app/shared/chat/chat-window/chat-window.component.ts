@@ -21,7 +21,6 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-
     this.connection = new signalR.HubConnectionBuilder()
       .withUrl("/chat")
       .build();    
@@ -36,7 +35,6 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
 
     this.connection.on("BroadCastMessage", data => {
       console.log(data);
-      debugger
       if (data.length) {
         this.msgs.push(data);
       }
