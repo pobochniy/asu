@@ -44,4 +44,12 @@ export class ChatWindowComponent implements OnInit {
     }, 50);
   }
 
+  //onEnter(e: any) {
+  //  debugger;
+  //  if (!e.shiftKey || !e.ctrlKey) {
+  //    e.preventDefault()
+  //    this.send();
+  //  }
+  //}
+
 }

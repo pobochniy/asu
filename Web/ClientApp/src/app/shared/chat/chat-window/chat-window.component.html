@@ -1,17 +1,19 @@
-<div class="chat">
-  <div class="chat-container" id="scrollContainer">
-    <div *ngFor="let mes of messageList">
-      <div class="chat-item">
-        {{mes.Content}}
+<div class="app">
+  <div class="chat col-sm-9 col-xs-12">
+    <div class="chat-container" id="scrollContainer">
+      <div *ngFor="let mes of messageList">
+        <div class="chat-item">
+          {{mes.Content}}
+        </div>
       </div>
     </div>
-  </div>
-  <div class="chat-controls">
-    <div class="chat-controls-textarea">
-      <textarea class="chat-controls-textarea-text-field" [(ngModel)]="message"></textarea>
-    </div>
-    <div class="chat-controls-buttons">
-      <button type="submit" class="btn btn-primary" (click)="send()">Отправить</button>
+    <div class="chat-controls">
+      <div class="chat-controls-textarea">
+        <textarea class="chat-controls-textarea-text-field" [(ngModel)]="message" (keydown.enter)="send()"></textarea><!--(keydown.enter)="onEnter($event)"-->
+      </div>
+      <div class="chat-controls-buttons">
+        <button type="submit" class="btn btn-primary" (click)="send()">Отправить</button>
+      </div>
     </div>
   </div>
 </div>
