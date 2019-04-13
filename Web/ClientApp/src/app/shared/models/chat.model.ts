@@ -1,6 +1,6 @@
 export class ChatModel {
   public Id: number;
-  public Content: string;
+  public Text: string;
   public Time: Date;
   public Name: string;
 }

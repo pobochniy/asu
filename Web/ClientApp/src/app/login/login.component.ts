@@ -25,7 +25,7 @@ export class LoginComponent {
         this.router.navigateByUrl('/chat');
       }
     }
-    catch {
+    catch (Exception){
       alert("не подходит");
     }
   }
