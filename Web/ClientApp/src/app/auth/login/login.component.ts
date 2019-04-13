@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../shared/api/auth.service';
-import { UserService } from '../shared/core/user.service';
-import { loginFormModel } from '../shared/form-models/login-form.model';
+import { AuthService } from '../../shared/api/auth.service';
+import { UserService } from '../../shared/core/user.service';
+import { loginFormModel } from '../../shared/form-models/login-form.model';
 
 @Component({
   selector: 'login-auth',
