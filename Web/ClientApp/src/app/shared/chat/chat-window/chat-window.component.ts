@@ -11,8 +11,6 @@ import { from } from "rxjs/observable/from";
   styleUrls: ['./chat-window.component.css']
 })
 export class ChatWindowComponent implements OnInit, AfterViewInit {
-  //public message: string = '';
-  //private _hubConnection: HubConnection;
   private connection: HubConnection;
 
   public msgs: Array<string> = []; // это с сервера
@@ -26,54 +24,27 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
 
     this.connection = new signalR.HubConnectionBuilder()
       .withUrl("/chat")
-      .build();
-
-    //console.log(this.chatSe;rvice)
+      .build();    
   }
 
   ngAfterViewInit() {
     this.connectionWebSocket();
-
-    //this.initAudio();
-    //this.chatService.getList()
-    //  .subscribe(
-    //  x => {
-    //    this.msgs = x;
-    //    this.connectionWebSocket();
-    //  },
-    //  err => {
-    //    console.log(err);
-    //  });
   }
 
   connectionWebSocket() {
-    
+    this.connection.start();
+
     this.connection.on("BroadCastMessage", data => {
       console.log(data);
       debugger
       if (data.length) {
-
-        from(data).subscribe((x: string) => {
-          this.msgs.push(x);
-        });
-        //setTimeout(this.toBottom, 50);
-        //this.play();
+        this.msgs.push(data);
       }
     });
   }
 
-  //get messageList(): ChatModel[] {
-  //  return this.chatService.getMessageList;
-  //}
 
   send() {
-    //let model = new ChatModel();
-    //model.Text = this.message;
-    //model.Id = 15;
-    //model.Name = 'Alex Cherniy';
-
-    //this.chatService.push(model);
-    debugger
     this.connection.invoke("PushMessage", this.msg)
       .then(() => {
         this.msg = '';

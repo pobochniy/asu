@@ -10,11 +10,9 @@ namespace Web.SignalR
 {
     public class ChatHub : Hub<IChatHub>
     {
-
-        //public async Task BroadCastMessage(string msg)
-        //{
-        //    await this.Clients.All.SendAsync("Send", msg);
-        //}
-
+        public async Task PushMessage(string msg)
+        {
+            await this.Clients.All.BroadCastMessage(msg);
+        }
     }
 }
