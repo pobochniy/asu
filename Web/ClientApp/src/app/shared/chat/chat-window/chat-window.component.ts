@@ -1,9 +1,8 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
-import { ChatService } from '../../api/chat.service';
 import { ChatModel } from '../../models/chat.model';
-import * as signalR from "@aspnet/signalr";
-import { HubConnection } from "@aspnet/signalr";
 import { from } from "rxjs/observable/from";
+import { ChatService } from "../chat.service";
+import { PushChatModel } from "../../models/push-chat.model";
 
 @Component({
   selector: 'app-chat-window',
@@ -11,42 +10,27 @@ import { from } from "rxjs/observable/from";
   styleUrls: ['./chat-window.component.css']
 })
 export class ChatWindowComponent implements OnInit, AfterViewInit {
-  private connection: HubConnection;
 
-  public msgs: Array<string> = []; // это с сервера
-  public msg: string; // это отсюда
+  public text: string; // текстовове поле ввода
 
   constructor(
-    private chatService: ChatService
+    public chatService: ChatService
   ) { }
 
   ngOnInit() {
-    this.connection = new signalR.HubConnectionBuilder()
-      .withUrl("/chat")
-      .build();    
+    let text = "to [bla1, bla2] hello!!";
+    new PushChatModel(text);
+    this.chatService.initConnection();
   }
 
   ngAfterViewInit() {
-    this.connectionWebSocket();
+    this.chatService.connectionWebSocket();
   }
-
-  connectionWebSocket() {
-    this.connection.start();
-
-    this.connection.on("BroadCastMessage", data => {
-      console.log(data);
-      if (data.length) {
-        this.msgs.push(data);
-      }
-    });
-  }
-
-
+    
   send() {
-    this.connection.invoke("PushMessage", this.msg)
-      .then(() => {
-        this.msg = '';
-      })
+    this.chatService.send(this.text);
+    this.text = '';
+
     //this.skrollBottom();
   }
 

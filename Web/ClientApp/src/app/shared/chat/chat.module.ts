@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChatWindowComponent } from './chat-window/chat-window.component';
 import { FormsModule } from '@angular/forms';
-import { ChatService } from "../api/chat.service";
+import { ChatService } from './chat.service';
 
 @NgModule({
   imports: [
