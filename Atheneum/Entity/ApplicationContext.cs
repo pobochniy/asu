@@ -7,6 +7,7 @@ namespace Atheneum.Entity.Identity
         public DbSet<User> Users { get; set; }
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<ChatRoom> ChatRoom { get; set; }
 
         public ApplicationContext(DbContextOptions options)
             : base(options)
@@ -18,6 +19,7 @@ namespace Atheneum.Entity.Identity
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new UserInRoleConfiguration());
             builder.ApplyConfiguration(new ProfileConfiguration());
+            builder.ApplyConfiguration(new ChatRoomConfiguration());
         }
     }
 }
