@@ -1,37 +1,39 @@
+import { isNull } from "util";
+
 export class PushChatModel {
   public message: string;
   public to?: Array<string>;
   public privat?: Array<string>;
 
   constructor(text: string) {
-    this.to = this.getToArray(text);
-    this.privat = this.getPrivatArray(text);
-    this.message = text.trim();
+    this.message = text;
+    while (this.fillToArray()) { };
+    while (this.fillPrivateArray()) { };
+
+    this.message = this.message.trim();
   }
 
-  private getToArray(text: string): Array<string> | undefined {
-    debugger
+  private fillToArray(): boolean {
+    const exist = /to \[(.*?)\]/i.exec(this.message);
+    if (exist) {
+      if (this.to === undefined) this.to = [];
+      this.to = this.to.concat(exist[1].split(',').map(item => item.trim()));
 
-    let start = text.indexOf("to [");
-    if (start === -1) return undefined;
+      this.message = this.message.replace(exist[0], '');
+    }
 
-    let end = text.indexOf("]");
-    let names = text.substring(start + 4, end - start);
-
-    let res = names.split(",");
-
-    res = res.map(x => {
-      return x.trim();
-    });
-
-    //Написать тесты
-    //Переделать на регулярки
-       
-    return res;
+    return !isNull(exist);
   }
 
-  private getPrivatArray(text: string): Array<string> | undefined {
+  private fillPrivateArray(): boolean {
+    const exist = /private \[(.*?)\]/i.exec(this.message);
+    if (exist) {
+      if (this.privat === undefined) this.privat = [];
+      this.privat = this.privat.concat(exist[1].split(',').map(item => item.trim()));
 
-    return undefined;
+      this.message = this.message.replace(exist[0], '');
+    }
+
+    return !isNull(exist);
   }
 }
