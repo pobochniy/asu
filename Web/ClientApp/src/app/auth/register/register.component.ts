@@ -19,10 +19,10 @@ export class RegisterComponent {
     , private userService: UserService) { }
 
   async onSubmit() {
-  }
+    for (let item in this.registerForm.controls) {
+      this.registerForm.controls[item].markAsDirty();
+    }
 
-
-  public isPasswordsMatch() {
-    return this.registerForm.controls['password'].value == this.registerForm.controls['passwordConfirm'].value;
+    console.log(this.registerForm.valid);
   }
 }
