@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Atheneum.Enums;
 
 namespace Atheneum.Dto.Chat
 {
-    public class ChatDto
+    public class ChatDto : PushChatDto
     {
-        public string Text { get; set; }
+        public string Id { get; set; }
+
+        public ChatTypeEnum Type { get; set; }
+
+        public string Login { get; set; }
     }
 }
