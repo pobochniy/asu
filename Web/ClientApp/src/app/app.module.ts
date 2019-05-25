@@ -5,10 +5,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { LoginModule } from './login/login.module';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { ChatModule } from './shared/chat/chat.module';
 import { UserModel } from './shared/models/user.model';
+import { AuthModule } from './auth/auth.module';
 
 
 @NgModule({
@@ -22,7 +22,7 @@ import { UserModel } from './shared/models/user.model';
     HttpClientModule,
     FormsModule,
     ChatModule,
-    LoginModule,
+    AuthModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' }
     ])
