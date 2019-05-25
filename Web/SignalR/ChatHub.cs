@@ -5,13 +5,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Atheneum.Interface;
 using Atheneum.Dto.Chat;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.SignalR
 {
     public class ChatHub : Hub<IChatHub>
     {
+        [Authorize]
         public async Task PushMessage(PushChatDto msg)
         {
+            // TODO: Вызывать метод из контроллера и передавать инфу юзера
+
             var chatMsg = new ChatDto
             {
                 Id = "0",
