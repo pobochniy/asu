@@ -1,15 +1,18 @@
-﻿using Atheneum.Dto.Account;
+﻿using Atheneum.Dto.Auth;
 using Atheneum.Interface;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
+    [AllowAnonymous]
     public class AuthController : Controller
     {
         private readonly IAuthService service;
@@ -21,14 +24,23 @@ namespace Web.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> Register(RegisterDto model)
+        public async Task<IActionResult> Register([FromBody]RegisterDto model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                await service.Register(model as LoginDto);
-            }
+                if (ModelState.IsValid)
+                {
+                    await service.Register(model);
 
-            return View(model);
+                    return await LogIn(new LoginDto { Login = model.UserName, Password = model.Password });
+                }
+
+                return BadRequest(ModelState);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
         }
 
         [HttpPost]
@@ -39,19 +51,37 @@ namespace Web.Controllers
             {
                 try
                 {
-                    var identity = await service.LogIn(model);
+                    var user = await service.LogIn(model);
+
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, user.UserId.ToString())
+                    };
+
+                    foreach (var role in user.Roles)
+                    {
+                        claims.Add(new Claim(ClaimTypes.Role, role));
+                    }
+
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                     await HttpContext.SignInAsync(
                         CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(identity));
+
+                    return Ok(user);
                 }
                 catch (UnauthorizedAccessException)
                 {
                     ModelState.AddModelError("", "Неправильное имя пользователя или пароль");
                 }
+                catch (Exception e)
+                {
+                    return BadRequest(e);
+                }
             }
 
-            return View(model);
+            return BadRequest(ModelState);
         }
 
         [HttpPost]
