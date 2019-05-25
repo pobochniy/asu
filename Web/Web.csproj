@@ -27,6 +27,8 @@
   <ItemGroup>
     <None Remove="ClientApp\src\app\shared\form-models\login-form.model.ts" />
     <None Remove="ClientApp\src\app\shared\models\chat.model.ts" />
+    <None Remove="ClientApp\src\app\shared\models\push-chat.model.ts" />
+    <None Remove="ClientApp\src\app\shared\models\push-chat.spec.ts" />
     <None Remove="ClientApp\src\app\shared\models\user.model.ts" />
   </ItemGroup>
 
@@ -36,6 +38,8 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\shared\form-models\login-form.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\models\push-chat.spec.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\models\push-chat.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\user.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\chat.model.ts" />
   </ItemGroup>

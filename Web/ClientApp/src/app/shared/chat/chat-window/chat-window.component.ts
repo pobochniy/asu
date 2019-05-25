@@ -1,48 +1,49 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ChatService } from '../chat.service';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { ChatModel } from '../../models/chat.model';
+import { from } from "rxjs/observable/from";
+import { ChatService } from "../chat.service";
+import { PushChatModel } from "../../models/push-chat.model";
 
 @Component({
   selector: 'app-chat-window',
   templateUrl: './chat-window.component.html',
   styleUrls: ['./chat-window.component.css']
 })
-export class ChatWindowComponent implements OnInit {
-  public message: string = '';
+export class ChatWindowComponent implements OnInit, AfterViewInit {
+
+  public text: string; // текстовове поле ввода
 
   constructor(
-    private chatService: ChatService
+    public chatService: ChatService
   ) { }
 
   ngOnInit() {
-    console.log(this.chatService);
+    let text = "to [bla1, bla2] hello!!";
+    new PushChatModel(text);
+    this.chatService.initConnection();
   }
 
-  get messageList(): ChatModel[] {
-    return this.chatService.getMessageList;
+  ngAfterViewInit() {
+    this.chatService.connectionWebSocket();
   }
-
+    
   send() {
-    let model = new ChatModel();
-    model.Content = this.message;
-    model.Id = 15;
-    model.Name = 'Alex Cherniy';
+    this.chatService.send(this.text);
+    this.text = '';
 
-    this.chatService.sendMessage(model);
-    this.message = '';
-    this.skrollBottom();
+    //this.skrollBottom();
   }
 
-  skrollBottom() {
-    // scrollContainer
+  //skrollBottom() {
+  //  // scrollContainer
 
-    let objDiv = document.getElementById('scrollContainer');
-    if (!objDiv) return;
+  //  let objDiv = document.getElementById('scrollContainer');
+  //  if (!objDiv) return;
 
-    setTimeout(() => {
-      objDiv.scrollTop = objDiv.scrollHeight;
-    }, 50);
-  }
+  //  setTimeout(() => {
+  //    objDiv.scrollTop = objDiv.scrollHeight;
+  //  }, 50);
+  //}
 
   //onEnter(e: any) {
   //  debugger;
