@@ -9,7 +9,7 @@
     </div>
     <div class="chat-controls">
       <div class="chat-controls-textarea">
-        <textarea class="chat-controls-textarea-text-field" [(ngModel)]="chatService.text" (keydown.enter)="send()"></textarea><!--(keydown.enter)="onEnter($event)"-->
+        <textarea class="chat-controls-textarea-text-field" [(ngModel)]="text" (keydown.enter)="send()"></textarea><!--(keydown.enter)="onEnter($event)"-->
       </div>
       <div class="chat-controls-buttons">
         <button type="submit" class="btn btn-primary" (click)="send()">Отправить</button>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ChatModel } from '../models/chat.model';
 import * as signalR from "@aspnet/signalr";
 import { HubConnection } from "@aspnet/signalr";
+import { PushChatModel } from '../models/push-chat.model';
 
 @Injectable()
 export class ChatService {
@@ -37,8 +38,7 @@ export class ChatService {
   }
 
   send(text: string) {
-
-
-    this.connection.invoke("PushMessage", text);  
+    const msg = new PushChatModel(text);
+    this.connection.invoke("PushMessage", msg);  
   }
 }

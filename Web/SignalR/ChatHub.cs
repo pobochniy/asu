@@ -10,9 +10,20 @@ namespace Web.SignalR
 {
     public class ChatHub : Hub<IChatHub>
     {
-        public async Task PushMessage(string msg)
+        public async Task PushMessage(PushChatDto msg)
         {
-            await this.Clients.All.BroadCastMessage(msg);
+            var chatMsg = new ChatDto
+            {
+                Id = "0",
+                Type = Atheneum.Enums.ChatTypeEnum.text,
+                Login = this.Context.UserIdentifier,
+                Message = msg.Message,
+                Privat = msg.Privat,
+                To = msg.To
+            };
+            
+
+            await this.Clients.All.BroadCastMessage(chatMsg);
         }
     }
 }

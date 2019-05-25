@@ -18,8 +18,6 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    let text = "to [bla1, bla2] hello!!";
-    new PushChatModel(text);
     this.chatService.initConnection();
   }
 
