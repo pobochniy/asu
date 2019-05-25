@@ -5,7 +5,7 @@ import { UserModel } from '../models/user.model';
 import { BaseApiService } from "./base-api.service";
 
 @Injectable()
-export class AuthService extends BaseApiService {
+export class AuthApiService extends BaseApiService {
   constructor(public http: HttpClient) {
     super('Auth', http)
   }

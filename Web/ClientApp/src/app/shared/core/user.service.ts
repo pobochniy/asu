@@ -31,8 +31,13 @@ export class UserService {
   ) {
   }
 
+  get shortName(): string {
+    if (!this.User) return '';
+    return this.User.login || this.User.email || this.User.phone;
+  }
+
   get isAuth(): boolean {
-    return this.User != null && this.User.userName != null;
+    return this.User != null && this.User.login != null;
   }
 
   hasRole(roleName: string): boolean {

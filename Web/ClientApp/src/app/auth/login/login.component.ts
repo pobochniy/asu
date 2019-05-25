@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../shared/api/auth.service';
+import { AuthApiService } from '../../shared/api/auth-api.service';
 import { UserService } from '../../shared/core/user.service';
 import { loginFormModel } from '../../shared/form-models/login-form.model';
 
@@ -8,12 +8,12 @@ import { loginFormModel } from '../../shared/form-models/login-form.model';
   selector: 'login-auth',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [AuthService, UserService]
+  providers: [AuthApiService, UserService]
 })
 export class LoginComponent {
   public loginForm = loginFormModel;
 
-  constructor(private service: AuthService
+  constructor(private service: AuthApiService
     , private router: Router
     , private userService: UserService) { }
 
@@ -22,10 +22,10 @@ export class LoginComponent {
       if (this.loginForm.valid) {
         let usr = await this.service.login(this.loginForm);
         this.userService.User = usr;
-        this.router.navigateByUrl('/chat');
+        this.router.navigateByUrl('/');
       }
     }
-    catch (Exception){
+    catch (Exception) {
       alert("не подходит");
     }
   }
