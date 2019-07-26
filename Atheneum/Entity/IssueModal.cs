@@ -11,11 +11,11 @@ namespace Atheneum.Entity.Identity
         [Key]
         public long IssueID { get; set; } 
 
-        public string Director { get; set; }        
+        public Guid Assignee { get; set; }        
 
-        public string Executor { get; set; }        
+        public Guid Executor { get; set; }
 
-        public string Reporters { get; set; }       
+//      public string Reporters { get; set; }  TODO: тут будет ссылка на таблицу связей
 
         public string Summary { get; set; }         
 
@@ -29,9 +29,9 @@ namespace Atheneum.Entity.Identity
         public IssuePriorityEnum Priority { get; set; } 
 
 
-        public int DirectorEstimatedTime { get; set; }
+        public decimal? DirectorEstimatedTime { get; set; }
 
-        public int ExecutorEstimatedTime { get; set; }
+        public decimal? ExecutorEstimatedTime { get; set; }
 
         public DateTime CreateDate { get; set; }
 
