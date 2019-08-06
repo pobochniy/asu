@@ -11,11 +11,11 @@ namespace Atheneum.Entity.Identity
         [Key]
         public long IssueID { get; set; } 
 
-        public Guid Assignee { get; set; }        
+        public Guid? Assignee { get; set; }        
 
         public Guid Executor { get; set; }
 
-//      public string Reporters { get; set; }  TODO: тут будет ссылка на таблицу связей
+        public string Reporter { get; set; }  
 
         public string Summary { get; set; }         
 
