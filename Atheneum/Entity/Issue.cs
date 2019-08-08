@@ -6,14 +6,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Atheneum.Entity.Identity
 {
-    public class IssueModal
+    public class Issue
     {
         [Key]
-        public long IssueID { get; set; } 
+        public long Id { get; set; } 
 
         public Guid? Assignee { get; set; }        
-
-        public Guid Executor { get; set; }
 
         public string Reporter { get; set; }  
 
@@ -21,39 +19,31 @@ namespace Atheneum.Entity.Identity
 
         public string Description { get; set; }     
 
-
         public IssueTypeEnum Type { get; set; }  
 
         public IssueStatusEnum Status { get; set; } 
 
         public IssuePriorityEnum Priority { get; set; } 
 
+        public decimal? AssigneeEstimatedTime { get; set; }
 
-        public decimal? DirectorEstimatedTime { get; set; }
-
-        public decimal? ExecutorEstimatedTime { get; set; }
+        public decimal? ReporterEstimatedTime { get; set; }
 
         public DateTime CreateDate { get; set; }
 
-        public DateTime DeadlineDate { get; set; }
-
-        public int TimeSpent { get; set; }
-
-        
-        public string Attachment { get; set; }
+        public DateTime? DueDate { get; set; }
 
         public string EpicLink { get; set; }
 
-        public string OtherLinks { get; set; }
     }
 
-    public class IssueConfiguration : IEntityTypeConfiguration<IssueModal>
+    public class IssueConfiguration : IEntityTypeConfiguration<Issue>
     {
         
-        public void Configure(EntityTypeBuilder<IssueModal> builder)
+        public void Configure(EntityTypeBuilder<Issue> builder)
         {
             builder
-               .HasIndex(u => u.IssueID)
+               .HasIndex(u => u.Id)
                .IsUnique();     
         }
             
