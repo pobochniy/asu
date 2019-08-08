@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Atheneum.Enums
+﻿namespace Atheneum.Enums
 {
+    /// <summary>
+    /// Приоритет события
+    /// </summary>
     public enum IssuePriorityEnum
     {
         low,

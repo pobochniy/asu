@@ -1,7 +1,8 @@
 ﻿namespace Atheneum.Enums
-
-
 {
+    /// <summary>
+    /// Тип события
+    /// </summary>
     public enum IssueTypeEnum 
     {
         story,
@@ -9,22 +10,5 @@
         bug,
         knowledge,
         meeting
-    }
-
-    public enum IssueStatusEnum
-    {
-        todo,
-        inwork,
-        done,
-        testing,
-        resolve
-    }
-
-    public enum IssuePriorityEnum
-    {
-        low,
-        middle,
-        high,
-        highest
     }
 }

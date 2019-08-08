@@ -1,10 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Atheneum.Enums
+﻿namespace Atheneum.Enums
 {
-    class Class1
+    /// <summary>
+    /// Статус события
+    /// </summary>
+    public enum IssueStatusEnum
     {
+        todo,
+        inwork,
+        done,
+        testing,
+        resolve
     }
 }
