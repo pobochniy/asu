@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace Atheneum.Entity.Identity
 {
     /// <summary>
-    /// Модель страницы создания инцидента (story, task, bug, knowledge, meeting)
+    /// Модель страницы создания события (story, task, bug, knowledge, meeting)
     /// </summary>
     
     public class Issue
@@ -17,7 +17,7 @@ namespace Atheneum.Entity.Identity
         /// Уникальный номер события
         public long Id { get; set; } 
 
-        /// Ответственный
+        /// Исполнитель
         public Guid? Assignee { get; set; }      
         
         /// Инициатор
@@ -38,20 +38,20 @@ namespace Atheneum.Entity.Identity
         /// Приоритет события
         public IssuePriorityEnum Priority { get; set; } 
 
-        /// Затраченное время (фактическое)
+        /// Предполагаемое время исполнтеля
         public decimal? AssigneeEstimatedTime { get; set; }
 
-        /// Предполагаемое время выполнения
+        /// Предполагаемое время инициатора
         public decimal? ReporterEstimatedTime { get; set; }
 
         /// Дата создания события
         public DateTime CreateDate { get; set; }
 
-        /// Дата крайнего скрока завершения события
+        /// Дата крайнего срока завершения события
         public DateTime? DueDate { get; set; }
 
-        /// Ссылуи на эпики
-        public int EpicLink { get; set; }
+        /// Ссылки на эпики
+        public int? EpicLink { get; set; }
 
     }
 
