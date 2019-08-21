@@ -8,7 +8,7 @@ namespace Atheneum.Dto.Auth
     public class IssueDto
     {
         /// Уникальный номер события
-        public long Id { get; set; }
+        //public long Id { get; set; }
 
         /// Исполнитель
         public Guid? Assignee { get; set; }
@@ -43,19 +43,10 @@ namespace Atheneum.Dto.Auth
         /// Предполагаемое время инициатора
         public decimal? ReporterEstimatedTime { get; set; }
 
-        /// Дата создания события
-        [Required]
-        public DateTime CreateDate { get; set; }
-
         /// Дата крайнего срока завершения события
         public DateTime? DueDate { get; set; }
 
         /// Ссылки на эпики
         public int? EpicLink { get; set; }
-
-        //public bool IsID => string.IsNullOrWhiteSpace(Id.ToString()) ? false : Regex.IsMatch(Id.ToString(), ;
-
-
-
     }
 }

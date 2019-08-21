@@ -4,14 +4,11 @@ using Atheneum.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Atheneum.Services
 {
-    class IssueService
+    class IssueService : IIssue
     {
         private ApplicationContext db;
 
@@ -20,12 +17,11 @@ namespace Atheneum.Services
             db = context;
         }
 
-        public async Task Create(IssueDto dto)
+        public async Task<long> Create(IssueDto dto)
         {
             var issue = new Issue
             {
-                Id = dto.Id,
-                Assignee = dto.Assignee, 
+                Assignee = dto.Assignee,
                 Reporter = dto.Reporter,
                 Summary = dto.Summary,
                 Description = dto.Description,
@@ -34,25 +30,44 @@ namespace Atheneum.Services
                 Priority = dto.Priority,
                 AssigneeEstimatedTime = dto.AssigneeEstimatedTime,
                 ReporterEstimatedTime = dto.ReporterEstimatedTime,
-                CreateDate = dto.CreateDate, 
+                CreateDate = DateTime.UtcNow,
                 DueDate = dto.DueDate,
                 EpicLink = dto.EpicLink
-
             };
 
             await db.Issue.AddAsync(issue);
             await db.SaveChangesAsync();
+
+            return issue.Id;
+        }
+
+        public Task Delete(IssueDto model)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task Details(IssueDto dto)
         {
             Issue issue = null;
-            
+
             issue = await db.Issue.Include(x => x.Id).SingleAsync(x => x.Id == dto.Id);
-            
+
 
         }
 
+        public Task<IEnumerable<IssueDto>> GetList()
+        {
+            throw new NotImplementedException();
+        }
 
+        public Task Update(IssueDto model)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IssueDto> IIssue.Details(IssueDto model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

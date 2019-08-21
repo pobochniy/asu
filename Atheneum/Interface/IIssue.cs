@@ -9,12 +9,16 @@ namespace Atheneum.Interface
     public interface IIssue
     {
         // Получить список событий
-        Task<IssueDto> GetList();
+        Task<IEnumerable<IssueDto>> GetList();
 
-        // Создать событие
-        Task Create (IssueDto model);
+        /// <summary>
+        /// Создать событие
+        /// </summary>
+        Task<long> Create (IssueDto model);
 
-        // Получить информацию о событии
+        /// <summary>
+        /// Получить информацию о событии
+        /// </summary>
         Task<IssueDto> Details(IssueDto model);
 
         // Изменить событие
