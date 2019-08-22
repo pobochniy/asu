@@ -24,6 +24,7 @@ export class ChatResizerDirective implements OnInit, AfterViewInit, OnDestroy {
     this.el.addEventListener('mousedown', this.onDown.bind(this));
     this.el.addEventListener('mouseup', this.onUp.bind(this));
     document.addEventListener('mousemove', this.onMove.bind(this));
+    this.startHeight = (this.element.nativeElement as HTMLElement).offsetHeight;
   }
 
   ngOnDestroy() {
@@ -33,6 +34,7 @@ export class ChatResizerDirective implements OnInit, AfterViewInit, OnDestroy {
   
   onDown(e: MouseEvent) {
     this.isDragabble = true;
+    this.startHeightPosition = e.pageY;
   }
   
   onUp(e) {
@@ -43,7 +45,6 @@ export class ChatResizerDirective implements OnInit, AfterViewInit, OnDestroy {
 
   onMove(e) {
     if (this.isDragabble) {
-      console.log(e.pageY);
       (this.element.nativeElement as HTMLElement).style.height = this.startHeight + this.startHeightPosition - e.pageY + 'px';
     }
   }
