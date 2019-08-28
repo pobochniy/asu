@@ -1,5 +1,6 @@
 using Atheneum.Entity.Identity;
 using Atheneum.Interface;
+using Atheneum.Service;
 using Atheneum.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -33,6 +34,7 @@ namespace Web
                 options.UseSqlServer(Configuration.GetConnectionString("AppConnection")));
 
             services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IRolesService,RolesService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
