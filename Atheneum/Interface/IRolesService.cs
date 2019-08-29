@@ -11,7 +11,9 @@ namespace Atheneum.Interface
         Task<string> Test();
         Task<IEnumerable<Role>> GetRoles();
         Task<IEnumerable<Role>> GetUserRoles(Guid UserId);
-        Task AddRole(string roleName);
+        Task<Role> AddRole(string roleName);
+        Task<Role> UpdateRole(Role role);
+        Task DeleteRole(Guid roleId);
     }
 
 }

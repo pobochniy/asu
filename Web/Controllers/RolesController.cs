@@ -23,15 +23,51 @@ namespace Web.Controllers
             this._service = service;
         }
 
-
+        [HttpGet]
         [Route("[action]")]
         public async Task<IEnumerable<Role>> GetRoles()
         {
             IEnumerable<Role> res = await _service.GetRoles();
             return res;
         }
+        
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> AddRole(string RoleName)
+        {
+            if(!string.IsNullOrWhiteSpace(RoleName))
+            {
+                Role role = await _service.AddRole(RoleName);
+                return Ok(role);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
 
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<IActionResult> UpdateRole(Role Role)
+        {
+            if(ModelState.IsValid)
+            {
+                Role role = await _service.UpdateRole(Role);
+                return Ok(Role);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
 
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> DeleteRole(Guid RoleId)
+        {
+            await _service.DeleteRole(RoleId);
+            return Ok();
+        }
 
         //// GET: api/Roles/5
         //[HttpGet("{id}")]

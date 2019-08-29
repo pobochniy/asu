@@ -47,7 +47,7 @@ namespace Atheneum.Service
             
         }
 
-        public async Task AddRole(string roleName)
+        public async Task<Role> AddRole(string roleName)
         {
             Role role = new Role() {
                 Id = new Guid(),
@@ -55,6 +55,32 @@ namespace Atheneum.Service
             };
             await db.Roles.AddAsync(role);
             await db.SaveChangesAsync();
+            return role;
+        }
+
+        public async Task<Role> UpdateRole(Role role)
+        {
+            if(await db.Roles.AnyAsync(r => r.Id == role.Id)
+                && !string.IsNullOrWhiteSpace(role.RoleName))
+            {
+                db.Roles.Update(role);
+                await db.SaveChangesAsync();
+                return role;
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
+        }
+
+        public async Task DeleteRole(Guid roleId)
+        {
+            if (await db.Roles.AnyAsync(r => r.Id == roleId))
+            {
+                Role role = await db.Roles.FindAsync(roleId);
+                db.Roles.Remove(role);
+                await db.SaveChangesAsync();
+            }
         }
     }
 }
