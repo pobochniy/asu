@@ -3,6 +3,7 @@ using Atheneum.Enums;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Collections.Generic;
 
 namespace Atheneum.Entity.Identity
 {
@@ -52,17 +53,21 @@ namespace Atheneum.Entity.Identity
         /// Ссылки на эпики
         public int? EpicLink { get; set; }
 
+        public virtual ICollection<Issue> Issues { get; set; }
+
+        public Issue()
+        {
+            Issues = new List<Issue>();
+        }
     }
 
     public class IssueConfiguration : IEntityTypeConfiguration<Issue>
     {
-        
         public void Configure(EntityTypeBuilder<Issue> builder)
         {
             builder
                .HasIndex(u => u.Id)
                .IsUnique();     
-        }
-            
+        }   
     }
 } 

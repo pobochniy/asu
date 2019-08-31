@@ -8,23 +8,30 @@ namespace Atheneum.Interface
 {
     public interface IIssue
     {
-        // Получить список событий
+        /// <summary>
+        /// Получить список событий
+        /// </summary>
         Task<IEnumerable<IssueDto>> GetList();
 
         /// <summary>
         /// Создать событие
         /// </summary>
-        Task<long> Create (IssueDto model);
+        Task<long> Create(IssueDto model);
 
         /// <summary>
         /// Получить информацию о событии
         /// </summary>
-        Task<IssueDto> Details(IssueDto model);
+        Task<IssueDto> Details(long id);
 
-        // Изменить событие
+        /// <summary>
+        /// Изменить событие
+        /// </summary>
         Task Update(IssueDto model);
 
-        // Удалить событие
-        Task Delete(IssueDto model);
+        /// <summary>
+        /// Удалить событие
+        /// </summary>
+        Task Delete(long id);
+
     }
 }

@@ -4,11 +4,12 @@ using Atheneum.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Atheneum.Services
 {
-    class IssueService : IIssue
+    public class IssueService : IIssue
     {
         private ApplicationContext db;
 
@@ -41,31 +42,29 @@ namespace Atheneum.Services
             return issue.Id;
         }
 
-        public Task Delete(IssueDto model)
+        public async Task Delete(long id)
+        {
+            db.Issue.Remove(db.Issue.Find(id));
+            await db.SaveChangesAsync();    
+        }
+
+        public Task<IssueDto> Details(long id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task Details(IssueDto dto)
+        public async Task<IEnumerable<IssueDto>> GetList()
         {
-            Issue issue = null;
+            //db.Issue.FromSql("SELECT * FROM Issue").ToList();
+                
+                var issues = await db.Issue
+                .Select(x => new IssueDto{ })
+                .ToArrayAsync();
 
-            issue = await db.Issue.Include(x => x.Id).SingleAsync(x => x.Id == dto.Id);
-
-
-        }
-
-        public Task<IEnumerable<IssueDto>> GetList()
-        {
-            throw new NotImplementedException();
+                return issues;
         }
 
         public Task Update(IssueDto model)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<IssueDto> IIssue.Details(IssueDto model)
         {
             throw new NotImplementedException();
         }

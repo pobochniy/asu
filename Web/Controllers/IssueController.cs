@@ -1,7 +1,10 @@
-﻿using Atheneum.Dto.Auth;
+﻿using System;
+using Atheneum.Dto.Auth;
 using Atheneum.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Web.Controllers
 {
@@ -28,6 +31,22 @@ namespace Web.Controllers
             }
 
             return BadRequest(ModelState);
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<IActionResult> Delete(long id)
+        {
+            await service.Delete(id);
+            return Ok(id);
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<IEnumerable<IssueDto>> GetList()
+        {
+            return await service.GetList();
+
         }
     }
 }

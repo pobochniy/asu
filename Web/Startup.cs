@@ -33,6 +33,7 @@ namespace Web
                 options.UseSqlServer(Configuration.GetConnectionString("AppConnection")));
 
             services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IIssue, IssueService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
