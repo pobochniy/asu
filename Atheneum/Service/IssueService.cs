@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Atheneum.Service
+namespace Atheneum.Services
 {
     class IssueService
     {

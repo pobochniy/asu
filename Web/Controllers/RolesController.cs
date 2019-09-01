@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Atheneum.Entity.Identity;
 using Atheneum.Interface;
-using Atheneum.Service;
+using Atheneum.Services;
 
 namespace Web.Controllers
 {
@@ -20,148 +20,77 @@ namespace Web.Controllers
 
         public RolesController(IRolesService service)
         {
-            this._service = service;
+            _service = service;
         }
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<IEnumerable<Role>> GetRoles()
+        public async Task<IActionResult> GetRoles()
         {
-            IEnumerable<Role> res = await _service.GetRoles();
-            return res;
+            try
+            {
+                var res = await _service.GetRoles();
+                return Ok(res);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+
         }
-        
+
         [HttpGet]
         [Route("[action]")]
         public async Task<IActionResult> AddRole(string RoleName)
         {
-            if(!string.IsNullOrWhiteSpace(RoleName))
+            if (!string.IsNullOrWhiteSpace(RoleName))
             {
-                Role role = await _service.AddRole(RoleName);
-                return Ok(role);
+                try
+                {
+                    var res = await _service.AddRole(RoleName);
+                    return Ok(res);
+                }
+                catch (Exception e)
+                {
+                    return BadRequest(e);
+                }
             }
-            else
-            {
-                return NotFound();
-            }
+            return BadRequest();
         }
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> UpdateRole(Role Role)
+        public async Task<IActionResult> UpdateRole([FromBody]Role Role)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                Role role = await _service.UpdateRole(Role);
-                return Ok(Role);
+                try
+                {
+                    var res = await _service.UpdateRole(Role);
+                    return Ok(res);
+                }
+                catch (Exception e)
+                {
+                    return BadRequest(e);
+                }
             }
-            else
-            {
-                return NotFound();
-            }
+            return BadRequest(ModelState);
         }
 
         [HttpGet]
         [Route("[action]")]
         public async Task<IActionResult> DeleteRole(Guid RoleId)
         {
-            await _service.DeleteRole(RoleId);
-            return Ok();
+            try
+            {
+                await _service.DeleteRole(RoleId);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+
         }
-
-        //// GET: api/Roles/5
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetRole([FromRoute] Guid id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    var role = await _context.Roles.FindAsync(id);
-
-        //    if (role == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(role);
-        //}
-
-        //// PUT: api/Roles/5
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutRole([FromRoute] Guid id, [FromBody] Role role)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    if (id != role.Id)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(role).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!RoleExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
-
-        //// POST: api/Roles
-        //[HttpPost]
-        //public async Task<IActionResult> PostRole([FromBody] Role role)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    _context.Roles.Add(role);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetRole", new { id = role.Id }, role);
-        //}
-
-        // DELETE: api/Roles/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteRole([FromRoute] Guid id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    var role = await _context.Roles.FindAsync(id);
-        //    if (role == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Roles.Remove(role);
-        //    await _context.SaveChangesAsync();
-
-        //    return Ok(role);
-        //}
-
-        //private bool RoleExists(Guid id)
-        //{
-        //    return _context.Roles.Any(e => e.Id == id);
-        //}
     }
 }
