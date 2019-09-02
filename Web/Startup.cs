@@ -33,12 +33,13 @@ namespace Web
                 options.UseSqlServer(Configuration.GetConnectionString("AppConnection")));
 
             services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IRolesService, RolesService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSignalR();
 
-            services.AddSwaggerGen(c => 
+            services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "asu api", Version = "v1" });
             });
