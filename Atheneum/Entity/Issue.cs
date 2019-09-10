@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Atheneum.Entity.Identity
 {
@@ -13,8 +14,10 @@ namespace Atheneum.Entity.Identity
     
     public class Issue
     {
-        [Key]
+        
         /// Уникальный номер события
+        [Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; } 
 
         /// Исполнитель
@@ -53,12 +56,6 @@ namespace Atheneum.Entity.Identity
         /// Ссылки на эпики
         public int? EpicLink { get; set; }
 
-        public virtual ICollection<Issue> Issues { get; set; }
-
-        public Issue()
-        {
-            Issues = new List<Issue>();
-        }
     }
 
     public class IssueConfiguration : IEntityTypeConfiguration<Issue>
@@ -70,4 +67,10 @@ namespace Atheneum.Entity.Identity
                .IsUnique();     
         }   
     }
-} 
+}
+/*public virtual ICollection<Issue> Issues { get; set; }
+
+public Issue()
+{
+    Issues = new List<Issue>();
+}*/

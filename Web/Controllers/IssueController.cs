@@ -43,10 +43,16 @@ namespace Web.Controllers
 
         [HttpPost]
         [Route("[action]")]
+        public async Task<IssueDto> Details(long id)
+        {
+            return await service.Details(id);
+        }
+
+        [HttpPost]
+        [Route("[action]")]
         public async Task<IEnumerable<IssueDto>> GetList()
         {
             return await service.GetList();
-
         }
     }
 }
