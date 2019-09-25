@@ -12,27 +12,27 @@ using Web.SignalR;
 
 namespace Web.Controllers
 {
-    //[Route("api/[controller]")]
-    //public class ChatController : Controller
-    //{
-    //    private IHubContext<ChatHub, IChatHub> _hub;
+    [Route("api/[controller]")]
+    public class ChatController : Controller
+    {
+        //private IHubContext<ChatHub, IChatHub> _hub;
 
-    //    public ChatController(IHubContext<ChatHub, IChatHub> hubContext)
-    //    {
-    //        this._hub = hubContext;
-    //    }
+        //public ChatController(IHubContext<ChatHub, IChatHub> hubContext)
+        //{
+        //    this._hub = hubContext;
+        //}
 
 
-    //    [HttpPost]
-    //    [Route("[action]")]
-    //    public async Task<IActionResult> Push([FromBody]ChatDto model)
-    //    {
-    //        var user = User?.Identity?.Name ?? "null";
-    //        string time = DateTime.Now.ToString("HH:mm");
-    //        string mesage = $"[{user}] [{time}]: {model?.Text ?? ""}";
-    //        await _hub.Clients.All.BroadCastMessage(mesage);
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<IActionResult> Send([FromBody]PushChatDto model)
+        {
+            var user = User?.Identity?.Name ?? "null";
+            string time = DateTime.Now.ToString("HH:mm");
+            string mesage = $"[{user}] [{time}]: {model?.Message ?? ""}";
+            //await _hub.Clients.All.BroadCastMessage(mesage);
 
-    //        return Ok();
-    //    }
-    //}
+            return Ok();
+        }
+    }
 }

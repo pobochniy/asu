@@ -37,8 +37,8 @@ export class ChatService {
     });
   }
 
-  send(text: string) {
-    const msg = new PushChatModel(text);
-    this.connection.invoke("PushMessage", msg);  
-  }
+  //send(text: string) {
+  //  const msg = new PushChatModel(text);
+  //  //this.connection.invoke("PushMessage", msg);  
+  //}
 }
