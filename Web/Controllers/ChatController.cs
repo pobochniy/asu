@@ -7,6 +7,10 @@ using Atheneum.Interface;
 using Atheneum.Dto.Chat;
 using Microsoft.AspNetCore.SignalR;
 using Web.SignalR;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using Atheneum.Extentions.Auth;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,14 +29,15 @@ namespace Web.Controllers
 
         [HttpPost]
         [Route("[action]")]
+        [Authorize]
         public async Task<IActionResult> Send([FromBody]PushChatDto model)
         {
-            var user = User?.Identity?.Name ?? "null";
+            var user = User.Identity.Name;
             string time = DateTime.Now.ToString("HH:mm");
             string mesage = $"[{user}] [{time}]: {model?.Message ?? ""}";
             //await _hub.Clients.All.BroadCastMessage(mesage);
 
-            return Ok();
+            return Ok(mesage);
         }
     }
 }

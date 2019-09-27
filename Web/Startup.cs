@@ -4,7 +4,6 @@ using Atheneum.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
@@ -59,6 +58,8 @@ namespace Web
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
+
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
