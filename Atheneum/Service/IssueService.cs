@@ -20,7 +20,7 @@ namespace Atheneum.Services
 
         public async Task<long> Create(IssueDto dto)
         {
-            //var id = (await db.Issue.AnyAsync()) ? db.Issue.Max(x => x.Id) + 1 : 1;
+
             var issue = new Issue
             {   
                 Assignee = dto.Assignee,
@@ -67,7 +67,9 @@ namespace Atheneum.Services
 
         public async Task Delete(long id)
         {
-            db.Issue.Remove(db.Issue.Find(id));
+            var i = await db.Issue.FindAsync(id);
+            db.Issue.Remove(i);
+
             await db.SaveChangesAsync();    
         }
 
@@ -93,9 +95,10 @@ namespace Atheneum.Services
             return issues;
         }
 
-        public Task Update(IssueDto model)
+        public async Task Update(IssueDto issuedto)
         {
-            throw new NotImplementedException();
+
+            await db.SaveChangesAsync();
         }
     }
 }

@@ -41,7 +41,7 @@ namespace Web.Controllers
             return Ok(id);
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("[action]")]
         public async Task<IssueDto> Details(long id)
         {

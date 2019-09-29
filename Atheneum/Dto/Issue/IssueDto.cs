@@ -1,14 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System;
 using Atheneum.Enums;
-using System.Text.RegularExpressions;
 
 namespace Atheneum.Dto.Auth
 {
     public class IssueDto
     {
-        /// Уникальный номер события
-        //public long Id { get; set; }
 
         /// Исполнитель
         public Guid? Assignee { get; set; }

@@ -17,7 +17,6 @@ namespace Atheneum.Entity.Identity
         
         /// Уникальный номер события
         [Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; } 
 
         /// Исполнитель
@@ -68,9 +67,3 @@ namespace Atheneum.Entity.Identity
         }   
     }
 }
-/*public virtual ICollection<Issue> Issues { get; set; }
-
-public Issue()
-{
-    Issues = new List<Issue>();
-}*/
