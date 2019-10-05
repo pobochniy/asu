@@ -33,12 +33,18 @@ namespace Web
                 options.UseSqlServer(Configuration.GetConnectionString("AppConnection")));
 
             services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IIssue, IssueService>();
+            services.AddTransient<IRolesService, RolesService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSignalR();
 
-            // In production, the Angular files will be served from this directory
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "asu api", Version = "v1" });
+            });
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
@@ -66,6 +72,9 @@ namespace Web
             {
                 routes.MapHub<ChatHub>("/chat");
             });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "asu api"); });
 
             app.UseMvc(routes =>
             {
