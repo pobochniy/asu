@@ -9,13 +9,14 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { ChatModule } from './shared/chat/chat.module';
 import { UserModel } from './shared/models/user.model';
 import { AuthModule } from './auth/auth.module';
+import { IssueModule } from './issue/issue.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -23,6 +24,7 @@ import { AuthModule } from './auth/auth.module';
     FormsModule,
     ChatModule,
     AuthModule,
+    IssueModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' }
     ])
