@@ -3,6 +3,8 @@ using Atheneum.Enums;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Atheneum.Entity.Identity
 {
@@ -12,9 +14,9 @@ namespace Atheneum.Entity.Identity
     
     public class Issue
     {
-        [Key]
-
+        
         /// Уникальный номер события
+        [Key]
         public long Id { get; set; } 
 
         /// Исполнитель
@@ -57,13 +59,11 @@ namespace Atheneum.Entity.Identity
 
     public class IssueConfiguration : IEntityTypeConfiguration<Issue>
     {
-        
         public void Configure(EntityTypeBuilder<Issue> builder)
         {
             builder
                .HasIndex(u => u.Id)
                .IsUnique();     
-        }
-            
+        }   
     }
-} 
+}

@@ -46,7 +46,7 @@ namespace Atheneum.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Issue", x => x.Id);
+                    table.PrimaryKey("PK_Issue", x => x.Id); 
                 });
 
             migrationBuilder.CreateIndex(
