@@ -1,5 +1,5 @@
 ﻿using System;
-using Atheneum.Dto.Auth;
+using Atheneum.Dto.Issue;
 using Atheneum.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -48,7 +48,7 @@ namespace Web.Controllers
             return await service.Details(id);
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("[action]")]
         public async Task<IEnumerable<IssueDto>> GetList()
         {
