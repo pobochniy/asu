@@ -1,4 +1,4 @@
-﻿using Atheneum.Dto.Auth;
+using Atheneum.Dto.Issue;
 using Atheneum.Entity.Identity;
 using Atheneum.Interface;
 using Microsoft.EntityFrameworkCore;

@@ -2,7 +2,7 @@
 using System;
 using Atheneum.Enums;
 
-namespace Atheneum.Dto.Auth
+namespace Atheneum.Dto.Issue
 {
     public class IssueDto
     {

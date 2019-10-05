@@ -1,4 +1,4 @@
-﻿using Atheneum.Dto.Auth;
+﻿using Atheneum.Dto.Issue;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -33,6 +33,5 @@ namespace Atheneum.Interface
         /// Получить список событий
         /// </summary>
         Task<IEnumerable<IssueDto>> GetList();
-
     }
 }
