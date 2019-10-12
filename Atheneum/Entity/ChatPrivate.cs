@@ -32,9 +32,14 @@ namespace Atheneum.Entity.Identity
         public string Login { get; set; }
 
         /// <summary>
-        /// Адресаты из этой комнаты, переджоиненые символом '#'
+        /// Адресаты из кому, переджоиненые символом '#'
         /// </summary>
         public string To { get; set; }
+
+        /// <summary>
+        /// Адресаты из привата, переджоиненые символом '#'
+        /// </summary>
+        public string Privat { get; set; }
 
         /// <summary>
         /// Сообщение
