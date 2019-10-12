@@ -1,43 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Atheneum.Extentions.Auth;
 using Atheneum.Interface;
-using Atheneum.Dto.Chat;
-using Microsoft.AspNetCore.SignalR;
-using Web.SignalR;
 using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
-using Atheneum.Extentions.Auth;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
     public class ChatController : Controller
     {
-        //private IHubContext<ChatHub, IChatHub> _hub;
+        private readonly IChatService service;
 
-        //public ChatController(IHubContext<ChatHub, IChatHub> hubContext)
-        //{
-        //    this._hub = hubContext;
-        //}
-
+        public ChatController(IChatService service)
+        {
+            this.service = service;
+        }
 
         [HttpPost]
         [Route("[action]")]
         [Authorize]
-        public async Task<IActionResult> Send([FromBody]PushChatDto model)
+        public async Task<IActionResult> GetLastMessages()
         {
-            var user = User.Identity.Name;
-            string time = DateTime.Now.ToString("HH:mm");
-            string mesage = $"[{user}] [{time}]: {model?.Message ?? ""}";
-            //await _hub.Clients.All.BroadCastMessage(mesage);
+            var msgs = await service.GetLastMessages(User.GetUserId());
 
-            return Ok(mesage);
+            return Ok(msgs);
         }
     }
 }

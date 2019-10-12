@@ -30,9 +30,9 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
   async send() {
     debugger
     const msg = new PushChatModel(this.text);
-    await this.apiService.send(msg);
+    //await this.apiService.send(msg);
 
-    //this.chatService.send(this.text);
+    this.chatService.send(this.text);
     this.text = '';
 
     //this.skrollBottom();

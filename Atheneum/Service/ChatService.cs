@@ -64,5 +64,10 @@ namespace Atheneum.Services
             await db.ChatRoom.AddAsync(model);
             await db.SaveChangesAsync();
         }
+
+        public Task<IEnumerable<ChatDto>> GetLastMessages(Guid userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

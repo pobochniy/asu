@@ -18,5 +18,10 @@ namespace Atheneum.Interface
         /// Сохраняем общее сообщение в комнату
         /// </summary>
         Task SaveRoomMsg(Guid senderId, ChatDto msg);
+
+        /// <summary>
+        /// Получаем сообщения пользователя за 2 дня
+        /// </summary>
+        Task<IEnumerable<ChatDto>> GetLastMessages(Guid userId);
     }
 }
