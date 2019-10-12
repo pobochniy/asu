@@ -16,6 +16,9 @@ namespace Atheneum.Entity.Identity
 
         public RoomEnum Room { get; set; }
 
+        /// <summary>
+        /// Тип сообщения
+        /// </summary>
         public ChatTypeEnum Type { get; set; }
 
         /// <summary>
