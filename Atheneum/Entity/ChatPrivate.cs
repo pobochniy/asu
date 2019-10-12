@@ -27,6 +27,11 @@ namespace Atheneum.Entity.Identity
         public Guid ReceiverId { get; set; }
 
         /// <summary>
+        /// Тип сообщения
+        /// </summary>
+        public ChatTypeEnum Type { get; set; }
+
+        /// <summary>
         /// Кто написал сообщение
         /// </summary>
         public string Login { get; set; }
