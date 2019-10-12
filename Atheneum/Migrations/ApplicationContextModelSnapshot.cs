@@ -46,9 +46,7 @@ namespace Atheneum.Migrations
 
             modelBuilder.Entity("Atheneum.Entity.Identity.ChatRoom", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<long>("Id");
 
                     b.Property<string>("Login");
 
@@ -62,8 +60,7 @@ namespace Atheneum.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Room")
-                        .IsUnique();
+                    b.HasIndex("Room");
 
                     b.ToTable("ChatRoom");
                 });

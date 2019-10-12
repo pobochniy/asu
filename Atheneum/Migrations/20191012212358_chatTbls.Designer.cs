@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Atheneum.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20191012202229_chatPrivateFix")]
-    partial class chatPrivateFix
+    [Migration("20191012212358_chatTbls")]
+    partial class chatTbls
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,7 +33,11 @@ namespace Atheneum.Migrations
 
                     b.Property<string>("Msg");
 
+                    b.Property<string>("Privat");
+
                     b.Property<string>("To");
+
+                    b.Property<byte>("Type");
 
                     b.HasKey("Tick", "SenderId", "ReceiverId");
 
@@ -44,9 +48,7 @@ namespace Atheneum.Migrations
 
             modelBuilder.Entity("Atheneum.Entity.Identity.ChatRoom", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<long>("Id");
 
                     b.Property<string>("Login");
 
@@ -60,8 +62,7 @@ namespace Atheneum.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Room")
-                        .IsUnique();
+                    b.HasIndex("Room");
 
                     b.ToTable("ChatRoom");
                 });

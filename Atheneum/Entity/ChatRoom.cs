@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Atheneum.Entity.Identity
 {
@@ -12,6 +13,7 @@ namespace Atheneum.Entity.Identity
     public class ChatRoom
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long Id { get; set; }
 
         public RoomEnum Room { get; set; }
@@ -42,8 +44,7 @@ namespace Atheneum.Entity.Identity
         public void Configure(EntityTypeBuilder<ChatRoom> builder)
         {
             builder
-                .HasIndex(u => u.Room)
-                .IsUnique();
+                .HasIndex(u => u.Room);
         }
     }
 }
