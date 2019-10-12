@@ -19,6 +19,27 @@ namespace Atheneum.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Atheneum.Entity.Identity.ChatPrivate", b =>
+                {
+                    b.Property<long>("Tick");
+
+                    b.Property<Guid>("SenderId");
+
+                    b.Property<Guid>("ReceiverId");
+
+                    b.Property<string>("Login");
+
+                    b.Property<string>("Msg");
+
+                    b.Property<string>("To");
+
+                    b.HasKey("Tick", "SenderId", "ReceiverId");
+
+                    b.HasIndex("Tick");
+
+                    b.ToTable("ChatPrivate");
+                });
+
             modelBuilder.Entity("Atheneum.Entity.Identity.ChatRoom", b =>
                 {
                     b.Property<long>("Id")

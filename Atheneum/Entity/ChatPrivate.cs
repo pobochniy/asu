@@ -11,20 +11,30 @@ namespace Atheneum.Entity.Identity
     /// </summary>
     public class ChatPrivate
     {
-        [Key]
+        /// <summary>
+        /// Время сообщения
+        /// </summary>
         public long Tick { get; set; }
 
         /// <summary>
         /// Кто написал сообщение
         /// </summary>
-        [Key]
         public Guid SenderId { get; set; }
 
         /// <summary>
         /// Адресат
         /// </summary>
-        [Key]
         public Guid ReceiverId { get; set; }
+
+        /// <summary>
+        /// Кто написал сообщение
+        /// </summary>
+        public string Login { get; set; }
+
+        /// <summary>
+        /// Адресаты из этой комнаты, переджоиненые символом '#'
+        /// </summary>
+        public string To { get; set; }
 
         /// <summary>
         /// Сообщение
