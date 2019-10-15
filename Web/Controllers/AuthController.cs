@@ -52,22 +52,7 @@ namespace Web.Controllers
                 try
                 {
                     var user = await service.LogIn(model);
-
-                    var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name, user.UserId.ToString())
-                    };
-
-                    foreach (var role in user.Roles)
-                    {
-                        claims.Add(new Claim(ClaimTypes.Role, role));
-                    }
-
-                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                    await HttpContext.SignInAsync(
-                        CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(identity));
+                    await SignInAsync(user);
 
                     return Ok(user);
                 }
@@ -90,6 +75,26 @@ namespace Web.Controllers
         {
             await HttpContext.SignOutAsync();
             return Ok();
+        }
+
+        private async Task SignInAsync(UserDto user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                new Claim(ClaimTypes.Name, user.Login)
+            };
+
+            foreach (var role in user.Roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(identity));
         }
     }
 }

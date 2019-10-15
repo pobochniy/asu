@@ -1,0 +1,3 @@
+﻿add-migration NAME -Project Atheneum
+
+update-database

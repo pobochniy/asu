@@ -4,7 +4,6 @@ using Atheneum.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +32,7 @@ namespace Web
                 options.UseSqlServer(Configuration.GetConnectionString("AppConnection")));
 
             services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IChatService, ChatService>();
             services.AddTransient<IIssue, IssueService>();
             services.AddTransient<IRolesService, RolesService>();
 
@@ -65,6 +65,8 @@ namespace Web
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
+
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
@@ -85,9 +87,6 @@ namespace Web
 
             app.UseSpa(spa =>
             {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
                 spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())
