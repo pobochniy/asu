@@ -60,3 +60,15 @@
   right: 0;
   user-select: none;
 }
+.chat-item-from {
+  background-color: #00ffff;
+  display: inline;
+}
+.chat-item-to {
+  background-color: #00ffff;
+  display: inline;
+}
+.chat-item-privat {
+  background-color: #ff0000;
+  display: inline;
+}

@@ -4,7 +4,11 @@
     <div class="chat-container" id="scrollContainer">
       <div *ngFor="let mes of chatService.msgs">
         <div class="chat-item">
-          {{mes}}
+          [{{mes.time}}]
+          <div class="chat-item-from" (click)="addTo('['+mes.login+']')">[{{mes.login}}]</div>
+          <div class="chat-item-privat" (click)="addPrivat(mes.privatAsString(false))">{{mes.privatAsString(true)}}</div>
+          <div class="chat-item-to" (click)="addTo(mes.toAsString(false))">{{mes.toAsString(true)}}</div>
+          {{mes.message}}
         </div>
       </div>
     </div>

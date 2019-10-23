@@ -38,6 +38,26 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
     //this.skrollBottom();
   }
 
+  async addTo(to: string) {
+    debugger
+
+    if (!this.text) {
+      this.text = "";
+    }
+
+    this.text += " to " + to + " ";
+  }
+
+  async addPrivat(privat: string) {
+    debugger
+
+    if (!this.text) {
+      this.text = "";
+    }
+
+    this.text += " private " + privat + " ";
+  }
+
   //skrollBottom() {
   //  // scrollContainer
 
