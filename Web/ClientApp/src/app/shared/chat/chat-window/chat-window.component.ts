@@ -3,6 +3,7 @@ import { ChatModel } from '../../models/chat.model';
 import { from } from "rxjs/observable/from";
 import { ChatService } from "../chat.service";
 import { PushChatModel } from "../../models/push-chat.model";
+import { ChatApiService } from '../../api/chat-api.service';
 
 @Component({
   selector: 'app-chat-window',
@@ -14,12 +15,11 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
   public text: string; // текстовове поле ввода
 
   constructor(
-    public chatService: ChatService
+    public chatService: ChatService,
+    public apiService: ChatApiService
   ) { }
 
   ngOnInit() {
-    let text = "to [bla1, bla2] hello!!";
-    new PushChatModel(text);
     this.chatService.initConnection();
   }
 
@@ -27,7 +27,11 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
     this.chatService.connectionWebSocket();
   }
     
-  send() {
+  async send() {
+    debugger
+    const msg = new PushChatModel(this.text);
+    //await this.apiService.send(msg);
+
     this.chatService.send(this.text);
     this.text = '';
 

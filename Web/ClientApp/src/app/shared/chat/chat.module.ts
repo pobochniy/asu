@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ChatWindowComponent } from './chat-window/chat-window.component';
 import { FormsModule } from '@angular/forms';
 import { ChatService } from './chat.service';
+import { ChatApiService } from '../api/chat-api.service';
 import { ChatResizerDirective } from './chat-resizer.directive';
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ChatResizerDirective } from './chat-resizer.directive';
     ChatResizerDirective
   ],
   providers: [
-    ChatService
+    ChatService,
+    ChatApiService
   ],
   exports: [
     ChatWindowComponent
