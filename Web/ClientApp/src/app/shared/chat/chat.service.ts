@@ -34,6 +34,11 @@ export class ChatService {
       debugger
       let chatModel: ChatModel = Object.assign(new ChatModel(), data);
 
+      if (chatModel.privat)
+        if (chatModel.privat.length > 0)
+          if (!chatModel.privat.includes(chatModel.login))
+            chatModel.privat.push(chatModel.login);
+
       console.log(chatModel);
       if (chatModel.message.length) {
         //let message = chatModel.toChatMessage();

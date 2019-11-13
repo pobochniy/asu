@@ -7,55 +7,22 @@ export class ChatModel extends PushChatModel {
   public type: ChatTypeEnum;
   public login: string;
 
-  public time: string;
-
   constructor() {
-    super("");
-
-    this.time = new Date().toLocaleTimeString();
+    super("");    
   }
 
-  public toAsString(needPrefix: boolean): string {
+  public getTime(): string {
+    let result: string = "";
 
-    let to: string = "";
-    let prefix: string = "";
-    if (needPrefix)
-      prefix = "to ";
-
-    if (this.to.length > 0) {
-
-      to = prefix + "[";
-      this.to.forEach(function (value) {
-        to += value + ", ";
-      });
-
-      to = to.substring(0, to.length - 2);
-      to += "]";
+    if (this.Id) {
+      debugger
+      result = new Date(parseInt(this.Id)).toLocaleTimeString();
     }
+    else
+      result = new Date().toLocaleTimeString();
 
-    return to;
+    return result;
   }
-
-  public privatAsString(needPrefix: boolean) {
-
-    let privat: string = "";
-    let prefix: string = "";
-    if (needPrefix)
-      prefix = "private ";
-
-    if (this.privat.length > 0) {
-
-      privat = prefix + "[";
-      this.privat.forEach(function (value) {
-        privat += value + ", ";
-      });
-
-      privat = privat.substring(0, privat.length - 2);
-      privat += "]";
-    }
-
-    return privat;
-  }  
 }
 
 

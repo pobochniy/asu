@@ -30,6 +30,18 @@ var PushChatModel = /** @class */ (function () {
         }
         return !util_1.isNull(exist);
     };
+    PushChatModel.prototype.toString = function () {
+        var result = "";
+        if (this.privat)
+            if (this.privat.length > 0)
+                result += "private [" + this.privat.join(', ') + "] ";
+        if (this.to)
+            if (this.to.length > 0)
+                result += "to [" + this.to.join(', ') + "] ";
+        if (this.message)
+            result += this.message;
+        return result;
+    };
     return PushChatModel;
 }());
 exports.PushChatModel = PushChatModel;

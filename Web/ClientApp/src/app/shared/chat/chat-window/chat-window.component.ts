@@ -4,6 +4,7 @@ import { from } from "rxjs/observable/from";
 import { ChatService } from "../chat.service";
 import { PushChatModel } from "../../models/push-chat.model";
 import { ChatApiService } from '../../api/chat-api.service';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-chat-window',
@@ -38,24 +39,42 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
     //this.skrollBottom();
   }
 
-  async addTo(to: string) {
+  async addTo(to: string[]) {
     debugger
 
-    if (!this.text) {
+    if (!this.text)
       this.text = "";
-    }
 
-    this.text += " to " + to + " ";
+    let msg = new PushChatModel(this.text);
+
+    if (!msg.to) 
+      msg.to = [];
+
+    to.forEach(function (element) {
+      if (!msg.to.includes(element))
+        msg.to.push(element);
+    });
+
+    this.text = msg.toString();
   }
 
-  async addPrivat(privat: string) {
+  async addPrivat(privat: string[]) {
     debugger
 
-    if (!this.text) {
+    if (!this.text)
       this.text = "";
-    }
 
-    this.text += " private " + privat + " ";
+    let msg = new PushChatModel(this.text);
+
+    if (!msg.privat)
+      msg.privat = [];
+
+    privat.forEach(function (element) {
+      if (!msg.privat.includes(element))
+        msg.privat.push(element);
+    });
+
+    this.text = msg.toString();
   }
 
   //skrollBottom() {

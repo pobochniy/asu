@@ -5,7 +5,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -17,39 +17,17 @@ var push_chat_model_1 = require("./push-chat.model");
 var ChatModel = /** @class */ (function (_super) {
     __extends(ChatModel, _super);
     function ChatModel() {
-        var _this = _super.call(this, "") || this;
-        _this.time = new Date().toLocaleTimeString();
-        return _this;
+        return _super.call(this, "") || this;
     }
-    ChatModel.prototype.toAsString = function (needPrefix) {
-        var to = "";
-        var prefix = "";
-        if (needPrefix)
-            prefix = "to ";
-        if (this.to.length > 0) {
-            to = prefix + "[";
-            this.to.forEach(function (value) {
-                to += value + ", ";
-            });
-            to = to.substring(0, to.length - 2);
-            to += "]";
+    ChatModel.prototype.getTime = function () {
+        var result = "";
+        if (this.Id) {
+            debugger;
+            result = new Date(parseInt(this.Id)).toLocaleTimeString();
         }
-        return to;
-    };
-    ChatModel.prototype.privatAsString = function (needPrefix) {
-        var privat = "";
-        var prefix = "";
-        if (needPrefix)
-            prefix = "private ";
-        if (this.privat.length > 0) {
-            privat = prefix + "[";
-            this.privat.forEach(function (value) {
-                privat += value + ", ";
-            });
-            privat = privat.substring(0, privat.length - 2);
-            privat += "]";
-        }
-        return privat;
+        else
+            result = new Date().toLocaleTimeString();
+        return result;
     };
     return ChatModel;
 }(push_chat_model_1.PushChatModel));
