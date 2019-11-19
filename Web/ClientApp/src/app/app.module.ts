@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -10,7 +10,8 @@ import { ChatModule } from './shared/chat/chat.module';
 import { UserModel } from './shared/models/user.model';
 import { AuthModule } from './auth/auth.module';
 import { IssueModule } from './issue/issue.module';
-
+import { FormValidationComponent } from './shared/form-validation/form-validation.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { IssueModule } from './issue/issue.module';
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
+    SharedModule,
     FormsModule,
     ChatModule,
     AuthModule,
@@ -30,6 +32,6 @@ import { IssueModule } from './issue/issue.module';
     ])
   ],
   providers: [UserModel],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

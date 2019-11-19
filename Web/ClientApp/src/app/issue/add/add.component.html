@@ -1,0 +1,79 @@
+<form class="form-horizontal" [formGroup]="issueForm" (ngSubmit)="onSubmit()">
+  <h4>Create new Issue</h4>
+  <hr>
+  <div class="form-group">
+    <label class="col-md-2 control-label" for="assignee">Assignee</label>
+    <div class="col-md-10">
+      <input class="form-control" type="search" formControlName="assignee" />
+      <form-validation [model]="issueForm.controls['assignee']" fieldName="assignee"></form-validation>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-2 control-label" for="reporter">Reporter</label>
+    <div class="col-md-10">
+      <input class="form-control" type="search" formControlName="reporter" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-2 control-label" for="symmary">Summary</label>
+    <div class="col-md-10">
+      <input class="form-control" type="text" formControlName="summary" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-2 control-label" for="description">Description</label>
+    <div class="col-md-10">
+      <input class="form-control" type="text" formControlName="description" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-2 control-label" for="type">Type</label>
+    <div class="col-md-10">
+      <input class="form-control" type="text" formControlName="type" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-2 control-label" for="status">Status</label>
+    <div class="col-md-10">
+      <input class="form-control" type="text" formControlName="status" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-2 control-label" for="priority">Priority</label>
+    <div class="col-md-10">
+      <input class="form-control" type="text" formControlName="priority" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-2 control-label" for="assigneeEstimatedTime">Assignee Estimated Time</label>
+    <div class="col-md-10">
+      <input class="form-control" type="datetime-local" formControlName="assigneeEstimatedTime" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-2 control-label" for="reporterEstimatedTime">Reporter Estimated Time</label>
+    <div class="col-md-10">
+      <input class="form-control" type="datetime-local" formControlName="reporterEstimatedTime" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-2 control-label" for="dueDate">Due Date</label>
+    <div class="col-md-10">
+      <input class="form-control" type="date" formControlName="dueDate" />
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-2 control-label" for="epicLink">Epic Link</label>
+    <div class="col-md-10">
+      <input class="form-control" type="text" formControlName="epicLink" />
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+      <input type="submit" value="Create" class="btn btn-primary">
+      <a [routerLink]='["/issue/list"]' (click)='collapse()'>
+        <input type="submit" value="<<to issues list" class="btn btn-primary">
+      </a>
+    </div>
+  </div>
+</form>
