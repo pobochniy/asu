@@ -35,6 +35,7 @@ namespace Web
             services.AddTransient<IChatService, ChatService>();
             services.AddTransient<IIssue, IssueService>();
             services.AddTransient<IRolesService, RolesService>();
+            services.AddTransient<IUsersService, UsersService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
