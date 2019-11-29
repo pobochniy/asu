@@ -77,10 +77,10 @@ namespace Atheneum.Services
                 PhoneNumber = profile.PhoneNumber
             };
 
-            res.Roles = await db.Roles
-                .Where(x => x.UserInRoles.Any(r => r.UserId == profile.Id))
-                .Select(x => x.RoleName)
-                .ToArrayAsync();
+            //res.Roles = await db.Roles
+            //    .Where(x => x.UserInRoles.Any(r => r.UserId == profile.Id))
+            //    .Select(x => x.RoleName)
+            //    .ToArrayAsync();
 
             return res;
         }
@@ -100,14 +100,14 @@ namespace Atheneum.Services
             return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
         }
 
-        public async Task<IEnumerable<string>> GetRoles(Guid userId)
-        {
-            var roles = await db.Roles
-                .Where(x => x.UserInRoles.Any(r => r.UserId == userId))
-                .Select(x => x.RoleName)
-                .ToArrayAsync();
+        //public async Task<IEnumerable<string>> GetRoles(Guid userId)
+        //{
+        //    var roles = await db.Roles
+        //        .Where(x => x.UserInRoles.Any(r => r.UserId == userId))
+        //        .Select(x => x.RoleName)
+        //        .ToArrayAsync();
 
-            return roles;
-        }
+        //    return roles;
+        //}
     }
 }

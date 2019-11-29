@@ -66,12 +66,6 @@ namespace Atheneum.Migrations
                 {
                     table.PrimaryKey("PK_UserInRole", x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
-                        name: "FK_UserInRole_Roles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Roles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_UserInRole_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",

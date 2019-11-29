@@ -1,3 +1,9 @@
 ﻿add-migration NAME -Project Atheneum
 
 update-database
+
+remove-migration
+
+update-database NAME_OF_MIGRATION
+
+script-migration

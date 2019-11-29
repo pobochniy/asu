@@ -6,7 +6,6 @@ namespace Atheneum.Entity.Identity
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Profile> Profiles { get; set; }
-        public DbSet<Role> Roles { get; set; }
         public DbSet<ChatRoom> ChatRoom { get; set; }
         public DbSet<ChatPrivate> ChatPrivate { get; set; }
         public DbSet<Issue> Issue { get; set; }

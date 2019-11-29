@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Atheneum.Enums;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 
@@ -10,9 +11,7 @@ namespace Atheneum.Entity.Identity
 
         public User User { get; set; }
 
-        public Guid RoleId { get; set; }
-
-        public Role Role { get; set; }
+        public RoleEnum RoleId { get; set; }
     }
 
     public class UserInRoleConfiguration : IEntityTypeConfiguration<UserInRole>
@@ -26,11 +25,6 @@ namespace Atheneum.Entity.Identity
                 .HasOne(sc => sc.User)
                 .WithMany(s => s.UserInRoles)
                 .HasForeignKey(sc => sc.UserId);
-
-            builder
-                .HasOne(sc => sc.Role)
-                .WithMany(c => c.UserInRoles)
-                .HasForeignKey(sc => sc.RoleId);
         }
     }
 }
