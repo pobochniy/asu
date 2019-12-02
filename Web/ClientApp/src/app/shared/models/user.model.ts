@@ -1,14 +1,7 @@
+import { UserProfileModel } from "./user-profile.model";
+
 /** Пользователь */
-export class UserModel {
-
-  /** Логин */
-  public login: string;
-
-  /** Эмейл */
-  public email?: string;
-
-  /** Телефон */
-  public phone?: string;
+export class UserModel extends UserProfileModel {
 
   /** Список ролей */
   public roles: string[];

@@ -1,27 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { Router } from '@angular/router';
 import { IssueApiService } from '../../shared/api/issue-api.service';
-
 import { IssueModel } from '../../shared/models/issue.model';
 import { issueFormModel } from '../../shared/form-models/issue-form.model';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { UsersApiService } from '../../shared/api/users-api.service';
+import { UserProfileModel } from '../../shared/models/user-profile.model';
+import { IssueTypeEnum } from '../../shared/enums/issue-type.enum';
 
 @Component({
   selector: 'add-issue',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.css'],
-  providers: [IssueApiService]
+  providers: [IssueApiService, UsersApiService]
 })
 export class AddComponent implements OnInit {
 
   public issueForm = issueFormModel;
-  //public dataSource: IssueModel;
+  public profiles: UserProfileModel[];
+  public issueTypes = IssueTypeEnum;
+
 
   constructor(private service: IssueApiService
+    , private userApiService: UsersApiService
     , private router: Router
   ) { }
 
   async ngOnInit() {
-  //  this.dataSource = await this.service.Create();
+    this.profiles = await this.userApiService.GetProfiles();
+    var assigneeCtrl = this.issueForm.controls['assignee'];
+    var reporterCtrl = this.issueForm.controls['reporter'];
   }
 
   async onSubmit() {
@@ -40,3 +48,4 @@ export class AddComponent implements OnInit {
     }
   }
 }
+

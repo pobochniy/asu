@@ -36,6 +36,7 @@
     <None Remove="ClientApp\src\app\shared\models\chat.model.ts" />
     <None Remove="ClientApp\src\app\shared\models\push-chat.model.ts" />
     <None Remove="ClientApp\src\app\shared\models\push-chat.spec.ts" />
+    <None Remove="ClientApp\src\app\shared\models\user-profile.model.ts" />
     <None Remove="ClientApp\src\app\shared\models\user.model.ts" />
   </ItemGroup>
 
@@ -48,14 +49,9 @@
     <TypeScriptCompile Include="ClientApp\src\app\shared\form-models\login-form.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\push-chat.spec.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\push-chat.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\models\user-profile.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\user.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\chat.model.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="ClientApp\src\app\shared\models\user.model.js">
-      <DependentUpon>user.model.ts</DependentUpon>
-    </None>
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

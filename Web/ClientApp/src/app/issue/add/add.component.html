@@ -4,14 +4,21 @@
   <div class="form-group">
     <label class="col-md-2 control-label" for="assignee">Assignee</label>
     <div class="col-md-10">
-      <input class="form-control" type="search" formControlName="assignee" />
+      <ngx-select [items]="profiles" optionValueField="id" optionTextField="userName"
+                  [(ngModel)]="issueForm.controls['assignee']"
+                  placeholder="Select assignee">
+      </ngx-select>
       <form-validation [model]="issueForm.controls['assignee']" fieldName="assignee"></form-validation>
     </div>
   </div>
   <div class="form-group">
     <label class="col-md-2 control-label" for="reporter">Reporter</label>
     <div class="col-md-10">
-      <input class="form-control" type="search" formControlName="reporter" />
+      <ngx-select [items]="profiles" optionValueField="id" optionTextField="userName"
+                  [(ngModel)]="issueForm.controls['reporter']"
+                  placeholder="Select reporter">
+      </ngx-select>
+      <form-validation [model]="issueForm.controls['reporter']" fieldName="reporter"></form-validation>
     </div>
   </div>
   <div class="form-group">
@@ -28,9 +35,9 @@
   </div>
   <div class="form-group">
     <label class="col-md-2 control-label" for="type">Type</label>
-    <div class="col-md-10">
-      <input class="form-control" type="text" formControlName="type" />
-    </div>
+      <div class="col-md-10">
+        <input class="form-control" type="text" formControlName="Type" />
+      </div>
   </div>
   <div class="form-group">
     <label class="col-md-2 control-label" for="status">Status</label>

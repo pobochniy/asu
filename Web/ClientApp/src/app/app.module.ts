@@ -12,6 +12,7 @@ import { AuthModule } from './auth/auth.module';
 import { IssueModule } from './issue/issue.module';
 import { FormValidationComponent } from './shared/form-validation/form-validation.component';
 import { SharedModule } from './shared/shared.module';
+import { NgxSelectModule } from 'ngx-select-ex';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { SharedModule } from './shared/shared.module';
     ChatModule,
     AuthModule,
     IssueModule,
+    NgxSelectModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' }
     ])
