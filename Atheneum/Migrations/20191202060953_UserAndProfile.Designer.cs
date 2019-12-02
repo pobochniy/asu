@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Atheneum.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190316115640_InitApp")]
-    partial class InitApp
+    [Migration("20191202060953_UserAndProfile")]
+    partial class UserAndProfile
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -48,18 +48,6 @@ namespace Atheneum.Migrations
                     b.ToTable("Profiles");
                 });
 
-            modelBuilder.Entity("Atheneum.Entity.Identity.Role", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("RoleName");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-                });
-
             modelBuilder.Entity("Atheneum.Entity.Identity.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -80,37 +68,11 @@ namespace Atheneum.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Atheneum.Entity.Identity.UserInRole", b =>
-                {
-                    b.Property<Guid>("UserId");
-
-                    b.Property<Guid>("RoleId");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("UserInRole");
-                });
-
             modelBuilder.Entity("Atheneum.Entity.Identity.Profile", b =>
                 {
                     b.HasOne("Atheneum.Entity.Identity.User", "User")
                         .WithOne("Profile")
                         .HasForeignKey("Atheneum.Entity.Identity.Profile", "Id")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Atheneum.Entity.Identity.UserInRole", b =>
-                {
-                    b.HasOne("Atheneum.Entity.Identity.Role", "Role")
-                        .WithMany("UserInRoles")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Atheneum.Entity.Identity.User", "User")
-                        .WithMany("UserInRoles")
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

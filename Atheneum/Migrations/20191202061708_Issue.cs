@@ -4,27 +4,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Atheneum.Migrations
 {
-    public partial class removeRoles : Migration
+    public partial class Issue : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_UserInRole_Roles_RoleId",
-                table: "UserInRole");
-
-            migrationBuilder.DropTable(
-                name: "Roles");
-
-            migrationBuilder.DropIndex(
-                name: "IX_UserInRole_RoleId",
-                table: "UserInRole");
-
-            migrationBuilder.AlterColumn<int>(
-                name: "RoleId",
-                table: "UserInRole",
-                nullable: false,
-                oldClrType: typeof(Guid));
-
             migrationBuilder.CreateTable(
                 name: "Issue",
                 columns: table => new
@@ -60,37 +43,6 @@ namespace Atheneum.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Issue");
-
-            migrationBuilder.AlterColumn<Guid>(
-                name: "RoleId",
-                table: "UserInRole",
-                nullable: false,
-                oldClrType: typeof(int));
-
-            migrationBuilder.CreateTable(
-                name: "Roles",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    RoleName = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Roles", x => x.Id);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserInRole_RoleId",
-                table: "UserInRole",
-                column: "RoleId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_UserInRole_Roles_RoleId",
-                table: "UserInRole",
-                column: "RoleId",
-                principalTable: "Roles",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
     }
 }
