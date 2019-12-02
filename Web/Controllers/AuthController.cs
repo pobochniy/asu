@@ -87,7 +87,7 @@ namespace Web.Controllers
 
             foreach (var role in user.Roles)
             {
-                claims.Add(new Claim(ClaimTypes.Role, role));
+                claims.Add(new Claim(ClaimTypes.Role, ((int)role).ToString()));
             }
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

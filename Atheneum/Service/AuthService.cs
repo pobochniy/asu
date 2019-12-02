@@ -77,10 +77,10 @@ namespace Atheneum.Services
                 PhoneNumber = profile.PhoneNumber
             };
 
-            //res.Roles = await db.Roles
-            //    .Where(x => x.UserInRoles.Any(r => r.UserId == profile.Id))
-            //    .Select(x => x.RoleName)
-            //    .ToArrayAsync();
+            res.Roles = await db.UserInRole
+                .Where(x => x.UserId == profile.Id)
+                .Select(x => x.RoleId)
+                .ToArrayAsync();
 
             return res;
         }
