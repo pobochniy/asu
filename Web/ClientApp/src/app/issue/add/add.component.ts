@@ -18,8 +18,7 @@ export class AddComponent implements OnInit {
 
   public issueForm = issueFormModel;
   public profiles: UserProfileModel[];
-  public issueTypes = IssueTypeEnum;
-
+  public issueTypes: { id: number; name: string }[] = [];
 
   constructor(private service: IssueApiService
     , private userApiService: UsersApiService
@@ -30,13 +29,19 @@ export class AddComponent implements OnInit {
     this.profiles = await this.userApiService.GetProfiles();
     var assigneeCtrl = this.issueForm.controls['assignee'];
     var reporterCtrl = this.issueForm.controls['reporter'];
+
+    for (var n in IssueTypeEnum) {
+      if (typeof IssueTypeEnum[n] === 'number') {
+        this.issueTypes.push({ id: <any>IssueTypeEnum[n], name: n });
+      }
+    }
   }
 
   async onSubmit() {
     for (let item in this.issueForm.controls) {
       this.issueForm.controls[item].markAsDirty();
     }
-
+    
     try {
       if (this.issueForm.valid) {
         let issueId = await this.service.Create(this.issueForm);
