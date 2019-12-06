@@ -49,10 +49,15 @@ namespace Web.SignalR
 
         private async Task SendPrivate(ChatDto msg)
         {
-            List<string> receiverList = new List<string>(msg.Privat);
+            if (!msg.Privat.Contains(msg.Login))
+            {
+                var newPrivat = new List<string>(msg.Privat);
+                newPrivat.Add(msg.Login);
 
-            if (!receiverList.Contains(msg.Login))
-                receiverList.Add(msg.Login);
+                msg.Privat = newPrivat;
+            }
+
+            List<string> receiverList = new List<string>(msg.Privat);
 
             foreach (var el in receiverList)
             {

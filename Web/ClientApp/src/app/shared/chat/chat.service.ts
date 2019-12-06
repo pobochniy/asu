@@ -31,18 +31,19 @@ export class ChatService {
     this.connection.start();
 
     this.connection.on("BroadCastMessage", data => {
+      //let chatModel: ChatModel = Object.assign(new ChatModel(), data);
+      let chatModel: ChatModel = new ChatModel();
+      chatModel.Id = data.id;
+      chatModel.login = data.login;
+      chatModel.message = data.message;
+      chatModel.privat = data.privat;
+      chatModel.to = data.to;
+      chatModel.type = data.type;
+
       debugger
-      let chatModel: ChatModel = Object.assign(new ChatModel(), data);
-
-      if (chatModel.privat)
-        if (chatModel.privat.length > 0)
-          if (!chatModel.privat.includes(chatModel.login))
-            chatModel.privat.push(chatModel.login);
-
       console.log(chatModel);
-      if (chatModel.message.length) {
-        //let message = chatModel.toChatMessage();
 
+      if (chatModel.message.length) {
         this.msgs.push(chatModel);
       }
     });
