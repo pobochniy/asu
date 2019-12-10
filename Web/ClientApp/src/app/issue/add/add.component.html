@@ -5,7 +5,7 @@
     <label class="col-md-2 control-label" for="assignee">Assignee</label>
     <div class="col-md-10">
       <ngx-select [items]="profiles" optionValueField="id" optionTextField="userName"
-                  [(ngModel)]="issueForm.controls['assignee']"
+                  formControlName="assignee"
                   placeholder="Select assignee">
       </ngx-select>
       <form-validation [model]="issueForm.controls['assignee']" fieldName="assignee"></form-validation>
@@ -15,7 +15,7 @@
     <label class="col-md-2 control-label" for="reporter">Reporter</label>
     <div class="col-md-10">
       <ngx-select [items]="profiles" optionValueField="id" optionTextField="userName"
-                  [(ngModel)]="issueForm.controls['reporter']"
+                  formControlName="reporter"
                   placeholder="Select reporter">
       </ngx-select>
       <form-validation [model]="issueForm.controls['reporter']" fieldName="reporter"></form-validation>
@@ -46,13 +46,21 @@
   <div class="form-group">
     <label class="col-md-2 control-label" for="status">Status</label>
     <div class="col-md-10">
-      <input class="form-control" type="text" formControlName="status" />
+      <ngx-select [allowClear]="true"
+                  [items]="issueStatus" optionValueField="id" optionTextField="name"
+                  formControlName="status"
+                  placeholder="Select issue status">
+      </ngx-select>
     </div>
   </div>
   <div class="form-group">
     <label class="col-md-2 control-label" for="priority">Priority</label>
     <div class="col-md-10">
-      <input class="form-control" type="text" formControlName="priority" />
+      <ngx-select [allowClear]="true"
+                  [items]="issuePriority" optionValueField="id" optionTextField="name"
+                  formControlName="priority"
+                  placeholder="Select issue priority">
+      </ngx-select>
     </div>
   </div>
   <div class="form-group">

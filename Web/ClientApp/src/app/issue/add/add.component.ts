@@ -7,6 +7,8 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { UsersApiService } from '../../shared/api/users-api.service';
 import { UserProfileModel } from '../../shared/models/user-profile.model';
 import { IssueTypeEnum } from '../../shared/enums/issue-type.enum';
+import { IssueStatusEnum } from '../../shared/enums/issue-status.enum';
+import { IssuePriorityEnum } from '../../shared/enums/issue-priority.enum';
 
 @Component({
   selector: 'add-issue',
@@ -19,6 +21,8 @@ export class AddComponent implements OnInit {
   public issueForm = issueFormModel;
   public profiles: UserProfileModel[];
   public issueTypes: { id: number; name: string }[] = [];
+  public issueStatus: { id: number; name: string }[] = [];
+  public issuePriority: { id: number; name: string } [] = [];
 
   constructor(private service: IssueApiService
     , private userApiService: UsersApiService
@@ -30,9 +34,22 @@ export class AddComponent implements OnInit {
     var assigneeCtrl = this.issueForm.controls['assignee'];
     var reporterCtrl = this.issueForm.controls['reporter'];
 
+    debugger
     for (var n in IssueTypeEnum) {
       if (typeof IssueTypeEnum[n] === 'number') {
         this.issueTypes.push({ id: <any>IssueTypeEnum[n], name: n });
+      }
+    }
+
+    for (var n in IssueStatusEnum) {
+      if (typeof IssueStatusEnum[n] === 'number') {
+        this.issueStatus.push({ id: <any>IssueStatusEnum[n], name: n });
+      }
+    }
+
+    for (var n in IssuePriorityEnum) {
+      if (typeof IssuePriorityEnum[n] === 'number') {
+        this.issuePriority.push({ id: <any>IssuePriorityEnum[n], name: n });
       }
     }
   }
