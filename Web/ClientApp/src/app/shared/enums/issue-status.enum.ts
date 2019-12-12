@@ -5,6 +5,3 @@ export enum IssueStatusEnum {
   testing,
   resolve
 }
-
-// Надо разобраться как правильно преобразовать в массив
-//https://stackoverflow.com/questions/43100718/typescript-enum-to-object-array

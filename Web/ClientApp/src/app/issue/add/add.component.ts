@@ -34,7 +34,6 @@ export class AddComponent implements OnInit {
     var assigneeCtrl = this.issueForm.controls['assignee'];
     var reporterCtrl = this.issueForm.controls['reporter'];
 
-    debugger
     for (var n in IssueTypeEnum) {
       if (typeof IssueTypeEnum[n] === 'number') {
         this.issueTypes.push({ id: <any>IssueTypeEnum[n], name: n });
