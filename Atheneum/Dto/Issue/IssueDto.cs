@@ -23,15 +23,15 @@ namespace Atheneum.Dto.Issue
         public string Description { get; set; }
 
         /// Тип события
-        //[Required]
+        [Required]
         public IssueTypeEnum Type { get; set; }
 
         /// Статус 
-        //[Required]
+        [Required]
         public IssueStatusEnum Status { get; set; }
 
         /// Приоритет события
-        //[Required]
+        [Required]
         public IssuePriorityEnum Priority { get; set; }
 
         /// Предполагаемое время исполнтеля
