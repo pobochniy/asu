@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Atheneum.Dto.User;
 using Atheneum.Entity.Identity;
+using Atheneum.Enums;
 using Atheneum.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,5 +27,23 @@ namespace Web.Controllers
             var res = await service.GetProfiles();
             return res;
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IEnumerable<RoleEnum>> GetRoles(Guid userId)
+        {
+            var res = await service.GetRoles(userId);
+
+            return res;
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        public async Task SetRoles([FromBody]UserAndRolesDto dto)
+        {
+            await service.SetRoles(dto.UserId, dto.Roles);
+        }
+
+
     }
 }
