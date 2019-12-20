@@ -8,8 +8,15 @@ export class ChatModel extends PushChatModel {
   public type: ChatTypeEnum;
   public login: string;
 
-  constructor() {
-    super("");    
+  constructor(data: any) {
+    super("");
+
+    this.Id = data.id;
+    this.login = data.login;
+    this.message = data.message;
+    this.privat = data.privat;
+    this.to = data.to;
+    this.type = data.type;   
   }
 
   public getTime(): string {
@@ -18,7 +25,6 @@ export class ChatModel extends PushChatModel {
     var tickDate = new Date(ticksToMicrotime);
 
     let result: string = tickDate.toLocaleTimeString();
-    debugger
 
     return result;
   }

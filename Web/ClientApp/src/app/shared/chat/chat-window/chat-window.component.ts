@@ -5,6 +5,7 @@ import { ChatService } from "../chat.service";
 import { PushChatModel } from "../../models/push-chat.model";
 import { ChatApiService } from '../../api/chat-api.service';
 import { forEach } from '@angular/router/src/utils/collection';
+import { UserService } from "../../core/user.service";
 
 @Component({
   selector: 'app-chat-window',
@@ -17,7 +18,8 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
 
   constructor(
     public chatService: ChatService,
-    public apiService: ChatApiService
+    public apiService: ChatApiService,
+    public userService: UserService
   ) { }
 
   ngOnInit() {
@@ -39,7 +41,7 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
     //this.skrollBottom();
   }
 
-  async addTo(to: string[]) {
+  async addTo(to: string[], sender: string) {
     debugger
 
     if (!this.text)
@@ -50,15 +52,12 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
     if (!msg.to) 
       msg.to = [];
 
-    to.forEach(function (element) {
-      if (!msg.to.includes(element))
-        msg.to.push(element);
-    });
+    this.addToArray(msg.to, to, sender, this.userService.shortName);
 
     this.text = msg.toString();
   }
 
-  async addPrivat(privat: string[]) {
+  async addPrivat(privat: string[], sender: string) {
     debugger
 
     if (!this.text)
@@ -69,12 +68,24 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
     if (!msg.privat)
       msg.privat = [];
 
-    privat.forEach(function (element) {
-      if (!msg.privat.includes(element))
-        msg.privat.push(element);
-    });
+    this.addToArray(msg.privat, privat, sender, this.userService.shortName);
 
     this.text = msg.toString();
+  }
+
+  private addToArray(to: string[], from: string[], sender: string, currentUser: string) {
+    from.forEach(function (element) {
+      if (!to.includes(element)) {
+        if (element == currentUser) {
+          if (!to.includes(sender) && sender != currentUser) {
+            to.push(sender);
+          }
+        }
+        else {
+          to.push(element);
+        }
+      }
+    });
   }
 
   //skrollBottom() {
