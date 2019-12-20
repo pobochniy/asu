@@ -31,7 +31,6 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
   }
     
   async send() {
-    debugger
     const msg = new PushChatModel(this.text);
     //await this.apiService.send(msg);
 
@@ -42,8 +41,6 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
   }
 
   async addTo(to: string[], sender: string) {
-    debugger
-
     if (!this.text)
       this.text = "";
 
@@ -58,8 +55,6 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
   }
 
   async addPrivat(privat: string[], sender: string) {
-    debugger
-
     if (!this.text)
       this.text = "";
 
