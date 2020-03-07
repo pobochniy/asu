@@ -1,39 +1,41 @@
-﻿using Atheneum.Enums;
-using System;
+﻿using System;
+using Atheneum.Enums;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Atheneum.Entity.Identity
+namespace Atheneum.Dto.Epic
 {
-    public class Epic
+    public class EpicDto
     {
         /// <summary>
-        /// ID Эпика
+        /// Идентификатор эпика
         /// </summary>
-        [Key]
         public int Id { get; set; }
+
         /// <summary>
         /// Инициатор
         /// </summary>
         public Guid? Reporter { get; set; }
+
         /// <summary>
         /// Приоритет
         /// </summary>
+        [Required]
         public IssuePriorityEnum PriorityEnum { get; set; }
+
         /// <summary>
         /// Название
         /// </summary>
+        [Required]
         public string Name { get; set; }
+
         /// <summary>
         /// Описание
         /// </summary>
         public string Description { get; set; }
+
         /// <summary>
-        /// Время
+        /// Дата окончания эпика
         /// </summary>
         public DateTime? DueDate { get; set; }
     }
 }
-
-
