@@ -40,16 +40,21 @@ export class PushChatModel {
   public toString(): string {
     let result: string = "";
 
-    if (this.privat)
-      if (this.privat.length > 0)
+    if (this.privat) {
+      if (this.privat.length > 0) {
         result += "private [" + this.privat.join(', ') + "] ";
+      }
+    }
 
-    if (this.to)
-      if (this.to.length > 0)
+    if (this.to) {
+      if (this.to.length > 0) {
         result += "to [" + this.to.join(', ') + "] ";
+      }
+    }
 
-    if (this.message)
+    if (this.message) {
       result += this.message;
+    }
 
     return result;
   }
