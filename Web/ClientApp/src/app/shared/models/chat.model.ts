@@ -11,12 +11,12 @@ export class ChatModel extends PushChatModel {
   constructor(data: any) {
     super("");
 
-    this.Id = data.id;
-    this.login = data.login;
-    this.message = data.message;
-    this.privat = data.privat;
-    this.to = data.to;
-    this.type = data.type;   
+    this.Id = data.id != undefined ? data.id : "";
+    this.login = data.login != undefined ? data.login : "";
+    this.message = data.message != undefined ? data.message : "";
+    this.privat = data.privat != undefined ? data.privat : [];
+    this.to = data.to != undefined ? data.to : [];
+    this.type = data.type != undefined ? data.type : ChatTypeEnum.text;   
   }
 
   public getTime(): string {

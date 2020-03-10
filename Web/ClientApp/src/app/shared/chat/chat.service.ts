@@ -32,9 +32,6 @@ export class ChatService {
     this.connection.on("BroadCastMessage", data => {
       let chatModel: ChatModel = new ChatModel(data);
 
-      debugger
-      console.log(chatModel);
-
       if (chatModel.message.length) {
         this.msgs.push(chatModel);
       }

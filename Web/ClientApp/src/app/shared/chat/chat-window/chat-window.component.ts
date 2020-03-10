@@ -15,12 +15,19 @@ import { UserService } from "../../core/user.service";
 export class ChatWindowComponent implements OnInit, AfterViewInit {
 
   public text: string; // текстовове поле ввода
+  private currentUser: string;
 
   constructor(
     public chatService: ChatService,
     public apiService: ChatApiService,
     public userService: UserService
-  ) { }
+  ) {
+    debugger
+
+    if (this.userService && this.userService.User && this.userService.User.login) {
+      this.currentUser = this.userService.User.login;
+    }
+  }
 
   ngOnInit() {
     this.chatService.initConnection();
@@ -41,38 +48,44 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
   }
 
   async addTo(to: string[], sender: string) {
-    if (!this.text)
+    if (!this.text) {
       this.text = "";
+    }
 
     let msg = new PushChatModel(this.text);
 
-    if (!msg.to) 
+    if (!msg.to) {
       msg.to = [];
+    }
 
-    this.addToArray(msg.to, to, sender, this.userService.shortName);
+    this.addToArray(msg.to, to, sender);
 
     this.text = msg.toString();
   }
 
   async addPrivat(privat: string[], sender: string) {
-    if (!this.text)
+    if (!this.text) {
       this.text = "";
+    }
 
     let msg = new PushChatModel(this.text);
 
-    if (!msg.privat)
+    if (!msg.privat) {
       msg.privat = [];
+    }
 
-    this.addToArray(msg.privat, privat, sender, this.userService.shortName);
+    this.addToArray(msg.privat, privat, sender);
 
     this.text = msg.toString();
   }
 
-  private addToArray(to: string[], from: string[], sender: string, currentUser: string) {
+  private addToArray(to: string[], from: string[], sender: string) {
+    let _currentUser = this.currentUser;
+
     from.forEach(function (element) {
       if (!to.includes(element)) {
-        if (element == currentUser) {
-          if (!to.includes(sender) && sender != currentUser) {
+        if (element == _currentUser) {
+          if (!to.includes(sender) && sender != _currentUser) {
             to.push(sender);
           }
         }
