@@ -10,6 +10,7 @@ namespace Atheneum.Entity.Identity
         public DbSet<ChatRoom> ChatRoom { get; set; }
         public DbSet<ChatPrivate> ChatPrivate { get; set; }
         public DbSet<Issue> Issue { get; set; }
+        public DbSet<Organization> Organization { get; set; }
 
         public ApplicationContext(DbContextOptions options)
             : base(options)
