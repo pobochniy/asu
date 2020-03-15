@@ -1,0 +1,31 @@
+
+<form class="form-horizontal" (ngOnSubmit)="ngOnInit()">
+  <h4>Epic</h4>
+  <div class="form-group">
+    <div class="col-md-1 col-md-10">
+      <a [routerLink]='["/epic/list"]' (click)='collapse()'>
+        <input type="submit" value="Обновить" class="btn btn-danger">
+      </a>
+    </div>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <td>Reporter</td>
+        <td>Priority Enum</td>
+        <td>Name</td>
+        <td>Description</td>
+        <td>Due Date</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let fuck of dataSource">
+        <td class="col"> {{fuck.reporter}}</td>
+        <td class="col">{{fuck.priorityEnum}}</td>
+        <td class="col">{{fuck.name}}</td>
+        <td class="col">{{fuck.description}}</td>
+        <td class="col">{{fuck.dueDate}}</td>
+      </tr>
+    </tbody>
+  </table>
+</form>
