@@ -1,7 +1,5 @@
 import { ChatTypeEnum } from "../enums/chat-type.enum";
 import { PushChatModel } from "./push-chat.model";
-import { forEach } from "@angular/router/src/utils/collection";
-import { debug } from "util";
 
 export class ChatModel extends PushChatModel {
   public Id: string;
@@ -20,9 +18,9 @@ export class ChatModel extends PushChatModel {
   }
 
   public getTime(): string {
-    var ticks = parseInt(this.Id);
-    var ticksToMicrotime = ticks / 10000;
-    var tickDate = new Date(ticksToMicrotime);
+    let ticks = parseInt(this.Id);
+    let ticksToMicrotime = ticks / 10000;
+    let tickDate = new Date(ticksToMicrotime);
 
     let result: string = tickDate.toLocaleTimeString();
 

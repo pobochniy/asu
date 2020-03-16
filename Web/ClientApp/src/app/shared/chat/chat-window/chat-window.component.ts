@@ -1,11 +1,8 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
-import { ChatModel } from '../../models/chat.model';
-import { from } from "rxjs/observable/from";
-import { ChatService } from "../chat.service";
-import { PushChatModel } from "../../models/push-chat.model";
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ChatApiService } from '../../api/chat-api.service';
-import { forEach } from '@angular/router/src/utils/collection';
 import { UserService } from "../../core/user.service";
+import { PushChatModel } from "../../models/push-chat.model";
+import { ChatService } from "../chat.service";
 
 @Component({
   selector: 'app-chat-window',
@@ -22,8 +19,6 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
     public apiService: ChatApiService,
     public userService: UserService
   ) {
-    debugger
-
     if (this.userService && this.userService.User && this.userService.User.login) {
       this.currentUser = this.userService.User.login;
     }
@@ -38,62 +33,46 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
   }
     
   async send() {
-    const msg = new PushChatModel(this.text);
-    //await this.apiService.send(msg);
-
     this.chatService.send(this.text);
     this.text = '';
 
     //this.skrollBottom();
   }
 
-  async addTo(to: string[], sender: string) {
-    if (!this.text) {
-      this.text = "";
-    }
+  async addTo(recipients: string[], sender: string) {
+    this.addRecipientsToText(recipients, sender, false);
+  }
 
+  async addPrivat(recipients: string[], sender: string) {
+    this.addRecipientsToText(recipients, sender, true);
+  }
+
+  private addRecipientsToText(recipients: string[], sender: string, isPrivate: boolean) {
     let msg = new PushChatModel(this.text);
 
-    if (!msg.to) {
-      msg.to = [];
+    if (isPrivate) {
+      this.addRecipientsToArray(msg.privat, recipients, sender);
     }
-
-    this.addToArray(msg.to, to, sender);
-
+    else {
+      this.addRecipientsToArray(msg.to, recipients, sender);
+    }
+    
     this.text = msg.toString();
   }
 
-  async addPrivat(privat: string[], sender: string) {
-    if (!this.text) {
-      this.text = "";
-    }
-
-    let msg = new PushChatModel(this.text);
-
-    if (!msg.privat) {
-      msg.privat = [];
-    }
-
-    this.addToArray(msg.privat, privat, sender);
-
-    this.text = msg.toString();
-  }
-
-  private addToArray(to: string[], from: string[], sender: string) {
-    let _currentUser = this.currentUser;
-
-    from.forEach(function (element) {
-      if (!to.includes(element)) {
-        if (element == _currentUser) {
-          if (!to.includes(sender) && sender != _currentUser) {
-            to.push(sender);
+  private addRecipientsToArray(addTo: string[], addFrom: string[], sender: string) {
+    for (let element of addFrom) {
+      if (!addTo.includes(element)) {
+        if (element == this.currentUser) {
+          if (!addTo.includes(sender) && sender != this.currentUser) {
+            addTo.push(sender);
           }
         }
         else {
-          to.push(element);
+          addTo.push(element);
         }
       }
-    });
+    };
   }
 
   //skrollBottom() {
