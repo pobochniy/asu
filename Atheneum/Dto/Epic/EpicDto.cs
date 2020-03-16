@@ -1,6 +1,7 @@
 ﻿using System;
 using Atheneum.Enums;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Atheneum.Dto.Epic
 {
@@ -20,6 +21,7 @@ namespace Atheneum.Dto.Epic
         /// Приоритет
         /// </summary>
         [Required]
+        [JsonProperty("priorityEnum")]
         public IssuePriorityEnum PriorityEnum { get; set; }
 
         /// <summary>

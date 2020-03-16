@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { FormsModule } from '@angular/forms';
+import { AddComponent } from './add/add.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { FormsModule } from '@angular/forms';
     NgxSelectModule,
     FormsModule
   ],
-  declarations: [ListComponent]
+  declarations: [ListComponent, AddComponent]
 })
 export class EpicModule { }
