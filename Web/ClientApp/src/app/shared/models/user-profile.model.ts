@@ -2,7 +2,7 @@
 export class UserProfileModel {
 
   /** Логин */
-  public userName: string;
+  public login: string;
 
   /** Эмейл */
   public email?: string;

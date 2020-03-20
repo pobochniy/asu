@@ -13,6 +13,7 @@ import { IssueModule } from './issue/issue.module';
 import { FormValidationComponent } from './shared/form-validation/form-validation.component';
 import { SharedModule } from './shared/shared.module';
 import { NgxSelectModule } from 'ngx-select-ex';
+import { UserService } from './shared/core/user.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { NgxSelectModule } from 'ngx-select-ex';
       { path: '', component: HomeComponent, pathMatch: 'full' }
     ])
   ],
-  providers: [UserModel],
+  providers: [UserService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
