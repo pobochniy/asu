@@ -1,9 +1,8 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
-import { ChatModel } from '../../models/chat.model';
-import { from } from "rxjs/observable/from";
-import { ChatService } from "../chat.service";
-import { PushChatModel } from "../../models/push-chat.model";
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ChatApiService } from '../../api/chat-api.service';
+import { UserService } from "../../core/user.service";
+import { PushChatModel } from "../../models/push-chat.model";
+import { ChatService } from "../chat.service";
 
 @Component({
   selector: 'app-chat-window',
@@ -13,11 +12,17 @@ import { ChatApiService } from '../../api/chat-api.service';
 export class ChatWindowComponent implements OnInit, AfterViewInit {
 
   public text: string; // текстовове поле ввода
+  private currentUser: string;
 
   constructor(
     public chatService: ChatService,
-    public apiService: ChatApiService
-  ) { }
+    public apiService: ChatApiService,
+    public userService: UserService
+  ) {
+    if (this.userService && this.userService.User && this.userService.User.login) {
+      this.currentUser = this.userService.User.login;
+    }
+  }
 
   ngOnInit() {
     this.chatService.initConnection();
@@ -28,13 +33,46 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
   }
     
   async send() {
-    const msg = new PushChatModel(this.text);
-    //await this.apiService.send(msg);
-
     this.chatService.send(this.text);
     this.text = '';
 
     //this.skrollBottom();
+  }
+
+  async addTo(recipients: string[], sender: string) {
+    this.addRecipientsToText(recipients, sender, false);
+  }
+
+  async addPrivat(recipients: string[], sender: string) {
+    this.addRecipientsToText(recipients, sender, true);
+  }
+
+  private addRecipientsToText(recipients: string[], sender: string, isPrivate: boolean) {
+    let msg = new PushChatModel(this.text);
+
+    if (isPrivate) {
+      this.addRecipientsToArray(msg.privat, recipients, sender);
+    }
+    else {
+      this.addRecipientsToArray(msg.to, recipients, sender);
+    }
+    
+    this.text = msg.toString();
+  }
+
+  private addRecipientsToArray(addTo: string[], addFrom: string[], sender: string) {
+    for (let element of addFrom) {
+      if (!addTo.includes(element)) {
+        if (element == this.currentUser) {
+          if (!addTo.includes(sender) && sender != this.currentUser) {
+            addTo.push(sender);
+          }
+        }
+        else {
+          addTo.push(element);
+        }
+      }
+    };
   }
 
   //skrollBottom() {

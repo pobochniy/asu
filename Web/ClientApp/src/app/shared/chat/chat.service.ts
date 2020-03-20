@@ -7,7 +7,7 @@ import { PushChatModel } from '../models/push-chat.model';
 @Injectable()
 export class ChatService {
   private chatList: ChatModel[] = [];
-  public msgs: Array<string> = []; // это с сервераs
+  public msgs: Array<ChatModel> = []; // это с сервера
   public connection: HubConnection;
 
   constructor() { }
@@ -21,7 +21,6 @@ export class ChatService {
   }
 
   public initConnection() {
-    //var kk = signalR.;
     this.connection = new signalR.HubConnectionBuilder()
       .withUrl('/chat')
       .build();
@@ -31,9 +30,10 @@ export class ChatService {
     this.connection.start();
 
     this.connection.on("BroadCastMessage", data => {
-      console.log(data);
-      if (data.length) {
-        this.msgs.push(data);
+      let chatModel: ChatModel = new ChatModel(data);
+
+      if (chatModel.message.length) {
+        this.msgs.push(chatModel);
       }
     });
   }
