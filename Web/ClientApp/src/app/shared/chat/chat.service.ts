@@ -26,7 +26,7 @@ export class ChatService {
       .build();
   }
 
-  public connectionWebSocket() {
+  public async connectionWebSocket() {
     this.connection.start();
 
     this.connection.on("BroadCastMessage", data => {
@@ -38,7 +38,11 @@ export class ChatService {
     });
   }
 
-  send(text: string) {
+  async send(text: string) {
+    if (this.connection.state == 0) {
+      await this.connectionWebSocket();
+    }
+
     const msg = new PushChatModel(text);
     this.connection.invoke("PushMessage", msg);
   }

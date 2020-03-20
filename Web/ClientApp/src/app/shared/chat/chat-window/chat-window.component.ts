@@ -29,11 +29,11 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.chatService.connectionWebSocket();
+    //this.chatService.connectionWebSocket();
   }
     
   async send() {
-    this.chatService.send(this.text);
+    await this.chatService.send(this.text);
     this.text = '';
 
     //this.skrollBottom();
