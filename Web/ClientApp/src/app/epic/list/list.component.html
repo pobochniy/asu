@@ -25,6 +25,9 @@
         <td class="col">{{fuck.name}}</td>
         <td class="col">{{fuck.description}}</td>
         <td class="col">{{fuck.dueDate}}</td>
+        <td>
+            <input type="button" (click)="Delete(fuck.id)" value="Delete" class="btn btn-default" />
+        </td>
       </tr>
     </tbody>
   </table>

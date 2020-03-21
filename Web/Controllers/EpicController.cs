@@ -53,21 +53,11 @@ namespace Web.Controllers
         [Route("[action]")]
         public async Task<IActionResult> Delete([FromBody] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var epic = await service.Details(id);
-            if (epic == null)
-            {
-                return NotFound();
-            }
-
             await service.Delete(id);
 
-            return Ok(epic);
+            return Ok();
         }
+
         [HttpPost]
         [Route("[action]")]
         public async Task<IActionResult> Update([FromBody] EpicDto epicDto)

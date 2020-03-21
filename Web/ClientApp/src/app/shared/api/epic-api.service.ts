@@ -9,13 +9,16 @@ export class EpicApiService extends BaseApiService{
 
   constructor(public http: HttpClient) {super('Epic', http) }
 
-
 public async GetList() {
   return this.get<EpicModel[]>('GetList').toPromise();
 }
   
   public async Create(model: FormGroup) {
   return this.post<number>('Create', model.value).toPromise();
-}
+  }
+
+  public async Delete(id: number) {
+    return this.post<number>('Delete', id).toPromise();
+  }
 
 }

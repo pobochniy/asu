@@ -45,7 +45,7 @@ export class AddComponent implements OnInit {
     
     try {
       if (this.epicForm.valid) {
-        let issueId = await this.service.Create(this.epicForm);
+        let epicId = await this.service.Create(this.epicForm);
         this.router.navigateByUrl('/epic/list');
       }
     }

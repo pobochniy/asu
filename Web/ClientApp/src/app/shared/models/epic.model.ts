@@ -3,6 +3,8 @@ import { Time } from "@angular/common";
 
 export class EpicModel {
 
+  public id: number;
+
   public reporter: string;
 
   public priority: IssuePriorityEnum;

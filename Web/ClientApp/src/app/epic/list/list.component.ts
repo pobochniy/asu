@@ -20,4 +20,10 @@ export class ListComponent implements OnInit {
 
   }
 
+  async Delete(id: number) {
+
+    await this.service.Delete(id);
+
+    this.dataSource = await this.service.GetList();
+  }
 }
