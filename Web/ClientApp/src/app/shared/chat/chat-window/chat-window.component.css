@@ -10,7 +10,7 @@
 .chat {
   display: flex;
   flex-direction: column;
-  height: 450px;
+  height: 300px;
   position: fixed;
   bottom: 0;
   background-color: white;
@@ -38,7 +38,7 @@
   width: auto;
 }
 .chat-controls-textarea-text-field {
-  height: 50px;
+  /*height: 50px;*/
   width: 100%;
   border-radius: 7px;
   resize: none;
@@ -59,4 +59,14 @@
   left: 0;
   right: 0;
   user-select: none;
+}
+.chat-item-from {
+  background-color: #00ffff;
+  display: inline;
+}
+.chat-item-to {
+  background-color: #00ffff;
+}
+.chat-item-privat {
+  background-color: #ff0000;
 }

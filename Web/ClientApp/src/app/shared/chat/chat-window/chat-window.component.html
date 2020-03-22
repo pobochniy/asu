@@ -1,16 +1,20 @@
 <!--<div class="app">-->
-  <div class="chat col-sm-9 col-xs-12" appChatResizer>
+  <div *ngIf="userService.isAuth" class="chat col-sm-9 col-xs-12" appChatResizer>
     <div class="chat-resize-panel" id="resizePanel"></div>
     <div class="chat-container" id="scrollContainer">
       <div *ngFor="let mes of chatService.msgs">
         <div class="chat-item">
-          {{mes}}
+          [{{mes.getTime()}}]
+          <span class="chat-item-from" (click)="addTo([mes.login], mes.login)">[{{mes.login}}]</span>
+          <span class="chat-item-privat" *ngIf="mes.privat.length > 0"><span (click)='addPrivat(mes.privat, mes.login)'>private </span><span>[ <span *ngFor='let usr of mes.privat; let i = index' (click)='addPrivat([usr], mes.login)'>{{usr}}<span *ngIf="i != mes.privat.length - 1">, </span></span> ]</span></span>
+          <span class="chat-item-to" *ngIf="mes.to.length > 0"><span (click)='addTo(mes.to, mes.login)'>to </span><span>[ <span *ngFor='let usr of mes.to; let i = index' (click)='addTo([usr], mes.login)'>{{usr}}<span *ngIf="i != mes.to.length - 1">, </span></span> ]</span></span>
+          {{mes.message}}
         </div>
       </div>
     </div>
     <div class="chat-controls">
       <div class="chat-controls-textarea">
-        <textarea class="chat-controls-textarea-text-field" [(ngModel)]="chatService.text" (keydown.enter)="send()"></textarea><!--(keydown.enter)="onEnter($event)"-->
+        <input class="chat-controls-textarea-text-field" [(ngModel)]="text" (keydown.enter)="send()" /><!--(keydown.enter)="onEnter($event)"-->
       </div>
       <div class="chat-controls-buttons">
         <button type="submit" class="btn btn-primary" (click)="send()">Отправить</button>

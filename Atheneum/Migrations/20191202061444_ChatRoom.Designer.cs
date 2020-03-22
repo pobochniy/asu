@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Atheneum.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190809133058_issues")]
-    partial class issues
+    [Migration("20191202061444_ChatRoom")]
+    partial class ChatRoom
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,9 +23,7 @@ namespace Atheneum.Migrations
 
             modelBuilder.Entity("Atheneum.Entity.Identity.ChatRoom", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<long>("Id");
 
                     b.Property<string>("Login");
 
@@ -39,48 +37,9 @@ namespace Atheneum.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Room")
-                        .IsUnique();
+                    b.HasIndex("Room");
 
                     b.ToTable("ChatRoom");
-                });
-
-            modelBuilder.Entity("Atheneum.Entity.Identity.Issue", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<Guid?>("Assignee");
-
-                    b.Property<decimal?>("AssigneeEstimatedTime");
-
-                    b.Property<DateTime>("CreateDate");
-
-                    b.Property<string>("Description");
-
-                    b.Property<DateTime?>("DueDate");
-
-                    b.Property<int?>("EpicLink");
-
-                    b.Property<int>("Priority");
-
-                    b.Property<Guid>("Reporter");
-
-                    b.Property<decimal?>("ReporterEstimatedTime");
-
-                    b.Property<int>("Status");
-
-                    b.Property<string>("Summary");
-
-                    b.Property<int>("Type");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Id")
-                        .IsUnique();
-
-                    b.ToTable("Issue");
                 });
 
             modelBuilder.Entity("Atheneum.Entity.Identity.Profile", b =>
@@ -110,18 +69,6 @@ namespace Atheneum.Migrations
                     b.ToTable("Profiles");
                 });
 
-            modelBuilder.Entity("Atheneum.Entity.Identity.Role", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("RoleName");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-                });
-
             modelBuilder.Entity("Atheneum.Entity.Identity.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -146,11 +93,9 @@ namespace Atheneum.Migrations
                 {
                     b.Property<Guid>("UserId");
 
-                    b.Property<Guid>("RoleId");
+                    b.Property<int>("RoleId");
 
                     b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("UserInRole");
                 });
@@ -165,11 +110,6 @@ namespace Atheneum.Migrations
 
             modelBuilder.Entity("Atheneum.Entity.Identity.UserInRole", b =>
                 {
-                    b.HasOne("Atheneum.Entity.Identity.Role", "Role")
-                        .WithMany("UserInRoles")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Atheneum.Entity.Identity.User", "User")
                         .WithMany("UserInRoles")
                         .HasForeignKey("UserId")

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Atheneum.Enums;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -15,6 +16,6 @@ namespace Atheneum.Dto.Auth
 
         public string PhoneNumber { get; set; }
 
-        public IEnumerable<string> Roles { get; set; }
+        public IEnumerable<RoleEnum> Roles { get; set; }
     }
 }

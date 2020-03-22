@@ -11,6 +11,6 @@ namespace Atheneum.Interface
 
         Task<UserDto> LogIn(LoginDto dto);
 
-        Task<IEnumerable<string>> GetRoles(Guid userId);
+        //Task<IEnumerable<string>> GetRoles(Guid userId);
     }
 }

@@ -11,8 +11,8 @@ namespace Atheneum.Interface
         /// <summary>
         /// С сервера на все клиенты
         /// </summary>
-        Task BroadCastMessage(string msg);
+        Task BroadCastMessage(ChatDto msg);
 
-        Task PushMessage(string msg);
+        Task PushMessage(PushChatDto msg);
     }
 }

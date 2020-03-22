@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { ChatModel } from '../models/chat.model';
 import * as signalR from "@aspnet/signalr";
 import { HubConnection } from "@aspnet/signalr";
+import { PushChatModel } from '../models/push-chat.model';
 
 @Injectable()
 export class ChatService {
   private chatList: ChatModel[] = [];
-  public msgs: Array<string> = []; // это с сервераs
+  public msgs: Array<ChatModel> = []; // это с сервера
   public connection: HubConnection;
 
   constructor() { }
@@ -21,24 +22,28 @@ export class ChatService {
 
   public initConnection() {
     this.connection = new signalR.HubConnectionBuilder()
-      .withUrl("/chat")
+      .withUrl('/chat')
       .build();
   }
 
-  public connectionWebSocket() {
+  public async connectionWebSocket() {
     this.connection.start();
 
     this.connection.on("BroadCastMessage", data => {
-      console.log(data);
-      if (data.length) {
-        this.msgs.push(data);
+      let chatModel: ChatModel = new ChatModel(data);
+
+      if (chatModel.message.length) {
+        this.msgs.push(chatModel);
       }
     });
   }
 
-  send(text: string) {
+  async send(text: string) {
+    if (this.connection.state == 0) {
+      await this.connectionWebSocket();
+    }
 
-
-    this.connection.invoke("PushMessage", text);  
+    const msg = new PushChatModel(text);
+    this.connection.invoke("PushMessage", msg);
   }
 }

@@ -5,7 +5,7 @@ import { AuthApiService } from '../shared/api/auth-api.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  providers: [AuthApiService, UserService]
+  providers: [AuthApiService]
 })
 export class HomeComponent {
   constructor(public user: UserService, private authServ: AuthApiService) { }

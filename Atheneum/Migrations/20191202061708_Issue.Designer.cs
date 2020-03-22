@@ -10,16 +10,100 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Atheneum.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190316115640_InitApp")]
-    partial class InitApp
+    [Migration("20191202061708_Issue")]
+    partial class Issue
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Atheneum.Entity.Identity.ChatPrivate", b =>
+                {
+                    b.Property<long>("Tick");
+
+                    b.Property<Guid>("SenderId");
+
+                    b.Property<Guid>("ReceiverId");
+
+                    b.Property<string>("Login");
+
+                    b.Property<string>("Msg");
+
+                    b.Property<string>("Privat");
+
+                    b.Property<string>("To");
+
+                    b.Property<byte>("Type");
+
+                    b.HasKey("Tick", "SenderId", "ReceiverId");
+
+                    b.HasIndex("Tick");
+
+                    b.ToTable("ChatPrivate");
+                });
+
+            modelBuilder.Entity("Atheneum.Entity.Identity.ChatRoom", b =>
+                {
+                    b.Property<long>("Id");
+
+                    b.Property<string>("Login");
+
+                    b.Property<string>("Msg");
+
+                    b.Property<int>("Room");
+
+                    b.Property<string>("To");
+
+                    b.Property<byte>("Type");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Room");
+
+                    b.ToTable("ChatRoom");
+                });
+
+            modelBuilder.Entity("Atheneum.Entity.Identity.Issue", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<Guid?>("Assignee");
+
+                    b.Property<decimal?>("AssigneeEstimatedTime");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime?>("DueDate");
+
+                    b.Property<int?>("EpicLink");
+
+                    b.Property<int>("Priority");
+
+                    b.Property<Guid>("Reporter");
+
+                    b.Property<decimal?>("ReporterEstimatedTime");
+
+                    b.Property<int>("Status");
+
+                    b.Property<string>("Summary");
+
+                    b.Property<int>("Type");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("Issue");
+                });
 
             modelBuilder.Entity("Atheneum.Entity.Identity.Profile", b =>
                 {
@@ -48,18 +132,6 @@ namespace Atheneum.Migrations
                     b.ToTable("Profiles");
                 });
 
-            modelBuilder.Entity("Atheneum.Entity.Identity.Role", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("RoleName");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-                });
-
             modelBuilder.Entity("Atheneum.Entity.Identity.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -84,11 +156,9 @@ namespace Atheneum.Migrations
                 {
                     b.Property<Guid>("UserId");
 
-                    b.Property<Guid>("RoleId");
+                    b.Property<int>("RoleId");
 
                     b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("UserInRole");
                 });
@@ -103,11 +173,6 @@ namespace Atheneum.Migrations
 
             modelBuilder.Entity("Atheneum.Entity.Identity.UserInRole", b =>
                 {
-                    b.HasOne("Atheneum.Entity.Identity.Role", "Role")
-                        .WithMany("UserInRoles")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Atheneum.Entity.Identity.User", "User")
                         .WithMany("UserInRoles")
                         .HasForeignKey("UserId")
