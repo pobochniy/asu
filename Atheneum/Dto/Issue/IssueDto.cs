@@ -6,6 +6,8 @@ namespace Atheneum.Dto.Issue
 {
     public class IssueDto
     {
+        /// Идентификатор
+        public long Id { get; set; }
 
         /// Исполнитель
         public Guid? Assignee { get; set; }
@@ -42,6 +44,8 @@ namespace Atheneum.Dto.Issue
 
         /// Дата крайнего срока завершения события
         public DateTime? DueDate { get; set; }
+
+        public DateTime? RefreshDate { get; set; }
 
         /// Ссылки на эпики
         public int? EpicLink { get; set; }

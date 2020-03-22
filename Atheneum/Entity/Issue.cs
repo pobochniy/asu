@@ -40,7 +40,7 @@ namespace Atheneum.Entity.Identity
         /// Приоритет события
         public IssuePriorityEnum Priority { get; set; } 
 
-        /// Предполагаемое время исполнтеля
+        /// Предполагаемое время исполнителя
         public decimal? AssigneeEstimatedTime { get; set; }
 
         /// Предполагаемое время инициатора
@@ -51,6 +51,9 @@ namespace Atheneum.Entity.Identity
 
         /// Дата крайнего срока завершения события
         public DateTime? DueDate { get; set; }
+
+        /// Дата последнего обновления
+        public DateTime? RefreshDate { get; set; }
 
         /// Ссылки на эпики
         public int? EpicLink { get; set; }

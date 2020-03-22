@@ -54,6 +54,21 @@ namespace Web.Controllers
         {
             return await service.GetList();
         }
+
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<IActionResult> Update([FromBody]IssueDto issuedto)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            await service.Update(issuedto);
+
+            var res = await service.Details(issuedto.Id);
+            return Ok(res);
+        }
     }
 }
 

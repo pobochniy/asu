@@ -22,7 +22,7 @@ namespace Atheneum.Services
         {
 
             var issue = new Issue
-            {   
+            {
                 Assignee = dto.Assignee,
                 Reporter = dto.Reporter,
                 Summary = dto.Summary,
@@ -48,6 +48,7 @@ namespace Atheneum.Services
             var issue = await db.Issue.FindAsync(id);
             var issuedto = new IssueDto
             {
+                Id = issue.Id,
                 Assignee = issue.Assignee,
                 AssigneeEstimatedTime = issue.AssigneeEstimatedTime,
                 Description = issue.Description,
@@ -70,7 +71,7 @@ namespace Atheneum.Services
             var i = await db.Issue.FindAsync(id);
             db.Issue.Remove(i);
 
-            await db.SaveChangesAsync();    
+            await db.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<IssueDto>> GetList()
@@ -97,6 +98,21 @@ namespace Atheneum.Services
 
         public async Task Update(IssueDto issuedto)
         {
+            var issue = await db.Issue.FindAsync(issuedto.Id);
+
+
+            issue.Assignee = issuedto.Assignee;
+            issue.Reporter = issuedto.Reporter;
+            issue.Summary = issuedto.Summary;
+            issue.Description = issuedto.Description;
+            issue.Type = issuedto.Type;
+            issue.Status = issuedto.Status;
+            issue.Priority = issuedto.Priority;
+            issue.AssigneeEstimatedTime = issuedto.AssigneeEstimatedTime;
+            issue.ReporterEstimatedTime = issuedto.ReporterEstimatedTime;
+            issue.DueDate = issuedto.DueDate;
+            issue.EpicLink = issuedto.EpicLink;
+            issue.RefreshDate = DateTime.UtcNow;
 
             await db.SaveChangesAsync();
         }
