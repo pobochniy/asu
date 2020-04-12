@@ -9,7 +9,7 @@ import { ChatService } from "../chat.service";
   templateUrl: './chat-window.component.html',
   styleUrls: ['./chat-window.component.css']
 })
-export class ChatWindowComponent implements OnInit, AfterViewInit {
+export class ChatWindowComponent implements OnInit {
 
   public text: string; // текстовове поле ввода
   private currentUser: string;
@@ -19,22 +19,21 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
     public apiService: ChatApiService,
     public userService: UserService
   ) {
-    if (this.userService && this.userService.User && this.userService.User.login) {
-      this.currentUser = this.userService.User.login;
-    }
   }
 
   ngOnInit() {
     this.chatService.initConnection();
+
+    if (this.userService && this.userService.User && this.userService.User.login) {
+      this.currentUser = this.userService.User.login;
+      this.chatService.connectionWebSocket();
+    }
   }
 
-  ngAfterViewInit() {
-    //this.chatService.connectionWebSocket();
-  }
-    
-  async send() {
-    await this.chatService.send(this.text);
-    this.text = '';
+  send() {
+    this.chatService
+      .send(this.text)
+      .then(() => this.text = '');
 
     //this.skrollBottom();
   }
@@ -56,7 +55,7 @@ export class ChatWindowComponent implements OnInit, AfterViewInit {
     else {
       this.addRecipientsToArray(msg.to, recipients, sender);
     }
-    
+
     this.text = msg.toString();
   }
 
