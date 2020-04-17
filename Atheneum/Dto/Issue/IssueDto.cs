@@ -45,8 +45,6 @@ namespace Atheneum.Dto.Issue
         /// Дата крайнего срока завершения события
         public DateTime? DueDate { get; set; }
 
-        public DateTime? RefreshDate { get; set; }
-
         /// Ссылки на эпики
         public int? EpicLink { get; set; }
     }

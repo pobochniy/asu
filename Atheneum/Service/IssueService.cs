@@ -79,6 +79,7 @@ namespace Atheneum.Services
             var issues = await db.Issue
             .Select(x => new IssueDto
             {
+                Id = x.Id,
                 Assignee = x.Assignee,
                 AssigneeEstimatedTime = x.AssigneeEstimatedTime,
                 Description = x.Description,
@@ -100,7 +101,6 @@ namespace Atheneum.Services
         {
             var issue = await db.Issue.FindAsync(issuedto.Id);
 
-
             issue.Assignee = issuedto.Assignee;
             issue.Reporter = issuedto.Reporter;
             issue.Summary = issuedto.Summary;
@@ -112,7 +112,6 @@ namespace Atheneum.Services
             issue.ReporterEstimatedTime = issuedto.ReporterEstimatedTime;
             issue.DueDate = issuedto.DueDate;
             issue.EpicLink = issuedto.EpicLink;
-            issue.RefreshDate = DateTime.UtcNow;
 
             await db.SaveChangesAsync();
         }

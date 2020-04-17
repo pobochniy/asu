@@ -52,9 +52,6 @@ namespace Atheneum.Entity.Identity
         /// Дата крайнего срока завершения события
         public DateTime? DueDate { get; set; }
 
-        /// Дата последнего обновления
-        public DateTime? RefreshDate { get; set; }
-
         /// Ссылки на эпики
         public int? EpicLink { get; set; }
 
