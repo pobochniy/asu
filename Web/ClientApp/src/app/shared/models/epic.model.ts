@@ -13,5 +13,5 @@ export class EpicModel {
 
   public description: string;
 
-  public dueDate: Time;
+  public dueDate: Date;
 }

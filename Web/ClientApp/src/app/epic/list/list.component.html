@@ -3,7 +3,7 @@
   <h4>Epic</h4>
   <div class="form-group">
     <div class="col-md-1 col-md-10">
-      <a [routerLink]='["/epic/add"]' (click)='collapse()'>
+      <a [routerLink]='["/epic/add"]'>
         <input type="submit" value="Create new Epic" class="btn btn-primary">
       </a>
     </div>
@@ -19,14 +19,19 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let fuck of dataSource">
-        <td class="col"> {{fuck.reporter}}</td>
-        <td class="col">{{fuck.priorityEnum}}</td>
-        <td class="col">{{fuck.name}}</td>
-        <td class="col">{{fuck.description}}</td>
-        <td class="col">{{fuck.dueDate}}</td>
+      <tr *ngFor="let epic of dataSource">
+        <td class="col"> {{GetLogin(epic.reporter)}}</td>
+        <td class="col">{{epic.priorityEnum}}</td>
+        <td class="col">{{epic.name}}</td>
+        <td class="col">{{epic.description}}</td>
+        <td style="min-width:105px" class="col">{{datepipe.transform(epic.dueDate, 'yyyy-MM-dd') }}</td>
         <td>
-            <input type="button" (click)="Delete(fuck.id)" value="Delete" class="btn btn-default" />
+          <a [routerLink]="['/epic/details',epic.id]" >
+            <input type="submit" value="Edit" class="btn btn-primary" >
+          </a>
+        </td>
+        <td>
+          <input type="button" (click)="Delete(epic.id)" value="Delete" class="btn btn-default" />
         </td>
       </tr>
     </tbody>

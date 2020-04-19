@@ -1,19 +1,21 @@
-import { Component, OnInit, ViewEncapsulation} from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EpicApiService } from '../../shared/api/epic-api.service';
-import { epicFormModel } from '../../shared/form-models/epic-form.model';
-import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { UsersApiService } from '../../shared/api/users-api.service';
-import { UserProfileModel } from '../../shared/models/user-profile.model';
 import { IssuePriorityEnum } from '../../shared/enums/issue-priority.enum';
+import { epicFormModel } from '../../shared/form-models/epic-form.model';
+import { UserProfileModel } from '../../shared/models/user-profile.model';
+import { ListComponent } from '../list/list.component';
+import { EpicModel } from '../../shared/models/epic.model';
+
 
 @Component({
-  selector: 'add-epic',
-  templateUrl: './add.component.html',
-  styleUrls: ['./add.component.css'],
-  providers: [EpicApiService, UsersApiService]
+  selector: 'details-epic',
+  templateUrl: './details.component.html',
+  styleUrls: ['./details.component.css'],
+  providers: [EpicApiService, UsersApiService, ListComponent]
 })
-export class AddComponent implements OnInit {
+export class DetailsComponent implements OnInit {
 
   public epicForm = epicFormModel;
   public profiles: UserProfileModel[];
@@ -23,10 +25,18 @@ export class AddComponent implements OnInit {
 
   constructor(private service: EpicApiService
     , private userApiService: UsersApiService
+    , private route: ActivatedRoute
     , private router: Router
   ) { }
 
   async ngOnInit() {
+
+    const id = +this.route.snapshot.paramMap.get('id');
+
+    const epic = await this.service.Details(id);
+
+    this.epicForm.setValue({ id: epic.id, reporter: epic.reporter, name: epic.name, priorityEnum: epic.priorityEnum, description: epic.description, dueDate: epic.dueDate });
+
     this.profiles = await this.userApiService.GetProfiles();
 
     for (var n in IssuePriorityEnum) {
@@ -43,7 +53,7 @@ export class AddComponent implements OnInit {
     
     try {
       if (this.epicForm.valid) {
-        await this.service.Create(this.epicForm);
+        await this.service.Update(this.epicForm);
         this.router.navigateByUrl('/epic/list');
       }
     }

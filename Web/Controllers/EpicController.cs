@@ -19,7 +19,7 @@ namespace Web.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<EpicDto> Details(int id)
+        public async Task<EpicDto> Details([FromQuery]int id)
         {
             var res = await service.Details(id);
             return res;

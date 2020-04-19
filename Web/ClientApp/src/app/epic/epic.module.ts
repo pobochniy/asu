@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { FormsModule } from '@angular/forms';
 import { AddComponent } from './add/add.component';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { AddComponent } from './add/add.component';
     NgxSelectModule,
     FormsModule
   ],
-  declarations: [ListComponent, AddComponent]
+  declarations: [ListComponent, AddComponent, DetailsComponent]
 })
 export class EpicModule { }

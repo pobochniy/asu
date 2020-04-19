@@ -60,7 +60,7 @@ export class AddComponent implements OnInit {
     
     try {
       if (this.issueForm.valid) {
-        let issueId = await this.service.Create(this.issueForm);
+        let epicId = await this.service.Create(this.issueForm);
         this.router.navigateByUrl('/issue/list');
       }
     }
