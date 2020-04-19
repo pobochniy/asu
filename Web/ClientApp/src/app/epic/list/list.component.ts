@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UserProfileModel } from '../../shared/models/user-profile.model';
 import { UsersApiService } from '../../shared/api/users-api.service';
 import { DatePipe } from '@angular/common';
+import { IssuePriorityEnum } from '../../shared/enums/issue-priority.enum';
 
 @Component({
   selector: 'list-epic',
@@ -40,6 +41,13 @@ export class ListComponent implements OnInit {
     await this.service.Details(id);
 
   }
+  GetPriority(id: number) {
+    const priority = IssuePriorityEnum[id];
+    if (priority) return priority;
+
+    return id;
+  }
+
   GetLogin(id: string) {
     if (this.profiles && this.profiles.length) {
       const user = this.profiles.find(x => x.id == id);

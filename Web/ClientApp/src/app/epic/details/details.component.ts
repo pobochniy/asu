@@ -7,13 +7,14 @@ import { epicFormModel } from '../../shared/form-models/epic-form.model';
 import { UserProfileModel } from '../../shared/models/user-profile.model';
 import { ListComponent } from '../list/list.component';
 import { EpicModel } from '../../shared/models/epic.model';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
   selector: 'details-epic',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css'],
-  providers: [EpicApiService, UsersApiService, ListComponent]
+  providers: [EpicApiService, UsersApiService, ListComponent, DatePipe]
 })
 export class DetailsComponent implements OnInit {
 
@@ -27,6 +28,7 @@ export class DetailsComponent implements OnInit {
     , private userApiService: UsersApiService
     , private route: ActivatedRoute
     , private router: Router
+    , public datepipe: DatePipe
   ) { }
 
   async ngOnInit() {
@@ -35,7 +37,9 @@ export class DetailsComponent implements OnInit {
 
     const epic = await this.service.Details(id);
 
-    this.epicForm.setValue({ id: epic.id, reporter: epic.reporter, name: epic.name, priorityEnum: epic.priorityEnum, description: epic.description, dueDate: epic.dueDate });
+    const dueDate = this.datepipe.transform(epic.dueDate, 'yyyy-MM-dd')
+
+    this.epicForm.setValue({ id: epic.id, reporter: epic.reporter, name: epic.name, priorityEnum: epic.priorityEnum, description: epic.description, dueDate: dueDate });
 
     this.profiles = await this.userApiService.GetProfiles();
 

@@ -21,7 +21,7 @@
     <tbody>
       <tr *ngFor="let epic of dataSource">
         <td class="col"> {{GetLogin(epic.reporter)}}</td>
-        <td class="col">{{epic.priorityEnum}}</td>
+        <td class="col">{{GetPriority(epic.priorityEnum)}}</td>
         <td class="col">{{epic.name}}</td>
         <td class="col">{{epic.description}}</td>
         <td style="min-width:105px" class="col">{{datepipe.transform(epic.dueDate, 'yyyy-MM-dd') }}</td>

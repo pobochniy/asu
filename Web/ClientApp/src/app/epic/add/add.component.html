@@ -14,17 +14,18 @@
   <div class="form-group">
     <label class="col-md-2 control-label" for="priorityEnum">Priority</label>
     <div class="col-md-10">
-      <ngx-select [allowClear]="true"
-                  [items]="issuePriority" optionValueField="id" optionTextField="name"
+      <ngx-select [items]="issuePriority" optionValueField="id" optionTextField="name"
                   formControlName="priorityEnum"
                   placeholder="Select epic priority">
       </ngx-select>
+      <form-validation [model]="epicForm.controls['priorityEnum']" fieldName="priorityEnum"></form-validation>
     </div>
   </div>
   <div class="form-group">
     <label class="col-md-2 control-label" for="name">Name</label>
     <div class="col-md-10">
       <input class="form-control" type="text" formControlName="name" />
+      <form-validation [model]="epicForm.controls['name']" fieldName="name"></form-validation>
     </div>
   </div>
   <div class="form-group">
@@ -37,12 +38,15 @@
     <label class="col-md-2 control-label" for="dueDate">Due Date</label>
     <div class="col-md-10">
       <input class="form-control" type="date" formControlName="dueDate" />
+      <form-validation [model]="epicForm.controls['dueDate']" fieldName="dueDate"></form-validation>
     </div>
   </div>
   <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
-      <input type="submit" value="Create" class="btn btn-primary">
-      <a [routerLink]='["/epic/list"]' >
+      <a [routerLink]='["/epic/list"]'>
+        <input type="submit" value="Create" class="btn btn-primary" (click)='onSubmit()'>
+      </a>
+      <a [routerLink]='["/epic/list"]'>
         <input type="submit" value="<- to epic list" class="btn btn-primary">
       </a>
     </div>

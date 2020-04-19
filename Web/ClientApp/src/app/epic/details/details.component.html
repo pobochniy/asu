@@ -15,8 +15,7 @@
   <div class="form-group">
     <label class="col-md-2 control-label" for="priorityEnum">Priority</label>
     <div class="col-md-10">
-      <ngx-select [allowClear]="true"
-                  [items]="issuePriority" optionValueField="id" optionTextField="name"
+      <ngx-select [items]="issuePriority" optionValueField="id" optionTextField="name"
                   formControlName="priorityEnum"
                   placeholder="Select epic priority">
       </ngx-select>
@@ -26,6 +25,7 @@
     <label class="col-md-2 control-label" for="name">Name</label>
     <div class="col-md-10">
       <input class="form-control" type="text" formControlName="name" />
+      <form-validation [model]="epicForm.controls['name']" fieldName="name"></form-validation>
     </div>
   </div>
   <div class="form-group">
@@ -37,7 +37,7 @@
   <div class="form-group">
     <label class="col-md-2 control-label" for="dueDate">Due Date</label>
     <div class="col-md-10">
-      <input class="form-control" type="datetime" formControlName="dueDate" />
+      <input class="form-control" type="date" formControlName="dueDate" />
       <form-validation [model]="epicForm.controls['dueDate']" fieldName="dueDate"></form-validation>
     </div>
   </div>
