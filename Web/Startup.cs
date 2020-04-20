@@ -1,5 +1,6 @@
 using Atheneum.Entity.Identity;
 using Atheneum.Interface;
+using Atheneum.Service;
 using Atheneum.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Web.SignalR;
+
 
 namespace Web
 {
@@ -35,6 +37,7 @@ namespace Web
             services.AddTransient<IChatService, ChatService>();
             services.AddTransient<IIssue, IssueService>();
             services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IEpic, EpicService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
