@@ -3,6 +3,7 @@
     public enum RoleEnum
     {
         none,
+        roleManagement,
         issueRead = 10,
         issueCreate,
         issueUpdate,
