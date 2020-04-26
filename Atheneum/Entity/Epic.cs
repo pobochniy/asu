@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Collections.Generic;
 
 namespace Atheneum.Entity.Identity
 {
@@ -33,6 +34,14 @@ namespace Atheneum.Entity.Identity
         /// Время
         /// </summary>
         public DateTime? DueDate { get; set; }
+
+        public virtual ICollection<TimeTracking> TimeTrackings { get; set; }
+
+        public Epic()
+        {
+            TimeTrackings = new List<TimeTracking>();
+        }
+
     }
 }
 
