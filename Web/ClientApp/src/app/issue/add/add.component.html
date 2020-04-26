@@ -4,15 +4,15 @@
   <div class="form-group">
     <label class="col-md-2 control-label" for="assignee">Assignee</label>
     <div class="col-md-10">
-      <ngx-select [items]="profiles" optionValueField="id" optionTextField="userName"
+      <ngx-select [allowClear]="true"
+                  [items]="profiles" optionValueField="id" optionTextField="userName"
                   formControlName="assignee"
                   placeholder="Select assignee">
       </ngx-select>
-      <form-validation [model]="issueForm.controls['assignee']" fieldName="assignee"></form-validation>
     </div>
   </div>
   <div class="form-group">
-    <label class="col-md-2 control-label" for="reporter">Reporter</label>
+    <label class="col-md-2 control-label" for="reporter">Reporter*</label>
     <div class="col-md-10">
       <ngx-select [items]="profiles" optionValueField="id" optionTextField="userName"
                   formControlName="reporter"
@@ -22,7 +22,7 @@
     </div>
   </div>
   <div class="form-group">
-    <label class="col-md-2 control-label" for="symmary">Summary</label>
+    <label class="col-md-2 control-label" for="symmary">Summary*</label>
     <div class="col-md-10">
       <input class="form-control" type="text" formControlName="summary" />
     </div>
@@ -34,45 +34,48 @@
     </div>
   </div>
   <div class="form-group">
-    <label class="col-md-2 control-label" for="type">Type</label>
+    <label class="col-md-2 control-label" for="type">Type*</label>
     <div class="col-md-10">
       <ngx-select [allowClear]="true"
                   [items]="issueTypes" optionValueField="id" optionTextField="name"
-                  formControlName="type" 
+                  formControlName="type"
                   placeholder="Select issue type">
       </ngx-select>
+      <form-validation [model]="issueForm.controls['type']" fieldName="type"></form-validation>
     </div>
   </div>
   <div class="form-group">
-    <label class="col-md-2 control-label" for="status">Status</label>
+    <label class="col-md-2 control-label" for="status">Status*</label>
     <div class="col-md-10">
       <ngx-select [allowClear]="true"
                   [items]="issueStatus" optionValueField="id" optionTextField="name"
                   formControlName="status"
                   placeholder="Select issue status">
       </ngx-select>
+      <form-validation [model]="issueForm.controls['status']" fieldName="status"></form-validation>
     </div>
   </div>
   <div class="form-group">
-    <label class="col-md-2 control-label" for="priority">Priority</label>
+    <label class="col-md-2 control-label" for="priority">Priority*</label>
     <div class="col-md-10">
       <ngx-select [allowClear]="true"
                   [items]="issuePriority" optionValueField="id" optionTextField="name"
                   formControlName="priority"
                   placeholder="Select issue priority">
       </ngx-select>
+      <form-validation [model]="issueForm.controls['priority']" fieldName="priority"></form-validation>
     </div>
   </div>
   <div class="form-group">
-    <label class="col-md-2 control-label" for="assigneeEstimatedTime">Assignee Estimated Time</label>
+    <label class="col-md-2 control-label" for="assigneeEstimatedTime">Assignee Estimated Time (Hours)</label>
     <div class="col-md-10">
-      <input class="form-control" type="datetime-local" formControlName="assigneeEstimatedTime" />
+      <input class="form-control" type="number" step="0.01" min="0" max="100" formControlName="assigneeEstimatedTime" />
     </div>
   </div>
   <div class="form-group">
-    <label class="col-md-2 control-label" for="reporterEstimatedTime">Reporter Estimated Time</label>
+    <label class="col-md-2 control-label" for="reporterEstimatedTime">Reporter Estimated Time (Hours)</label>
     <div class="col-md-10">
-      <input class="form-control" type="datetime-local" formControlName="reporterEstimatedTime" />
+      <input class="form-control" type="number" step="0.01" min="0" max="100" formControlName="reporterEstimatedTime" />
     </div>
   </div>
   <div class="form-group">

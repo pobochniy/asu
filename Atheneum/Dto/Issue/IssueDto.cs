@@ -7,7 +7,7 @@ namespace Atheneum.Dto.Issue
     public class IssueDto
     {
         /// Идентификатор
-        public long Id { get; set; }
+        public long? Id { get; set; }
 
         /// Исполнитель
         public Guid? Assignee { get; set; }

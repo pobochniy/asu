@@ -17,7 +17,7 @@ namespace Atheneum.Interface
         /// <summary>
         /// Получить информацию о событии
         /// </summary>
-        Task<IssueDto> Details(long id);
+        Task<IssueDto> Details(long? id);
 
         /// <summary>
         /// Изменить событие

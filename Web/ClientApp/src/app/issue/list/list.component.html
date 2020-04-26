@@ -1,5 +1,5 @@
 
-<form class="form-horizontal" [formGroup]="issueForm" (ngOnSubmit)="ngOnInit()">
+<form class="form-horizontal" (ngOnSubmit)="ngOnInit()">
   <h4>Issues</h4>
   <div class="form-group">
     <div class="col-md-1 col-md-10">
@@ -36,7 +36,7 @@
         <td class="col">{{el.priority}}</td>
         <td class="col">{{el.assigneeEstimatedTime}}</td>
         <td class="col">{{el.reporterEstimatedTime}}</td>
-        <td class="col">{{el.dueDate}}</td>
+        <td class="col" style="min-width: 115px">{{el.dueDate | date:'yyyy-MM-dd'}}</td>
         <td class="col">{{el.epicLink}}</td>
         <td>
           <a [routerLink]='["/issue/edit", el.id]'>

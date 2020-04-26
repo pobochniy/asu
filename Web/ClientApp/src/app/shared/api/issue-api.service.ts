@@ -15,9 +15,16 @@ export class IssueApiService extends BaseApiService {
   public async GetList() {
     return this.get<IssueModel[]>('GetList').toPromise();
   }
-  
+
   public async Create(model: FormGroup) {
     return this.post<number>('Create', model.value).toPromise();
   }
 
+  public async Update(model: FormGroup) {
+    return this.post<number>('Update', model.value).toPromise();
+  }
+
+  public async Details(id: number) {
+    return this.get<any>('Details?id=' + id).toPromise();
+  }
 }

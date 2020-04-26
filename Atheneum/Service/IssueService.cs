@@ -43,8 +43,10 @@ namespace Atheneum.Services
             return issue.Id;
         }
 
-        public async Task<IssueDto> Details(long id)
+        public async Task<IssueDto> Details(long? id)
         {
+            if (!id.HasValue) throw new ArgumentException("Сломано");
+
             var issue = await db.Issue.FindAsync(id);
             var issuedto = new IssueDto
             {
@@ -64,14 +66,6 @@ namespace Atheneum.Services
 
             return issuedto;
 
-        }
-
-        public async Task Delete(long id)
-        {
-            var i = await db.Issue.FindAsync(id);
-            db.Issue.Remove(i);
-
-            await db.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<IssueDto>> GetList()
@@ -112,6 +106,14 @@ namespace Atheneum.Services
             issue.ReporterEstimatedTime = issuedto.ReporterEstimatedTime;
             issue.DueDate = issuedto.DueDate;
             issue.EpicLink = issuedto.EpicLink;
+
+            await db.SaveChangesAsync();
+        }
+
+        public async Task Delete(long id)
+        {
+            var i = await db.Issue.FindAsync(id);
+            db.Issue.Remove(i);
 
             await db.SaveChangesAsync();
         }

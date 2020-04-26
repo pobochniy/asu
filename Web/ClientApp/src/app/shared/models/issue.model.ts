@@ -4,6 +4,8 @@ import { IssuePriorityEnum } from "../enums/issue-priority.enum";
 import { Time } from "@angular/common";
 
 export class IssueModel {
+
+  public id: number;
   /// Исполнитель
   public assignee: string;
 
@@ -25,14 +27,14 @@ export class IssueModel {
   /// Приоритет события
   public priority: IssuePriorityEnum;
 
-  /// Предполагаемое время исполнтеля
-  public assigneeEstimatedTime: Time;
+  /// Предполагаемое время исполнителя
+  public assigneeEstimatedTime: number;
 
   /// Предполагаемое время инициатора
-  public reporterEstimatedTime: Time;
+  public reporterEstimatedTime: number;
 
   /// Дата крайнего срока завершения события
-  public dueDate: Time;
+  public dueDate: Date;
 
   /// Ссылки на эпики
   public epicLink: LinkStyle;
