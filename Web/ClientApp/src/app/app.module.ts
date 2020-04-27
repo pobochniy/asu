@@ -13,6 +13,7 @@ import { ChatModule } from './shared/chat/chat.module';
 import { ChatService } from './shared/chat/chat.service';
 import { UserService } from './shared/core/user.service';
 import { SharedModule } from './shared/shared.module';
+import { EpicModule } from './epic/epic.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SharedModule } from './shared/shared.module';
     ChatModule,
     AuthModule,
     IssueModule,
+    EpicModule,
     NgxSelectModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' }

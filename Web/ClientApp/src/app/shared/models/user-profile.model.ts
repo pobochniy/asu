@@ -1,5 +1,7 @@
 /** Пользователь */
 export class UserProfileModel {
+  /** GUID */
+  public id: string;
 
   /** Логин */
   public login: string;
