@@ -6,46 +6,43 @@ namespace Atheneum.Dto.Issue
 {
     public class IssueDto
     {
-        /// Идентификатор
         public long? Id { get; set; }
 
-        /// Исполнитель
         public Guid? Assignee { get; set; }
 
-        /// Инициатор
         [Required]
         public Guid Reporter { get; set; }
 
-        /// Сводка
         [Required]
         public string Summary { get; set; }
 
-        /// Описание
         [Required]
         public string Description { get; set; }
 
-        /// Тип события
         [Required]
         public IssueTypeEnum Type { get; set; }
 
-        /// Статус 
         [Required]
         public IssueStatusEnum Status { get; set; }
 
-        /// Приоритет события
         [Required]
         public IssuePriorityEnum Priority { get; set; }
 
-        /// Предполагаемое время исполнтеля
+        /// <summary>
+        /// Предполагаемое время исполнителя
+        /// </summary>
         public decimal? AssigneeEstimatedTime { get; set; }
 
+        /// <summary>
         /// Предполагаемое время инициатора
+        /// </summary>
         public decimal? ReporterEstimatedTime { get; set; }
 
+        /// <summary>
         /// Дата крайнего срока завершения события
+        /// </summary>
         public DateTime? DueDate { get; set; }
 
-        /// Ссылки на эпики
         public int? EpicLink { get; set; }
     }
 }

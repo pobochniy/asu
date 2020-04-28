@@ -37,8 +37,7 @@
   <div class="form-group">
     <label class="col-md-2 control-label" for="type">Type*</label>
     <div class="col-md-10">
-      <ngx-select [allowClear]="true"
-                  [items]="issueTypes" optionValueField="id" optionTextField="name"
+      <ngx-select [items]="issueTypes" optionValueField="id" optionTextField="name"
                   formControlName="type"
                   placeholder="Select issue type">
       </ngx-select>
@@ -48,8 +47,7 @@
   <div class="form-group">
     <label class="col-md-2 control-label" for="status">Status*</label>
     <div class="col-md-10">
-      <ngx-select [allowClear]="true"
-                  [items]="issueStatus" optionValueField="id" optionTextField="name"
+      <ngx-select [items]="issueStatus" optionValueField="id" optionTextField="name"
                   formControlName="status"
                   placeholder="Select issue status">
       </ngx-select>
@@ -59,8 +57,7 @@
   <div class="form-group">
     <label class="col-md-2 control-label" for="priority">Priority*</label>
     <div class="col-md-10">
-      <ngx-select [allowClear]="true"
-                  [items]="issuePriority" optionValueField="id" optionTextField="name"
+      <ngx-select [items]="issuePriority" optionValueField="id" optionTextField="name"
                   formControlName="priority"
                   placeholder="Select issue priority">
       </ngx-select>
