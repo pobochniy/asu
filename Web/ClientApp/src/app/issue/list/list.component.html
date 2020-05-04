@@ -1,43 +1,49 @@
 
-  <form class="form-horizontal" [formGroup]="issueForm" (ngOnSubmit)="ngOnInit()">
-    <h4>Issues</h4>
-    <div class="form-group">
-      <div class="col-md-1 col-md-10">
-        <a [routerLink]='["/issue/add"]' (click)='collapse()'>
-          <input type="submit" value="Create new Issue" class="btn btn-primary">
-        </a>
-      </div>
+<form class="form-horizontal" (ngOnSubmit)="ngOnInit()">
+  <h4>Issues</h4>
+  <div class="form-group">
+    <div class="col-md-1 col-md-10">
+      <a [routerLink]='["/issue/add"]'>
+        <input type="submit" value="Create new Issue" class="btn btn-primary">
+      </a>
     </div>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <td>Assignee</td>
-          <td>Reporter</td>
-          <td>Summary</td>
-          <td>Description</td>
-          <td>Type</td>
-          <td>Status</td>
-          <td>Priority</td>
-          <td>Assignee Estimated Time</td>
-          <td>Reporter Estimated Time</td>
-          <td>Due Date</td>
-          <td>Epic Link</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let el of dataSource">
-          <td class="col"> {{el.assignee}}</td>
-          <td class="col">{{el.reporter}}</td>
-          <td class="col">{{el.summary}}</td>
-          <td class="col">{{el.description}}</td>
-          <td class="col">{{el.type}}</td>
-          <td class="col">{{el.status}}</td>
-          <td class="col">{{el.priority}}</td>
-          <td class="col">{{el.assigneeEstimatedTime}}</td>
-          <td class="col">{{el.reporterEstimatedTime}}</td>
-          <td class="col">{{el.dueDate}}</td>
-          <td class="col">{{el.epicLink}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </form>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <td>Assignee</td>
+        <td>Reporter</td>
+        <td>Summary</td>
+        <td>Description</td>
+        <td>Type</td>
+        <td>Status</td>
+        <td>Priority</td>
+        <td>Assignee Estimated Time</td>
+        <td>Reporter Estimated Time</td>
+        <td>Due Date</td>
+        <td>Epic Link</td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let el of dataSource">
+        <td class="col"> {{el.assignee}}</td>
+        <td class="col">{{el.reporter}}</td>
+        <td class="col">{{el.summary}}</td>
+        <td class="col">{{el.description}}</td>
+        <td class="col">{{el.type}}</td>
+        <td class="col">{{el.status}}</td>
+        <td class="col">{{el.priority}}</td>
+        <td class="col">{{el.assigneeEstimatedTime}}</td>
+        <td class="col">{{el.reporterEstimatedTime}}</td>
+        <td class="col" style="min-width: 115px">{{el.dueDate | date:'yyyy-MM-dd'}}</td>
+        <td class="col">{{el.epicLink}}</td>
+        <td>
+          <a [routerLink]='["/issue/edit", el.id]'>
+            <input type="submit" value="Edit" class="btn btn-primary">
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>

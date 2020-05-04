@@ -1,5 +1,5 @@
 <form class="form-horizontal" [formGroup]="issueForm" (ngSubmit)="onSubmit()">
-  <h4>Create new Issue</h4>
+  <h4>Edit Issue</h4>
   <hr>
   <div class="form-group">
     <label class="col-md-2 control-label" for="assignee">Assignee</label>
@@ -26,6 +26,7 @@
     <div class="col-md-10">
       <input class="form-control" type="text" formControlName="summary" />
     </div>
+    <form-validation [model]="issueForm.controls['summary']" fieldName="summary"></form-validation>
   </div>
   <div class="form-group">
     <label class="col-md-2 control-label" for="description">Description</label>
@@ -64,13 +65,13 @@
     </div>
   </div>
   <div class="form-group">
-    <label class="col-md-2 control-label" for="assigneeEstimatedTime">Assignee Estimated Time (Hours)</label>
+    <label class="col-md-2 control-label" for="assigneeEstimatedTime">Assignee Estimated Time</label>
     <div class="col-md-10">
       <input class="form-control" type="number" step="0.01" min="0" max="100" formControlName="assigneeEstimatedTime" />
     </div>
   </div>
   <div class="form-group">
-    <label class="col-md-2 control-label" for="reporterEstimatedTime">Reporter Estimated Time (Hours)</label>
+    <label class="col-md-2 control-label" for="reporterEstimatedTime">Reporter Estimated Time</label>
     <div class="col-md-10">
       <input class="form-control" type="number" step="0.01" min="0" max="100" formControlName="reporterEstimatedTime" />
     </div>
@@ -89,7 +90,7 @@
   </div>
   <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
-      <input type="submit" value="Create" class="btn btn-primary">
+      <input type="submit" value="Update" class="btn btn-primary">
       <a [routerLink]='["/issue/list"]' (click)='collapse()'>
         <input type="submit" value="<<to issues list" class="btn btn-primary">
       </a>

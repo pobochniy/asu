@@ -22,7 +22,7 @@ namespace Atheneum.Services
         {
 
             var issue = new Issue
-            {   
+            {
                 Assignee = dto.Assignee,
                 Reporter = dto.Reporter,
                 Summary = dto.Summary,
@@ -43,11 +43,14 @@ namespace Atheneum.Services
             return issue.Id;
         }
 
-        public async Task<IssueDto> Details(long id)
+        public async Task<IssueDto> Details(long? id)
         {
+            if (!id.HasValue) throw new ArgumentException("Сломано");
+
             var issue = await db.Issue.FindAsync(id);
             var issuedto = new IssueDto
             {
+                Id = issue.Id,
                 Assignee = issue.Assignee,
                 AssigneeEstimatedTime = issue.AssigneeEstimatedTime,
                 Description = issue.Description,
@@ -65,19 +68,12 @@ namespace Atheneum.Services
 
         }
 
-        public async Task Delete(long id)
-        {
-            var i = await db.Issue.FindAsync(id);
-            db.Issue.Remove(i);
-
-            await db.SaveChangesAsync();    
-        }
-
         public async Task<IEnumerable<IssueDto>> GetList()
         {
             var issues = await db.Issue
             .Select(x => new IssueDto
             {
+                Id = x.Id,
                 Assignee = x.Assignee,
                 AssigneeEstimatedTime = x.AssigneeEstimatedTime,
                 Description = x.Description,
@@ -97,6 +93,27 @@ namespace Atheneum.Services
 
         public async Task Update(IssueDto issuedto)
         {
+            var issue = await db.Issue.FindAsync(issuedto.Id);
+
+            issue.Assignee = issuedto.Assignee;
+            issue.Reporter = issuedto.Reporter;
+            issue.Summary = issuedto.Summary;
+            issue.Description = issuedto.Description;
+            issue.Type = issuedto.Type;
+            issue.Status = issuedto.Status;
+            issue.Priority = issuedto.Priority;
+            issue.AssigneeEstimatedTime = issuedto.AssigneeEstimatedTime;
+            issue.ReporterEstimatedTime = issuedto.ReporterEstimatedTime;
+            issue.DueDate = issuedto.DueDate;
+            issue.EpicLink = issuedto.EpicLink;
+
+            await db.SaveChangesAsync();
+        }
+
+        public async Task Delete(long id)
+        {
+            var i = await db.Issue.FindAsync(id);
+            db.Issue.Remove(i);
 
             await db.SaveChangesAsync();
         }

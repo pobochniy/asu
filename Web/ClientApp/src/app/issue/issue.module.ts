@@ -6,6 +6,7 @@ import { IssueRoutingModule } from './issue-routing.module';
 import { ListComponent } from './list/list.component';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { FormsModule } from '@angular/forms';
+import { EditComponent } from './edit/edit.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     ListComponent,
     AddComponent,
+    EditComponent,
 
   ]
 })

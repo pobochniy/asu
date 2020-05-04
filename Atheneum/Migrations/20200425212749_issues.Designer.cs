@@ -4,14 +4,16 @@ using Atheneum.Entity.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Atheneum.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20200425212749_issues")]
+    partial class issues
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,27 +65,6 @@ namespace Atheneum.Migrations
                     b.HasIndex("Room");
 
                     b.ToTable("ChatRoom");
-                });
-
-            modelBuilder.Entity("Atheneum.Entity.Identity.Epic", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description");
-
-                    b.Property<DateTime?>("DueDate");
-
-                    b.Property<string>("Name");
-
-                    b.Property<int>("PriorityEnum");
-
-                    b.Property<Guid?>("Reporter");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Epic");
                 });
 
             modelBuilder.Entity("Atheneum.Entity.Identity.Issue", b =>

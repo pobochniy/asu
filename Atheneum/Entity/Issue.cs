@@ -11,36 +11,36 @@ namespace Atheneum.Entity.Identity
     /// <summary>
     /// Модель страницы создания события (story, task, bug, knowledge, meeting)
     /// </summary>
-    
+
     public class Issue
     {
-        
+
         /// Уникальный номер события
         [Key]
-        public long Id { get; set; } 
+        public long Id { get; set; }
 
         /// Исполнитель
-        public Guid? Assignee { get; set; }      
-        
+        public Guid? Assignee { get; set; }
+
         /// Инициатор
-        public Guid Reporter { get; set; }  
+        public Guid Reporter { get; set; }
 
         /// Сводка
         public string Summary { get; set; }
-        
+
         /// Описание
-        public string Description { get; set; }     
+        public string Description { get; set; }
 
         /// Тип события
         public IssueTypeEnum Type { get; set; }
-        
+
         /// Статус 
-        public IssueStatusEnum Status { get; set; } 
+        public IssueStatusEnum Status { get; set; }
 
         /// Приоритет события
-        public IssuePriorityEnum Priority { get; set; } 
+        public IssuePriorityEnum Priority { get; set; }
 
-        /// Предполагаемое время исполнтеля
+        /// Предполагаемое время исполнителя
         public decimal? AssigneeEstimatedTime { get; set; }
 
         /// Предполагаемое время инициатора
@@ -63,7 +63,10 @@ namespace Atheneum.Entity.Identity
         {
             builder
                .HasIndex(u => u.Id)
-               .IsUnique();     
-        }   
+               .IsUnique();
+            builder
+                .Property(e => e.DueDate)
+                .HasColumnType("Date");
+        }
     }
 }
