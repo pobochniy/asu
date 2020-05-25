@@ -51,7 +51,7 @@ export class ListComponent implements OnInit {
   GetLogin(id: string) {
     if (this.profiles && this.profiles.length) {
       const user = this.profiles.find(x => x.id == id);
-      if (user) return user.userName;
+      if (user) return user.login;
     }
 
     return id;
