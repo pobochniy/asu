@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Atheneum.Dto.TimeTracking
 {
@@ -10,10 +8,12 @@ namespace Atheneum.Dto.TimeTracking
         /// Идентификатор TimeTracking
         /// </summary>
         public long Id { get; set; }
+
         /// <summary>
         /// День на который списывать время
         /// </summary>
         public DateTime Date { get; set; }
+
         /// <summary>
         /// Время "с"
         /// </summary>

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Atheneum.Entity.Identity;
+﻿using Atheneum.Dto.TimeTracking;
 using Atheneum.Interface;
-using Atheneum.Dto.TimeTracking;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Web.Controllers
 {
@@ -37,6 +32,7 @@ namespace Web.Controllers
             return await service.GetList();
         }
 
+        // TODO : Не хватает ограничений при создании и обновлении
         [HttpPost]
         [Route("[action]")]
         public async Task<IActionResult> Create([FromBody] TimeTrackingDto timeTrackingDto)
@@ -61,7 +57,6 @@ namespace Web.Controllers
             return Ok();
         }
 
-        // DELETE: api/TimeTrackings/5
         [HttpPost("[action]")]
         public async Task<IActionResult> Update([FromBody] TimeTrackingDto timeTrackingDto)
         {
