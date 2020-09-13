@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Web.SignalR;
 
 
@@ -40,13 +42,13 @@ namespace Web
             services.AddTransient<IEpic, EpicService>();
             services.AddTransient<ITimeTracking, TimeTrackingService>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc();
 
             services.AddSignalR();
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "asu api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "asu api", Version = "v1" });
             });
 
             services.AddSpaStaticFiles(configuration =>
@@ -56,7 +58,7 @@ namespace Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -72,22 +74,22 @@ namespace Web
             app.UseAuthentication();
 
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
-
-            app.UseSignalR(routes =>
+            if (!env.IsDevelopment())
             {
-                routes.MapHub<ChatHub>("/chat");
+                app.UseSpaStaticFiles();
+            }
+
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller}/{action=Index}/{id?}");
             });
 
             app.UseSwagger();
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "asu api"); });
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
-            });
 
             app.UseSpa(spa =>
             {
