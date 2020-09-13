@@ -14,6 +14,7 @@ import { ChatService } from './shared/chat/chat.service';
 import { UserService } from './shared/core/user.service';
 import { SharedModule } from './shared/shared.module';
 import { EpicModule } from './epic/epic.module';
+import { RoleManagementModule } from './role-management/role-management.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { EpicModule } from './epic/epic.module';
     AuthModule,
     IssueModule,
     EpicModule,
+    RoleManagementModule,
     NgxSelectModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' }

@@ -11,4 +11,6 @@ export class UserProfileModel {
 
   /** Телефон */
   public phone?: string;
+
+  public userName: string;
 }

@@ -34,6 +34,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\role-management\role-management-routing.module.ts" />
+    <None Remove="ClientApp\src\app\shared\enums\user-role.enum.ts" />
     <None Remove="ClientApp\src\app\shared\form-models\epic-form.model.ts" />
     <None Remove="ClientApp\src\app\shared\form-models\login-form.model.ts" />
     <None Remove="ClientApp\src\app\shared\form-models\register-form.model.ts" />
@@ -41,6 +43,7 @@
     <None Remove="ClientApp\src\app\shared\models\push-chat.model.ts" />
     <None Remove="ClientApp\src\app\shared\models\push-chat.spec.ts" />
     <None Remove="ClientApp\src\app\shared\models\user-profile.model.ts" />
+    <None Remove="ClientApp\src\app\shared\models\user-role-info.model.ts" />
     <None Remove="ClientApp\src\app\shared\models\user.model.ts" />
   </ItemGroup>
 
@@ -49,12 +52,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\role-management\role-management-routing.module.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\enums\user-role.enum.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\form-models\epic-form.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\form-models\register-form.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\form-models\login-form.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\push-chat.spec.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\push-chat.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\user-profile.model.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\models\user-role-info.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\user.model.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\chat.model.ts" />
   </ItemGroup>

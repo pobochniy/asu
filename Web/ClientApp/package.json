@@ -28,7 +28,7 @@
     "aspnet-prerendering": "^3.0.1",
     "bootstrap": "^3.4.1",
     "core-js": "^2.4.1",
-    "ngx-select-ex": "^3.5.2-ng4",
+    "ngx-select-ex": "^3.7.8",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },
