@@ -38,6 +38,7 @@ namespace Web
             services.AddTransient<IIssue, IssueService>();
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IEpic, EpicService>();
+            services.AddTransient<ITimeTracking, TimeTrackingService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

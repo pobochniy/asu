@@ -55,6 +55,13 @@ namespace Atheneum.Entity.Identity
         /// Ссылки на эпики
         public int? EpicLink { get; set; }
 
+        public virtual ICollection<TimeTracking> TimeTrackings { get; set; }
+
+        public Issue()
+        {
+            TimeTrackings = new List<TimeTracking>();
+        }
+
     }
 
     public class IssueConfiguration : IEntityTypeConfiguration<Issue>

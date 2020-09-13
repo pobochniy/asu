@@ -17,24 +17,20 @@ namespace Web.Controllers
             this.service = context;
         }
 
-        [HttpGet]
-        [Route("[action]")]
+        [HttpGet("[action]")]
         public async Task<EpicDto> Details([FromQuery]int id)
         {
             var res = await service.Details(id);
             return res;
         }
 
-        // GET: api/Epic/5
-        [HttpGet]
-        [Route("[action]")]
+        [HttpGet("[action]")]
         public async Task<IEnumerable<EpicDto>> GetList()
         {
             return await service.GetList();
         }
 
-        [HttpPost]
-        [Route("[action]")]
+        [HttpPost("[action]")]
         public async Task<IActionResult> Create([FromBody] EpicDto epicDto)
         {
             if (!ModelState.IsValid)
@@ -49,8 +45,7 @@ namespace Web.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("[action]")]
+        [HttpPost("[action]")]
         public async Task<IActionResult> Delete([FromBody] int id)
         {
             await service.Delete(id);
@@ -58,8 +53,7 @@ namespace Web.Controllers
             return Ok();
         }
 
-        [HttpPost]
-        [Route("[action]")]
+        [HttpPost("[action]")]
         public async Task<IActionResult> Update([FromBody] EpicDto epicDto)
         {
             if (!ModelState.IsValid)

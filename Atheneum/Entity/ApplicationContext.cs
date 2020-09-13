@@ -11,6 +11,7 @@ namespace Atheneum.Entity.Identity
         public DbSet<ChatPrivate> ChatPrivate { get; set; }
         public DbSet<Issue> Issue { get; set; }
         public DbSet<Epic> Epic { get; set; }
+        public DbSet<TimeTracking> TimeTracking { get; set; }
 
         public ApplicationContext(DbContextOptions options)
             : base(options)
@@ -25,6 +26,7 @@ namespace Atheneum.Entity.Identity
             builder.ApplyConfiguration(new ChatRoomConfiguration());
             builder.ApplyConfiguration(new ChatPrivateConfiguration());
             builder.ApplyConfiguration(new IssueConfiguration());
+            builder.ApplyConfiguration(new TimeTrackingConfiguration());
         }
     }
 }
