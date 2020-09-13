@@ -1,3 +1,28 @@
-<p>
-  role-management works!
-</p>
+<h4>Role Management</h4>
+<br/>
+<div *ngFor="let group of roleGroups">
+  <div>
+    <input type="checkbox">
+    <label for="scales">Выбрать все ({{group}})</label>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th style="width:10%">Selected</th>
+        <th style="width:30%">Name</th>
+        <th style="width:30%">Summary</th>
+        <th style="width:30%">Group</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let role of getRolesByGroupCode(group)">
+        <td class="col"><input type="checkbox" [checked]="role[1] == 'true'"></td>
+        <td class="col">{{UserRoleEnum[role[0].id]}}</td>
+        <td class="col">{{role[0].summary}}</td>
+        <td class="col">{{role[0].groupCode}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
