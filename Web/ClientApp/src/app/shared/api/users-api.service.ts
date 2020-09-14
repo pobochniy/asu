@@ -15,4 +15,12 @@ export class UsersApiService extends BaseApiService {
   public async GetProfiles() {
     return this.get<UserProfileModel[]>('GetProfiles').toPromise();
   }
+
+  public async getUserRoles(userId: string) {
+    return this.get<number[]>('GetRoles?userId=' + userId).toPromise();
+  }
+
+  public async setUserRoles(userId: string, roles: number[]) {
+    return this.post('SetRoles', { userId: userId, roles: roles }).toPromise();
+  }
 }
