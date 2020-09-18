@@ -7,13 +7,18 @@ namespace Web.Middleware
     public class AuthorizeRoles : Attribute, IFilterFactory
     {
         public bool IsReusable => false;
-        public RoleEnum[] roles { get; set; }
+        public RoleEnum[] Roles { get; set; }
+
+        public AuthorizeRoles(params RoleEnum[] roles)
+        {
+            Roles = roles;
+        }
 
         public IFilterMetadata CreateInstance(IServiceProvider serviceProvider)
         {
             var filter = serviceProvider.GetService(typeof(RolesValidation)) as RolesValidation;
 
-            filter.roles = roles;
+            filter.roles = Roles;
 
             return filter;
         }

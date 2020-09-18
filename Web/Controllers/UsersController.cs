@@ -42,7 +42,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        [AuthorizeRoles(roles = new RoleEnum[] { RoleEnum.roleManagement })]
+        [AuthorizeRoles(RoleEnum.roleManagement)]
         public async Task SetRoles([FromBody] UserAndRolesDto dto)
         {
             await service.SetRoles(dto.UserId, dto.Roles);

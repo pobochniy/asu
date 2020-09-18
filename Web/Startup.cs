@@ -36,7 +36,7 @@ namespace Web
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AppConnection")));
 
-            services.AddScoped<RolesValidation>();
+            services.AddTransient<RolesValidation>();
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IChatService, ChatService>();
             services.AddTransient<IIssue, IssueService>();
