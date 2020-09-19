@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { IssueApiService } from '../../shared/api/issue-api.service';
 import { IssueModel } from '../../shared/models/issue.model';
@@ -22,7 +22,7 @@ export class AddComponent implements OnInit {
   public profiles: UserProfileModel[];
   public issueTypes: { id: number; name: string }[] = [];
   public issueStatus: { id: number; name: string }[] = [];
-  public issuePriority: { id: number; name: string } [] = [];
+  public issuePriority: { id: number; name: string }[] = [];
 
   constructor(private service: IssueApiService
     , private userApiService: UsersApiService
@@ -31,8 +31,8 @@ export class AddComponent implements OnInit {
 
   async ngOnInit() {
     this.profiles = await this.userApiService.GetProfiles();
-    var assigneeCtrl = this.issueForm.controls['assignee'];
-    var reporterCtrl = this.issueForm.controls['reporter'];
+    //var assigneeCtrl = this.issueForm.controls['assignee'];
+    //var reporterCtrl = this.issueForm.controls['reporter'];
 
     for (var n in IssueTypeEnum) {
       if (typeof IssueTypeEnum[n] === 'number') {
@@ -51,22 +51,43 @@ export class AddComponent implements OnInit {
         this.issuePriority.push({ id: <any>IssuePriorityEnum[n], name: n });
       }
     }
+
+    this.storageRestore();
   }
 
   async onSubmit() {
     for (let item in this.issueForm.controls) {
       this.issueForm.controls[item].markAsDirty();
     }
-    
-    try {
-      if (this.issueForm.valid) {
-        let epicId = await this.service.Create(this.issueForm);
-        this.router.navigateByUrl('/issue/list');
-      }
-    }
-    catch{
-      alert('Возникли непредвиденные ошибки. Попробуйте ввести другие значения или сообщите программисту');
-    }
+
+    this.storageSave();
+    //try {
+    //  if (this.issueForm.valid) {
+    //    let epicId = await this.service.Create(this.issueForm);
+    //    this.router.navigateByUrl('/issue/list');
+    //  }
+    //}
+    //catch{
+    //  alert('Возникли непредвиденные ошибки. Попробуйте ввести другие значения или сообщите программисту');
+    //}
+  }
+
+  storageSave() {
+    localStorage.setItem('issue-last-assignee', this.issueForm.controls["assignee"].value);
+    localStorage.setItem('issue-last-reporter', this.issueForm.controls["reporter"].value);
+    localStorage.setItem('issue-last-type', this.issueForm.controls["type"].value);
+  }
+
+  storageRestore() {
+    this.getStorageValue('assignee');
+    this.getStorageValue('reporter');
+    this.getStorageValue('type', 'number');
+  }
+
+  getStorageValue(name: string, fieldtype: string = 'string') {
+    const strVal = localStorage.getItem(`issue-last-${name}`);
+    const val = fieldtype == 'number' ? +strVal : strVal;
+    if (val) this.issueForm.controls[name].setValue(val);
   }
 }
 
