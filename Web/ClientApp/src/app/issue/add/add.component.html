@@ -1,6 +1,6 @@
 <form class="form-horizontal" [formGroup]="issueForm" (ngSubmit)="onSubmit()">
   <h4>Create new Issue</h4>
-  <i class="fad fa-dove fa-sm" style="color: #20c997;"></i>
+
   <hr>
   <div class="form-group">
     <label class="col-md-2 control-label" for="symmary">Summary*</label>
@@ -35,10 +35,32 @@
   <div class="form-group">
     <label class="col-md-2 control-label" for="type">Type*</label>
     <div class="col-md-2">
-      <ngx-select [items]="issueTypes" optionValueField="id" optionTextField="name"
-                  formControlName="type"
-                  placeholder="Select issue type">
-      </ngx-select>
+      <div class="select-img-type">
+        <label>
+          <input type="radio" formControlName="type" value="0" [checked]="0==getCheckedType" />
+          <app-fa-icon src="bookmark" color="green" class="checkmark"></app-fa-icon>
+        </label>
+
+        <label>
+          <input type="radio" formControlName="type" value="1" [checked]="1==getCheckedType" />
+          <app-fa-icon src="check-square" color="blue" class="checkmark"></app-fa-icon>
+        </label>
+
+        <label>
+          <input type="radio" formControlName="type" value="2" [checked]="2==getCheckedType" />
+          <app-fa-icon src="bug" color="red" class="checkmark"></app-fa-icon>
+        </label>
+
+        <label>
+          <input type="radio" formControlName="type" value="3" [checked]="3==getCheckedType" />
+          <app-fa-icon src="book" color="brown" class="checkmark"></app-fa-icon>
+        </label>
+
+        <label>
+          <input type="radio" formControlName="type" value="4" [checked]="4==getCheckedType" />
+          <app-fa-icon src="handshake" color="orange" class="checkmark"></app-fa-icon>
+        </label>
+      </div>
       <form-validation [model]="issueForm.controls['type']" fieldName="type"></form-validation>
     </div>
     <label class="col-md-2 control-label" for="priority">Priority*</label>
@@ -70,7 +92,7 @@
   <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
       <input type="submit" value="Create" class="btn btn-primary">
-      <a [routerLink]='["/issue/list"]' (click)='collapse()'>
+      <a [routerLink]='["/issue/list"]'>
         <input type="submit" value="<<to issues list" class="btn btn-primary">
       </a>
     </div>

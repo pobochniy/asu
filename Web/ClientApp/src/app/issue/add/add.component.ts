@@ -1,14 +1,13 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IssueApiService } from '../../shared/api/issue-api.service';
-import { IssueModel } from '../../shared/models/issue.model';
-import { issueFormModel } from '../../shared/form-models/issue-form.model';
-import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { UsersApiService } from '../../shared/api/users-api.service';
-import { UserProfileModel } from '../../shared/models/user-profile.model';
-import { IssueTypeEnum } from '../../shared/enums/issue-type.enum';
-import { IssueStatusEnum } from '../../shared/enums/issue-status.enum';
 import { IssuePriorityEnum } from '../../shared/enums/issue-priority.enum';
+import { IssueStatusEnum } from '../../shared/enums/issue-status.enum';
+import { IssueTypeEnum } from '../../shared/enums/issue-type.enum';
+import { issueFormModel } from '../../shared/form-models/issue-form.model';
+import { UserProfileModel } from '../../shared/models/user-profile.model';
+import { SizeEnum } from '../../shared/enums/size.enum';
 
 @Component({
   selector: 'add-issue',
@@ -23,6 +22,11 @@ export class AddComponent implements OnInit {
   public issueTypes: { id: number; name: string }[] = [];
   public issueStatus: { id: number; name: string }[] = [];
   public issuePriority: { id: number; name: string }[] = [];
+  public SizeType = SizeEnum;
+
+  public get getCheckedType(): boolean {
+    return this.issueForm.controls['type'].value;
+  }
 
   constructor(private service: IssueApiService
     , private userApiService: UsersApiService
