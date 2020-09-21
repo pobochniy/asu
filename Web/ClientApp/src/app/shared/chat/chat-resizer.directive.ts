@@ -4,7 +4,7 @@ import { Directive, ElementRef, Renderer2, OnInit, HostListener, ViewChild, Afte
   selector: '[appChatResizer]'
 })
 export class ChatResizerDirective implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('resizePanel') panel: ElementRef;
+  @ViewChild('resizePanel', /* TODO: add static flag */ {}) panel: ElementRef;
   private el: any;
   private isDragabble = false;
   private startHeight = 0;
