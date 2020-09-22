@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Atheneum.Dto.User;
+﻿using Atheneum.Dto.User;
 using Atheneum.Entity.Identity;
 using Atheneum.Enums;
 using Atheneum.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Web.Middleware;
 
 namespace Web.Controllers
 {
@@ -22,7 +23,8 @@ namespace Web.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<IEnumerable<Profile>> GetProfiles() 
+        [Authorize]
+        public async Task<IEnumerable<Profile>> GetProfiles()
         {
             var res = await service.GetProfiles();
             return res;
@@ -30,6 +32,7 @@ namespace Web.Controllers
 
         [HttpGet]
         [Route("[action]")]
+        [Authorize]
         public async Task<IEnumerable<RoleEnum>> GetRoles(Guid userId)
         {
             var res = await service.GetRoles(userId);
@@ -39,11 +42,10 @@ namespace Web.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public async Task SetRoles([FromBody]UserAndRolesDto dto)
+        [AuthorizeRoles(RoleEnum.roleManagement)]
+        public async Task SetRoles([FromBody] UserAndRolesDto dto)
         {
             await service.SetRoles(dto.UserId, dto.Roles);
         }
-
-
     }
 }

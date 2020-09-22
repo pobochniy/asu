@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Web.Middleware;
 using Web.SignalR;
 
 
@@ -35,6 +36,7 @@ namespace Web
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AppConnection")));
 
+            services.AddTransient<RolesValidation>();
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IChatService, ChatService>();
             services.AddTransient<IIssue, IssueService>();
@@ -70,8 +72,11 @@ namespace Web
                 app.UseHsts();
             }
 
+            app.UseRouting();
+
             app.UseHttpsRedirection();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseStaticFiles();
             if (!env.IsDevelopment())
@@ -79,7 +84,6 @@ namespace Web
                 app.UseSpaStaticFiles();
             }
 
-            app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<ChatHub>("/chat");

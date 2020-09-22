@@ -11,9 +11,13 @@ export class UserRoleInfoModel {
   /** Категория */
   public groupCode: string;
 
+  /** Присутствует у пользователя */
+  public checked: boolean;
+
   constructor(id: UserRoleEnum, summary: string, groupCode: string) {
     this.id = id;
     this.summary = summary;
     this.groupCode = groupCode;
+    this.checked = false;
   }
 }
