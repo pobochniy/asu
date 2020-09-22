@@ -1,60 +1,86 @@
-﻿using System;
-using Atheneum.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using Atheneum.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Atheneum.Entity.Identity
 {
     /// <summary>
     /// Модель страницы создания события (story, task, bug, knowledge, meeting)
     /// </summary>
-
     public class Issue
     {
-
+        /// <summary>
         /// Уникальный номер события
+        /// </summary>
         [Key]
         public long Id { get; set; }
 
+        /// <summary>
         /// Исполнитель
+        /// </summary>
         public Guid? Assignee { get; set; }
 
+        /// <summary>
         /// Инициатор
+        /// </summary>
         public Guid Reporter { get; set; }
 
+        /// <summary>
         /// Сводка
+        /// </summary>
         public string Summary { get; set; }
 
+        /// <summary>
         /// Описание
+        /// </summary>
         public string Description { get; set; }
 
+        /// <summary>
         /// Тип события
+        /// </summary>
         public IssueTypeEnum Type { get; set; }
 
-        /// Статус 
+        /// <summary>
+        /// Статус
+        /// </summary>
         public IssueStatusEnum Status { get; set; }
 
+        /// <summary>
         /// Приоритет события
+        /// </summary>
         public IssuePriorityEnum Priority { get; set; }
 
-        /// Предполагаемое время исполнителя
-        public decimal? AssigneeEstimatedTime { get; set; }
+        /// <summary>
+        /// Условный размер задачи
+        /// </summary>
+        public SizeEnum Size { get; set; }
 
-        /// Предполагаемое время инициатора
-        public decimal? ReporterEstimatedTime { get; set; }
+        /// <summary>
+        /// Предполагаемое время на задачу (вычисляется от размера задачи и исполнителя)
+        /// </summary>
+        public decimal? EstimatedTime { get; set; }
 
+        /// <summary>
         /// Дата создания события
+        /// </summary>
         public DateTime CreateDate { get; set; }
 
+        /// <summary>
         /// Дата крайнего срока завершения события
+        /// </summary>
         public DateTime? DueDate { get; set; }
 
-        /// Ссылки на эпики
+        /// <summary>
+        /// Ссылки на эпик
+        /// </summary>
         public int? EpicLink { get; set; }
 
+        /// <summary>
+        /// Списанное время
+        /// </summary>
         public virtual ICollection<TimeTracking> TimeTrackings { get; set; }
 
         public Issue()

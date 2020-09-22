@@ -8,35 +8,39 @@ import { IssueTypeEnum } from '../../shared/enums/issue-type.enum';
 import { issueFormModel } from '../../shared/form-models/issue-form.model';
 import { UserProfileModel } from '../../shared/models/user-profile.model';
 import { SizeEnum } from '../../shared/enums/size.enum';
+import { EpicModel } from '../../shared/models/epic.model';
+import { EpicApiService } from '../../shared/api/epic-api.service';
 
 @Component({
   selector: 'add-issue',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.css'],
-  providers: [IssueApiService, UsersApiService]
+  providers: [IssueApiService, UsersApiService, EpicApiService]
 })
 export class AddComponent implements OnInit {
 
   public issueForm = issueFormModel;
   public profiles: UserProfileModel[];
+  public epics: EpicModel[];
   public issueTypes: { id: number; name: string }[] = [];
   public issueStatus: { id: number; name: string }[] = [];
   public issuePriority: { id: number; name: string }[] = [];
+  public issueSize: { id: number; name: string }[] = [];
   public SizeType = SizeEnum;
 
-  public get getCheckedType(): boolean {
+  public get getCheckedType(): number {
     return this.issueForm.controls['type'].value;
   }
 
   constructor(private service: IssueApiService
     , private userApiService: UsersApiService
+    , private epicApiService: EpicApiService
     , private router: Router
   ) { }
 
   async ngOnInit() {
     this.profiles = await this.userApiService.GetProfiles();
-    //var assigneeCtrl = this.issueForm.controls['assignee'];
-    //var reporterCtrl = this.issueForm.controls['reporter'];
+    this.epics = await this.epicApiService.GetList();
 
     for (var n in IssueTypeEnum) {
       if (typeof IssueTypeEnum[n] === 'number') {
@@ -56,6 +60,12 @@ export class AddComponent implements OnInit {
       }
     }
 
+    for (var n in SizeEnum) {
+      if (typeof SizeEnum[n] === 'number') {
+        this.issueSize.push({ id: <any>SizeEnum[n], name: n });
+      }
+    }
+
     this.storageRestore();
   }
 
@@ -65,15 +75,15 @@ export class AddComponent implements OnInit {
     }
 
     this.storageSave();
-    //try {
-    //  if (this.issueForm.valid) {
-    //    let epicId = await this.service.Create(this.issueForm);
-    //    this.router.navigateByUrl('/issue/list');
-    //  }
-    //}
-    //catch{
-    //  alert('Возникли непредвиденные ошибки. Попробуйте ввести другие значения или сообщите программисту');
-    //}
+    try {
+      if (this.issueForm.valid) {
+        let epicId = await this.service.Create(this.issueForm);
+        this.router.navigateByUrl('/issue/list');
+      }
+    }
+    catch{
+      alert('Возникли непредвиденные ошибки. Попробуйте ввести другие значения или сообщите программисту');
+    }
   }
 
   storageSave() {

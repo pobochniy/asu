@@ -27,10 +27,10 @@ export let issueFormModel = new FormGroup({
   'priority': new FormControl(1, [Validators.required]),
 
   /** Предполагаемое время инициатора */
-  'assigneeEstimatedTime': new FormControl(null, null),
+  'estimatedTime': new FormControl(null, null),
 
   /**Предполагаемое время инициатора */
-  'reporterEstimatedTime': new FormControl(null, null),
+  'size': new FormControl(2, [Validators.required]),
 
   /** Дата создания события */
   'dueDate': new FormControl(null, null),

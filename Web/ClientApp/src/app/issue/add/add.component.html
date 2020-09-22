@@ -26,9 +26,13 @@
       </ngx-select>
       <form-validation [model]="issueForm.controls['reporter']" fieldName="reporter"></form-validation>
     </div>
-    <label class="col-md-2 control-label" for="reporterEstimatedTime">Planned (Hours)</label>
+    <label class="col-md-2 control-label" for="estimatedTime">Size</label>
     <div class="col-md-2">
-      <input class="form-control" type="number" step="0.01" min="0" max="100" formControlName="reporterEstimatedTime" />
+      <ngx-select [items]="issueSize" optionValueField="id" optionTextField="name"
+                  formControlName="size"
+                  placeholder="Select issue size">
+      </ngx-select>
+      <form-validation [model]="issueForm.controls['size']" fieldName="size"></form-validation>
     </div>
   </div>
 
@@ -86,7 +90,10 @@
   <div class="form-group">
     <label class="col-md-2 control-label" for="epicLink">Epic Link</label>
     <div class="col-md-10">
-      <input class="form-control" type="text" formControlName="epicLink" />
+      <ngx-select [items]="epics" optionValueField="id" optionTextField="name"
+                  formControlName="epicLink"
+                  placeholder="Select epic">
+      </ngx-select>
     </div>
   </div>
   <div class="form-group">
