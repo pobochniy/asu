@@ -6,15 +6,15 @@ import { RouterModule } from '@angular/router';
 import { NgxSelectModule } from 'ngx-select-ex';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
+import { EpicModule } from './epic/epic.module';
 import { HomeComponent } from './home/home.component';
 import { IssueModule } from './issue/issue.module';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { RoleManagementModule } from './role-management/role-management.module';
 import { ChatModule } from './shared/chat/chat.module';
 import { ChatService } from './shared/chat/chat.service';
 import { UserService } from './shared/core/user.service';
 import { SharedModule } from './shared/shared.module';
-import { EpicModule } from './epic/epic.module';
-import { RoleManagementModule } from './role-management/role-management.module';
 
 @NgModule({
   declarations: [

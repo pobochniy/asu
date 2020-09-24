@@ -53,14 +53,14 @@ namespace Atheneum.Dto.Issue
         public IssuePriorityEnum Priority { get; set; }
 
         /// <summary>
-        /// Предполагаемое время исполнителя
+        /// Условный размер задачи
         /// </summary>
-        public decimal? AssigneeEstimatedTime { get; set; }
+        public SizeEnum Size { get; set; }
 
         /// <summary>
-        /// Предполагаемое время инициатора
+        /// Предполагаемое время на задачу (вычисляется от размера задачи и исполнителя)
         /// </summary>
-        public decimal? ReporterEstimatedTime { get; set; }
+        public decimal? EstimatedTime { get; set; }
 
         /// <summary>
         /// Дата крайнего срока завершения события

@@ -15,27 +15,35 @@ namespace Atheneum.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
+                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Atheneum.Entity.Identity.ChatPrivate", b =>
                 {
-                    b.Property<long>("Tick");
+                    b.Property<long>("Tick")
+                        .HasColumnType("bigint");
 
-                    b.Property<Guid>("SenderId");
+                    b.Property<Guid>("SenderId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ReceiverId");
+                    b.Property<Guid>("ReceiverId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Login");
+                    b.Property<string>("Login")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Msg");
+                    b.Property<string>("Msg")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Privat");
+                    b.Property<string>("Privat")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("To");
+                    b.Property<string>("To")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte>("Type");
+                    b.Property<byte>("Type")
+                        .HasColumnType("tinyint");
 
                     b.HasKey("Tick", "SenderId", "ReceiverId");
 
@@ -46,17 +54,23 @@ namespace Atheneum.Migrations
 
             modelBuilder.Entity("Atheneum.Entity.Identity.ChatRoom", b =>
                 {
-                    b.Property<long>("Id");
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
 
-                    b.Property<string>("Login");
+                    b.Property<string>("Login")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Msg");
+                    b.Property<string>("Msg")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Room");
+                    b.Property<int>("Room")
+                        .HasColumnType("int");
 
-                    b.Property<string>("To");
+                    b.Property<string>("To")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte>("Type");
+                    b.Property<byte>("Type")
+                        .HasColumnType("tinyint");
 
                     b.HasKey("Id");
 
@@ -69,17 +83,23 @@ namespace Atheneum.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DueDate");
+                    b.Property<DateTime?>("DueDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PriorityEnum");
+                    b.Property<int>("PriorityEnum")
+                        .HasColumnType("int");
 
-                    b.Property<Guid?>("Reporter");
+                    b.Property<Guid?>("Reporter")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -90,32 +110,44 @@ namespace Atheneum.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<Guid?>("Assignee");
+                    b.Property<Guid?>("Assignee")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal?>("AssigneeEstimatedTime");
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("CreateDate");
-
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DueDate")
                         .HasColumnType("Date");
 
-                    b.Property<int?>("EpicLink");
+                    b.Property<int?>("EpicLink")
+                        .HasColumnType("int");
 
-                    b.Property<int>("Priority");
+                    b.Property<decimal?>("EstimatedTime")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("Reporter");
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
 
-                    b.Property<decimal?>("ReporterEstimatedTime");
+                    b.Property<Guid>("Reporter")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Status");
+                    b.Property<byte>("Size")
+                        .HasColumnType("tinyint");
 
-                    b.Property<string>("Summary");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
-                    b.Property<int>("Type");
+                    b.Property<string>("Summary")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -127,13 +159,17 @@ namespace Atheneum.Migrations
 
             modelBuilder.Entity("Atheneum.Entity.Identity.Profile", b =>
                 {
-                    b.Property<Guid>("Id");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("UserName");
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -156,21 +192,29 @@ namespace Atheneum.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Comment");
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Date");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int?>("EpicId");
+                    b.Property<int?>("EpicId")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("From");
+                    b.Property<DateTime>("From")
+                        .HasColumnType("datetime2");
 
-                    b.Property<long?>("IssueId");
+                    b.Property<long?>("IssueId")
+                        .HasColumnType("bigint");
 
-                    b.Property<DateTime>("To");
+                    b.Property<DateTime>("To")
+                        .HasColumnType("datetime2");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -186,17 +230,23 @@ namespace Atheneum.Migrations
             modelBuilder.Entity("Atheneum.Entity.Identity.User", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("AccessFailedCount");
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
 
-                    b.Property<bool>("EmailConfirmed");
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
-                    b.Property<string>("PasswordHash");
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("PhoneNumberConfirmed");
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
 
-                    b.Property<string>("SecurityStamp");
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -205,9 +255,11 @@ namespace Atheneum.Migrations
 
             modelBuilder.Entity("Atheneum.Entity.Identity.UserInRole", b =>
                 {
-                    b.Property<Guid>("UserId");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("RoleId");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -219,7 +271,8 @@ namespace Atheneum.Migrations
                     b.HasOne("Atheneum.Entity.Identity.User", "User")
                         .WithOne("Profile")
                         .HasForeignKey("Atheneum.Entity.Identity.Profile", "Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Atheneum.Entity.Identity.TimeTracking", b =>
@@ -235,7 +288,8 @@ namespace Atheneum.Migrations
                     b.HasOne("Atheneum.Entity.Identity.User", "User")
                         .WithMany("TimeTrackings")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Atheneum.Entity.Identity.UserInRole", b =>
@@ -243,7 +297,8 @@ namespace Atheneum.Migrations
                     b.HasOne("Atheneum.Entity.Identity.User", "User")
                         .WithMany("UserInRoles")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

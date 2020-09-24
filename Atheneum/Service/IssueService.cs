@@ -30,8 +30,8 @@ namespace Atheneum.Services
                 Type = dto.Type,
                 Status = dto.Status,
                 Priority = dto.Priority,
-                AssigneeEstimatedTime = dto.AssigneeEstimatedTime,
-                ReporterEstimatedTime = dto.ReporterEstimatedTime,
+                Size = dto.Size,
+                EstimatedTime = dto.EstimatedTime,
                 CreateDate = DateTime.UtcNow,
                 DueDate = dto.DueDate,
                 EpicLink = dto.EpicLink
@@ -52,13 +52,13 @@ namespace Atheneum.Services
             {
                 Id = issue.Id,
                 Assignee = issue.Assignee,
-                AssigneeEstimatedTime = issue.AssigneeEstimatedTime,
+                EstimatedTime = issue.EstimatedTime,
                 Description = issue.Description,
                 DueDate = issue.DueDate,
                 EpicLink = issue.EpicLink,
                 Priority = issue.Priority,
                 Reporter = issue.Reporter,
-                ReporterEstimatedTime = issue.ReporterEstimatedTime,
+                Size = issue.Size,
                 Status = issue.Status,
                 Summary = issue.Summary,
                 Type = issue.Type
@@ -75,13 +75,13 @@ namespace Atheneum.Services
             {
                 Id = x.Id,
                 Assignee = x.Assignee,
-                AssigneeEstimatedTime = x.AssigneeEstimatedTime,
+                EstimatedTime = x.EstimatedTime,
                 Description = x.Description,
                 DueDate = x.DueDate,
                 EpicLink = x.EpicLink,
                 Priority = x.Priority,
                 Reporter = x.Reporter,
-                ReporterEstimatedTime = x.ReporterEstimatedTime,
+                Size = x.Size,
                 Status = x.Status,
                 Summary = x.Summary,
                 Type = x.Type
@@ -102,8 +102,8 @@ namespace Atheneum.Services
             issue.Type = issuedto.Type;
             issue.Status = issuedto.Status;
             issue.Priority = issuedto.Priority;
-            issue.AssigneeEstimatedTime = issuedto.AssigneeEstimatedTime;
-            issue.ReporterEstimatedTime = issuedto.ReporterEstimatedTime;
+            issue.EstimatedTime = issuedto.EstimatedTime;
+            issue.Size = issuedto.Size;
             issue.DueDate = issuedto.DueDate;
             issue.EpicLink = issuedto.EpicLink;
 
