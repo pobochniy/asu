@@ -12,7 +12,7 @@ import { IssuePriorityEnum } from '../../shared/enums/issue-priority.enum';
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css'],
-  providers: [IssueApiService, UsersApiService]
+  providers: [IssueApiService]
 })
 export class EditComponent implements OnInit {
 
@@ -32,7 +32,7 @@ export class EditComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
 
     const issue = await this.service.Details(id);
-    
+    debugger;
     this.issueForm.setValue({
       id: issue.id
       , assignee: issue.assignee
@@ -42,9 +42,9 @@ export class EditComponent implements OnInit {
       , type: issue.type
       , status: issue.status
       , priority: issue.priority
-      , assigneeEstimatedTime: issue.assigneeEstimatedTime
-      , reporterEstimatedTime: issue.reporterEstimatedTime
-      , dueDate: issue.dueDate.substr(0,10)
+      , estimatedTime: issue.estimatedTime
+      , size: issue.size
+      , dueDate: issue.dueDate ? issue.dueDate?.substr(0, 10) : new Date()
       , epicLink: issue.epicLink
     });
 

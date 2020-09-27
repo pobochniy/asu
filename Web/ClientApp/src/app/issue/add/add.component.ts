@@ -15,7 +15,7 @@ import { EpicApiService } from '../../shared/api/epic-api.service';
   selector: 'add-issue',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.css'],
-  providers: [IssueApiService, UsersApiService, EpicApiService]
+  providers: [IssueApiService, EpicApiService]
 })
 export class AddComponent implements OnInit {
 
@@ -23,7 +23,6 @@ export class AddComponent implements OnInit {
   public profiles: UserProfileModel[];
   public epics: EpicModel[];
   public issueTypes: { id: number; name: string }[] = [];
-  public issueStatus: { id: number; name: string }[] = [];
   public issuePriority: { id: number; name: string }[] = [];
   public issueSize: { id: number; name: string }[] = [];
   public SizeType = SizeEnum;
@@ -45,12 +44,6 @@ export class AddComponent implements OnInit {
     for (var n in IssueTypeEnum) {
       if (typeof IssueTypeEnum[n] === 'number') {
         this.issueTypes.push({ id: <any>IssueTypeEnum[n], name: n });
-      }
-    }
-
-    for (var n in IssueStatusEnum) {
-      if (typeof IssueStatusEnum[n] === 'number') {
-        this.issueStatus.push({ id: <any>IssueStatusEnum[n], name: n });
       }
     }
 

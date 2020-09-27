@@ -3,7 +3,7 @@
 
   <hr>
   <div class="form-group">
-    <label class="col-md-2 control-label" for="symmary">Summary*</label>
+    <label class="col-md-2 control-label" for="summary">Summary*</label>
     <div class="col-md-10">
       <input class="form-control" type="text" formControlName="summary" />
     </div>
@@ -42,27 +42,27 @@
       <div class="select-img-type">
         <label>
           <input type="radio" formControlName="type" value="0" [checked]="0==getCheckedType" />
-          <app-fa-icon src="bookmark" color="green" class="checkmark"></app-fa-icon>
+          <shared-enums-icon-type [type]="0" class="checkmark"></shared-enums-icon-type>
         </label>
 
         <label>
           <input type="radio" formControlName="type" value="1" [checked]="1==getCheckedType" />
-          <app-fa-icon src="check-square" color="blue" class="checkmark"></app-fa-icon>
+          <shared-enums-icon-type [type]="1" class="checkmark"></shared-enums-icon-type>
         </label>
 
         <label>
           <input type="radio" formControlName="type" value="2" [checked]="2==getCheckedType" />
-          <app-fa-icon src="bug" color="red" class="checkmark"></app-fa-icon>
+          <shared-enums-icon-type [type]="2" class="checkmark"></shared-enums-icon-type>
         </label>
 
         <label>
           <input type="radio" formControlName="type" value="3" [checked]="3==getCheckedType" />
-          <app-fa-icon src="book" color="brown" class="checkmark"></app-fa-icon>
+          <shared-enums-icon-type [type]="3" class="checkmark"></shared-enums-icon-type>
         </label>
 
         <label>
           <input type="radio" formControlName="type" value="4" [checked]="4==getCheckedType" />
-          <app-fa-icon src="handshake" color="orange" class="checkmark"></app-fa-icon>
+          <shared-enums-icon-type [type]="4" class="checkmark"></shared-enums-icon-type>
         </label>
       </div>
       <form-validation [model]="issueForm.controls['type']" fieldName="type"></form-validation>

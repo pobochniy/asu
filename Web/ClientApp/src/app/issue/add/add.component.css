@@ -14,16 +14,6 @@ textarea {
   mask: url('assets\icons\bug-solid.svg') no-repeat center;
 }
 
-
-
-.container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
 .select-img-type > label > input:checked ~ .checkmark {
   border: 2px solid #2196F3 !important;
 }
