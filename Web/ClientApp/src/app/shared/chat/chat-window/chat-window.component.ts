@@ -24,8 +24,8 @@ export class ChatWindowComponent implements OnInit {
   ngOnInit() {
     this.chatService.initConnection();
 
-    if (this.userService && this.userService.User && this.userService.User.login) {
-      this.currentUser = this.userService.User.login;
+    if (this.userService && this.userService.User && this.userService.User.userName) {
+      this.currentUser = this.userService.User.userName;
       this.chatService.connectionWebSocket();
     }
   }

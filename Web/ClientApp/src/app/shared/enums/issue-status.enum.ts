@@ -3,5 +3,5 @@ export enum IssueStatusEnum {
   inwork,
   done,
   testing,
-  resolve
+  resolved
 }

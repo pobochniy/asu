@@ -4,7 +4,7 @@ export class UserProfileModel {
   public id: string;
 
   /** Логин */
-  public login: string;
+  public userName: string;
 
   /** Эмейл */
   public email?: string;
@@ -12,5 +12,14 @@ export class UserProfileModel {
   /** Телефон */
   public phone?: string;
 
-  public userName: string;
+  constructor(obj: any = {}) {
+    this.id = obj.id;
+    this.email = obj.email;
+    this.phone = obj.phone;
+    this.userName = obj.userName;
+  }
+
+  get shortName(): string {
+    return this.userName || this.email || this.phone;
+  }
 }
