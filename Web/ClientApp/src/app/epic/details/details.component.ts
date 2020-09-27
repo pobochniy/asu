@@ -14,7 +14,7 @@ import { DatePipe } from '@angular/common';
   selector: 'details-epic',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css'],
-  providers: [EpicApiService, UsersApiService, ListComponent, DatePipe]
+  providers: [EpicApiService, ListComponent, DatePipe]
 })
 export class DetailsComponent implements OnInit {
 

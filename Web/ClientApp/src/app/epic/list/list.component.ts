@@ -11,7 +11,7 @@ import { IssuePriorityEnum } from '../../shared/enums/issue-priority.enum';
   selector: 'list-epic',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css'],
-  providers: [EpicApiService, UsersApiService, DatePipe]
+  providers: [EpicApiService, DatePipe]
 })
 export class ListComponent implements OnInit {
 
@@ -51,7 +51,7 @@ export class ListComponent implements OnInit {
   GetLogin(id: string) {
     if (this.profiles && this.profiles.length) {
       const user = this.profiles.find(x => x.id == id);
-      if (user) return user.login;
+      if (user) return user.userName;
     }
 
     return id;

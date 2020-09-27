@@ -7,8 +7,7 @@ import { UserRoleInfoModel } from '../shared/models/user-role-info.model';
 @Component({
   selector: 'app-role-management',
   templateUrl: './role-management.component.html',
-  styleUrls: ['./role-management.component.css'],
-  providers: [UsersApiService]
+  styleUrls: ['./role-management.component.css']
 })
 export class RoleManagementComponent implements OnInit {
 

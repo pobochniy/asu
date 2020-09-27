@@ -11,7 +11,7 @@ import { IssuePriorityEnum } from '../../shared/enums/issue-priority.enum';
   selector: 'add-epic',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.css'],
-  providers: [EpicApiService, UsersApiService]
+  providers: [EpicApiService]
 })
 export class AddComponent implements OnInit {
 

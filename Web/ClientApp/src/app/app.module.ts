@@ -15,6 +15,7 @@ import { ChatModule } from './shared/chat/chat.module';
 import { ChatService } from './shared/chat/chat.service';
 import { UserService } from './shared/core/user.service';
 import { SharedModule } from './shared/shared.module';
+import { UsersApiService } from './shared/api/users-api.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { SharedModule } from './shared/shared.module';
       { path: '', component: HomeComponent, pathMatch: 'full' }
     ])
   ],
-  providers: [UserService, ChatService],
+  providers: [UsersApiService, UserService, ChatService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
