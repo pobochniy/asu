@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormValidationComponent } from './form-validation/form-validation.component';
 import { FaIconComponent } from './fa-icon/fa-icon.component';
+import { UserNameComponent } from './user-name/user-name.component';
+import { EnumsIconTypeComponent } from './enums-icon/enums-icon-type/enums-icon-type.component';
 
 
 @NgModule({
@@ -12,13 +14,17 @@ import { FaIconComponent } from './fa-icon/fa-icon.component';
   ],
   declarations: [
     FormValidationComponent,
-    FaIconComponent
+    FaIconComponent,
+    UserNameComponent,
+    EnumsIconTypeComponent
   ],
   exports: [
     FormValidationComponent,
     ReactiveFormsModule,
     CommonModule,
-    FaIconComponent
+    FaIconComponent,
+    UserNameComponent,
+    EnumsIconTypeComponent
   ]
 })
 export class SharedModule { }
