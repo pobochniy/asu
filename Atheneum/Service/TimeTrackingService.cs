@@ -22,8 +22,8 @@ namespace Atheneum.Service
             var timeTracking = new TimeTracking
             {
                 Date = dto.Date,
-                From = dto.From,
-                To = dto.To,
+                From = dto.From.Value,
+                To = dto.To.Value,
                 Comment = dto.Comment,
                 UserId = dto.UserId,
                 IssueId = dto.IssueId,
@@ -56,8 +56,8 @@ namespace Atheneum.Service
             var timeTracking = await db.TimeTracking.FindAsync(timeTrackingDto.Id);
             timeTracking.Id = timeTrackingDto.Id;
             timeTracking.Date = timeTrackingDto.Date;
-            timeTracking.From = timeTrackingDto.From;
-            timeTracking.To = timeTrackingDto.To;
+            timeTracking.From = timeTrackingDto.From.Value;
+            timeTracking.To = timeTrackingDto.To.Value;
             timeTracking.Comment = timeTrackingDto.Comment;
             timeTracking.UserId = timeTrackingDto.UserId;
             timeTracking.IssueId = timeTrackingDto.IssueId;

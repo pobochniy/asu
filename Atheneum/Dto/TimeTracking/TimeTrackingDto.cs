@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Atheneum.Validations.TimeTrackingValidation;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Atheneum.Dto.TimeTracking
 {
+    [TimeTrackingValidation]
     public class TimeTrackingDto
     {
         /// <summary>
@@ -17,12 +20,14 @@ namespace Atheneum.Dto.TimeTracking
         /// <summary>
         /// Время "с"
         /// </summary>
-        public DateTime From { get; set; }
+        [Required]
+        public DateTime? From { get; set; }
 
         /// <summary>
         /// Время "по"
         /// </summary>
-        public DateTime To { get; set; }
+        //[IntervalNotMoreThanHours(4)]
+        public DateTime? To { get; set; }
 
         /// <summary>
         /// Описание работы
