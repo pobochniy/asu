@@ -21,6 +21,7 @@ export class IssueApiService extends BaseApiService {
   }
 
   public async Update(model: FormGroup) {
+    model.controls["type"].setValue(+model.controls["type"].value);
     return this.post<number>('Update', model.value).toPromise();
   }
 

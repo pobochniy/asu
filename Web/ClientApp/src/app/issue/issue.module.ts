@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
-import { AddComponent } from './add/add.component';
 import { IssueRoutingModule } from './issue-routing.module';
 import { ListComponent } from './list/list.component';
 import { NgxSelectModule } from 'ngx-select-ex';
@@ -19,9 +18,7 @@ import { EditComponent } from './edit/edit.component';
   ],
   declarations: [
     ListComponent,
-    AddComponent,
     EditComponent,
-
   ]
 })
 export class IssueModule { }

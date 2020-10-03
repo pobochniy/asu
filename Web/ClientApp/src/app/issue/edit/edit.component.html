@@ -1,90 +1,104 @@
 <form class="form-horizontal" [formGroup]="issueForm" (ngSubmit)="onSubmit()">
-  <h4>Edit Issue</h4>
+  <h4>{{this.issueForm.value['id'] || 0 > 0 ? 'Update ' : 'Create new '}}Issue</h4>
+
   <hr>
   <div class="form-group">
-    <label class="col-md-2 control-label" for="assignee">Assignee</label>
+    <label class="col-md-2 control-label" for="summary">Summary*</label>
     <div class="col-md-10">
+      <input class="form-control" type="text" formControlName="summary" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 control-label" for="assignee">Assignee</label>
+    <div class="col-md-2">
       <ngx-select [allowClear]="true"
                   [items]="profiles" optionValueField="id" optionTextField="userName"
                   formControlName="assignee"
                   placeholder="Select assignee">
       </ngx-select>
     </div>
-  </div>
-  <div class="form-group">
     <label class="col-md-2 control-label" for="reporter">Reporter*</label>
-    <div class="col-md-10">
+    <div class="col-md-2">
       <ngx-select [items]="profiles" optionValueField="id" optionTextField="userName"
                   formControlName="reporter"
                   placeholder="Select reporter">
       </ngx-select>
       <form-validation [model]="issueForm.controls['reporter']" fieldName="reporter"></form-validation>
     </div>
-  </div>
-  <div class="form-group">
-    <label class="col-md-2 control-label" for="symmary">Summary*</label>
-    <div class="col-md-10">
-      <input class="form-control" type="text" formControlName="summary" />
-    </div>
-    <form-validation [model]="issueForm.controls['summary']" fieldName="summary"></form-validation>
-  </div>
-  <div class="form-group">
-    <label class="col-md-2 control-label" for="description">Description</label>
-    <div class="col-md-10">
-      <input class="form-control" type="text" formControlName="description" />
+    <label class="col-md-2 control-label" for="estimatedTime">Size</label>
+    <div class="col-md-2">
+      <ngx-select [items]="issueSize" optionValueField="id" optionTextField="name"
+                  formControlName="size"
+                  placeholder="Select issue size">
+      </ngx-select>
+      <form-validation [model]="issueForm.controls['size']" fieldName="size"></form-validation>
     </div>
   </div>
+
   <div class="form-group">
     <label class="col-md-2 control-label" for="type">Type*</label>
-    <div class="col-md-10">
-      <ngx-select [items]="issueTypes" optionValueField="id" optionTextField="name"
-                  formControlName="type"
-                  placeholder="Select issue type">
-      </ngx-select>
+    <div class="col-md-2">
+      <div class="select-img-type">
+        <label>
+          <input type="radio" formControlName="type" value="0" [checked]="getCheckedType(0)" />
+          <shared-enums-icon-type [type]="0" class="checkmark"></shared-enums-icon-type>
+        </label>
+
+        <label>
+          <input type="radio" formControlName="type" value="1" [checked]="getCheckedType(1)" />
+          <shared-enums-icon-type [type]="1" class="checkmark"></shared-enums-icon-type>
+        </label>
+
+        <label>
+          <input type="radio" formControlName="type" value="2" [checked]="getCheckedType(2)" />
+          <shared-enums-icon-type [type]="2" class="checkmark"></shared-enums-icon-type>
+        </label>
+
+        <label>
+          <input type="radio" formControlName="type" value="3" [checked]="getCheckedType(3)" />
+          <shared-enums-icon-type [type]="3" class="checkmark"></shared-enums-icon-type>
+        </label>
+
+        <label>
+          <input type="radio" formControlName="type" value="4" [checked]="getCheckedType(4)" />
+          <shared-enums-icon-type [type]="4" class="checkmark"></shared-enums-icon-type>
+        </label>
+      </div>
       <form-validation [model]="issueForm.controls['type']" fieldName="type"></form-validation>
     </div>
-  </div>
-  <div class="form-group">
-    <label class="col-md-2 control-label" for="status">Status*</label>
-    <div class="col-md-10">
-      <ngx-select [items]="issueStatus" optionValueField="id" optionTextField="name"
-                  formControlName="status"
-                  placeholder="Select issue status">
-      </ngx-select>
-      <form-validation [model]="issueForm.controls['status']" fieldName="status"></form-validation>
-    </div>
-  </div>
-  <div class="form-group">
     <label class="col-md-2 control-label" for="priority">Priority*</label>
-    <div class="col-md-10">
+    <div class="col-md-2">
       <ngx-select [items]="issuePriority" optionValueField="id" optionTextField="name"
                   formControlName="priority"
                   placeholder="Select issue priority">
       </ngx-select>
       <form-validation [model]="issueForm.controls['priority']" fieldName="priority"></form-validation>
     </div>
-  </div>
-  <div class="form-group">
-    <label class="col-md-2 control-label" for="estimatedTime">Estimated Time</label>
-    <div class="col-md-10">
-      <input class="form-control" type="number" step="0.01" min="0" max="100" formControlName="estimatedTime" />
+    <label class="col-md-2 control-label" for="dueDate">Due Date</label>
+    <div class="col-md-2">
+      <input class="form-control" type="date" formControlName="dueDate" />
     </div>
   </div>
+
   <div class="form-group">
-    <label class="col-md-2 control-label" for="dueDate">Due Date</label>
+    <label class="col-md-2 control-label" for="description">Description</label>
     <div class="col-md-10">
-      <input class="form-control" type="date" formControlName="dueDate" />
+      <textarea class="form-control" formControlName="description"></textarea>
     </div>
   </div>
   <div class="form-group">
     <label class="col-md-2 control-label" for="epicLink">Epic Link</label>
     <div class="col-md-10">
-      <input class="form-control" type="text" formControlName="epicLink" />
+      <ngx-select [items]="epics" optionValueField="id" optionTextField="name"
+                  formControlName="epicLink"
+                  placeholder="Select epic">
+      </ngx-select>
     </div>
   </div>
   <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
-      <input type="submit" value="Update" class="btn btn-primary">
+      <input type="submit" value="{{this.issueForm.value['id'] || 0 > 0 ? 'Update ' : 'Create'}}" class="btn btn-primary">
       <a [routerLink]='["/issue/list"]'>
         <input type="submit" value="<<to issues list" class="btn btn-primary">
       </a>

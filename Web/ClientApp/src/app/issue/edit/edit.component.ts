@@ -1,38 +1,56 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { issueFormModel } from '../../shared/form-models/issue-form.model';
-import { UserProfileModel } from '../../shared/models/user-profile.model';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { EpicApiService } from '../../shared/api/epic-api.service';
 import { IssueApiService } from '../../shared/api/issue-api.service';
 import { UsersApiService } from '../../shared/api/users-api.service';
-import { IssueStatusEnum } from '../../shared/enums/issue-status.enum';
-import { IssueTypeEnum } from '../../shared/enums/issue-type.enum';
 import { IssuePriorityEnum } from '../../shared/enums/issue-priority.enum';
+import { IssueTypeEnum } from '../../shared/enums/issue-type.enum';
+import { SizeEnum } from '../../shared/enums/size.enum';
+import { issueFormModel } from '../../shared/form-models/issue-form.model';
+import { EpicModel } from '../../shared/models/epic.model';
+import { UserProfileModel } from '../../shared/models/user-profile.model';
 
 @Component({
-  selector: 'app-edit',
+  selector: 'edit-issue',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css'],
-  providers: [IssueApiService]
+  providers: [IssueApiService, EpicApiService]
 })
 export class EditComponent implements OnInit {
 
   public issueForm = issueFormModel;
   public profiles: UserProfileModel[];
+  public epics: EpicModel[];
   public issueTypes: { id: number; name: string }[] = [];
-  public issueStatus: { id: number; name: string }[] = [];
   public issuePriority: { id: number; name: string }[] = [];
+  public issueSize: { id: number; name: string }[] = [];
+  public SizeType = SizeEnum;
+
+  public getCheckedType(val: number): boolean {
+    console.log(val, this.issueForm.controls['type'].value, (this.issueForm.controls['type'].value || 0) == val);
+    return (this.issueForm.controls['type'].value || 0) == val;
+  }
 
   constructor(private service: IssueApiService
-    , private route: ActivatedRoute
     , private userApiService: UsersApiService
-    , private router: Router) { }
+    , private epicApiService: EpicApiService
+    , private router: Router
+    , private route: ActivatedRoute
+    , private cdRef: ChangeDetectorRef
+  ) { }
 
   async ngOnInit() {
+
+    console.log('ngOnInit', this.issueForm.controls['type'].value);
+    this.profiles = await this.userApiService.GetProfiles();
+    this.epics = await this.epicApiService.GetList();
 
     const id = +this.route.snapshot.paramMap.get('id');
 
     const issue = await this.service.Details(id);
-    debugger;
+
+    this.cdRef.detectChanges()
+
     this.issueForm.setValue({
       id: issue.id
       , assignee: issue.assignee
@@ -48,17 +66,10 @@ export class EditComponent implements OnInit {
       , epicLink: issue.epicLink
     });
 
-    this.profiles = await this.userApiService.GetProfiles();
-
+    console.log('ngOnInit', this.issueForm.controls['type'].value);
     for (var n in IssueTypeEnum) {
       if (typeof IssueTypeEnum[n] === 'number') {
         this.issueTypes.push({ id: <any>IssueTypeEnum[n], name: n });
-      }
-    }
-
-    for (var n in IssueStatusEnum) {
-      if (typeof IssueStatusEnum[n] === 'number') {
-        this.issueStatus.push({ id: <any>IssueStatusEnum[n], name: n });
       }
     }
 
@@ -67,6 +78,14 @@ export class EditComponent implements OnInit {
         this.issuePriority.push({ id: <any>IssuePriorityEnum[n], name: n });
       }
     }
+
+    for (var n in SizeEnum) {
+      if (typeof SizeEnum[n] === 'number') {
+        this.issueSize.push({ id: <any>SizeEnum[n], name: n });
+      }
+    }
+
+    if (this.issueForm.value['id'] == 0) this.storageRestore();
   }
 
   async onSubmit() {
@@ -76,7 +95,14 @@ export class EditComponent implements OnInit {
 
     try {
       if (this.issueForm.valid) {
-        let issueId = await this.service.Update(this.issueForm);
+        if (this.issueForm.value['id'] || 0 > 0) {
+          await this.service.Update(this.issueForm);
+        }
+        else {
+          this.storageSave();
+          await this.service.Create(this.issueForm);
+        }
+
         this.router.navigateByUrl('/issue/list');
       }
     }
@@ -84,4 +110,23 @@ export class EditComponent implements OnInit {
       alert('Возникли непредвиденные ошибки. Попробуйте ввести другие значения или сообщите программисту');
     }
   }
+
+  storageSave() {
+    localStorage.setItem('issue-last-assignee', this.issueForm.controls["assignee"].value);
+    localStorage.setItem('issue-last-reporter', this.issueForm.controls["reporter"].value);
+    localStorage.setItem('issue-last-type', this.issueForm.controls["type"].value);
+  }
+
+  storageRestore() {
+    this.getStorageValue('assignee');
+    this.getStorageValue('reporter');
+    this.getStorageValue('type', 'number');
+  }
+
+  getStorageValue(name: string, fieldtype: string = 'string') {
+    const strVal = localStorage.getItem(`issue-last-${name}`);
+    const val = fieldtype == 'number' ? +strVal : strVal;
+    if (val) this.issueForm.controls[name].setValue(val);
+  }
 }
+
