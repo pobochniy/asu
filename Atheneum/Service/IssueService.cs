@@ -1,5 +1,6 @@
 using Atheneum.Dto.Issue;
 using Atheneum.Entity.Identity;
+using Atheneum.Enums;
 using Atheneum.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,7 +21,6 @@ namespace Atheneum.Services
 
         public async Task<long> Create(IssueDto dto)
         {
-
             var issue = new Issue
             {
                 Assignee = dto.Assignee,
@@ -28,14 +28,15 @@ namespace Atheneum.Services
                 Summary = dto.Summary,
                 Description = dto.Description,
                 Type = dto.Type,
-                Status = dto.Status,
+                Status = IssueStatusEnum.todo,
                 Priority = dto.Priority,
                 Size = dto.Size,
-                EstimatedTime = dto.EstimatedTime,
                 CreateDate = DateTime.UtcNow,
                 DueDate = dto.DueDate,
                 EpicLink = dto.EpicLink
             };
+
+            issue.EstimatedTime = await CalcEstimatedTime(dto.Assignee, dto.Size);
 
             await db.Issue.AddAsync(issue);
             await db.SaveChangesAsync();
@@ -116,6 +117,39 @@ namespace Atheneum.Services
             db.Issue.Remove(i);
 
             await db.SaveChangesAsync();
+        }
+
+        private async Task<decimal?> CalcEstimatedTime(Guid? assignee, SizeEnum size)
+        {
+            decimal? res = 0;
+
+            if (assignee.HasValue)
+            {
+                var countTasks = await db.Issue.Where(x => x.Assignee == assignee && x.Status == IssueStatusEnum.resolve && x.Size == size).CountAsync();
+                res = countTasks > 10
+                    ? await db.Issue.Where(x => x.Assignee == assignee && x.Status == IssueStatusEnum.resolve && x.Size == size).Select(x => x.EstimatedTime).AverageAsync()
+                    : GetDefaultAverage(size);
+            }
+            else
+            {
+                res = GetDefaultAverage(size);
+            }
+
+            return res;
+        }
+
+        private decimal GetDefaultAverage(SizeEnum size)
+        {
+            switch (size)
+            {
+                case SizeEnum.XS: return (decimal)0.5;
+                case SizeEnum.S: return 1;
+                case SizeEnum.M: return 4;
+                case SizeEnum.L: return 8;
+                case SizeEnum.XL: return 16;
+                default:
+                    return 0;
+            }
         }
     }
 }
