@@ -72,9 +72,9 @@ namespace Atheneum.Services
             var res = new UserDto
             {
                 UserId = profile.Id,
-                Login = profile.UserName,
+                UserName = profile.UserName,
                 Email = profile.Email,
-                PhoneNumber = profile.PhoneNumber
+                Phone = profile.PhoneNumber
             };
 
             res.Roles = await db.UserInRole
