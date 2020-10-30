@@ -1,7 +1,5 @@
 ﻿using Atheneum.Dto.Chat;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Atheneum.Enums;
 using System.Threading.Tasks;
 
 namespace Atheneum.Interface
@@ -12,6 +10,11 @@ namespace Atheneum.Interface
         /// С сервера на все клиенты
         /// </summary>
         Task BroadCastMessage(ChatDto msg);
+
+        /// <summary>
+        /// Рассылка системных сообщений
+        /// </summary>
+        Task SysMessages(SysMessagesDto dtoS);
 
         Task PushMessage(PushChatDto msg);
     }

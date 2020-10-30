@@ -6,6 +6,6 @@
     public enum ChatTypeEnum : byte
     {
         text,
-        system
+        user
     }
 }
