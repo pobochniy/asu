@@ -8,10 +8,11 @@ import { AuthApiService } from '../shared/api/auth-api.service';
   providers: [AuthApiService]
 })
 export class HomeComponent {
-  constructor(public user: UserService, private authServ: AuthApiService) { }
+  constructor(public service: UserService, private authServ: AuthApiService) {
+  }
 
   async logOut() {
-    this.user.User = null;
+    this.service.User = null;
     await this.authServ.logOut();
     //this.router.navigateByUrl('/');
   }
