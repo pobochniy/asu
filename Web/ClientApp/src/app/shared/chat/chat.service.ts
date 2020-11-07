@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ChatModel } from '../models/chat.model';
 import * as signalR from "@aspnet/signalr";
 import { HubConnection } from "@aspnet/signalr";
+import { UsersApiService } from '../api/users-api.service';
+import { ChatTypeEnum } from '../enums/chat-type.enum';
+import { ChatModel } from '../models/chat.model';
 import { PushChatModel } from '../models/push-chat.model';
+import { UserProfileModel } from '../models/user-profile.model';
 
 @Injectable()
 export class ChatService {
@@ -10,7 +13,7 @@ export class ChatService {
   public msgs: Array<ChatModel> = []; // это с сервера
   public connection: HubConnection;
 
-  constructor() { }
+  constructor(public userService: UsersApiService) { }
 
   public sendMessage(model: ChatModel) {
     this.chatList.push(model);
@@ -34,6 +37,14 @@ export class ChatService {
 
       if (chatModel.message.length) {
         this.msgs.push(chatModel);
+      }
+    });
+
+    this.connection.on("SysMessages", res => {
+      switch (res.type) {
+        case ChatTypeEnum.user:
+          this.userService.changeUser(new UserProfileModel(res.data));
+          break;
       }
     });
   }

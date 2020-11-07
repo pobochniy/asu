@@ -1,4 +1,4 @@
 export enum ChatTypeEnum {
   text,
-  system
+  user
 }

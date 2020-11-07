@@ -1,13 +1,17 @@
 ﻿using Atheneum.Dto.Auth;
+using Atheneum.Dto.Chat;
+using Atheneum.Enums;
 using Atheneum.Interface;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Web.SignalR;
 
 namespace Web.Controllers
 {
@@ -15,24 +19,29 @@ namespace Web.Controllers
     [AllowAnonymous]
     public class AuthController : Controller
     {
+        private readonly IHubContext<ChatHub, IChatHub> _hub;
         private readonly IAuthService service;
 
-        public AuthController(IAuthService service)
+        public AuthController(IAuthService service, IHubContext<ChatHub, IChatHub> hubContext)
         {
             this.service = service;
+            this._hub = hubContext;
         }
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> Register([FromBody]RegisterDto model)
+        public async Task<IActionResult> Register([FromBody] RegisterDto model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     await service.Register(model);
+                    var user = await service.LogIn(new LoginDto { Login = model.UserName, Password = model.Password });
 
-                    return await LogIn(new LoginDto { Login = model.UserName, Password = model.Password });
+                    await _hub.Clients.All.SysMessages(new SysMessagesDto { Type = ChatTypeEnum.user, Data = user });
+
+                    return Ok(user);
                 }
 
                 return BadRequest(ModelState);
@@ -45,7 +54,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> LogIn([FromBody]LoginDto model)
+        public async Task<IActionResult> LogIn([FromBody] LoginDto model)
         {
             if (ModelState.IsValid)
             {
@@ -81,7 +90,7 @@ namespace Web.Controllers
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.UserName)
             };
 

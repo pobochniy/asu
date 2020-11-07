@@ -71,7 +71,7 @@ namespace Atheneum.Services
 
             var res = new UserDto
             {
-                UserId = profile.Id,
+                Id = profile.Id,
                 UserName = profile.UserName,
                 Email = profile.Email,
                 Phone = profile.PhoneNumber

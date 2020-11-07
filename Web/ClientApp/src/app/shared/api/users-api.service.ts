@@ -32,4 +32,15 @@ export class UsersApiService extends BaseApiService {
   public async setUserRoles(userId: string, roles: number[]) {
     return this.post('SetRoles', { userId: userId, roles: roles }).toPromise();
   }
+
+  public async changeUser(model: UserProfileModel) {
+    if (!this.storage) return;
+
+    const idx = this.storage.findIndex(x => x.id == model.id);
+    if (idx > -1) {
+      this.storage.splice(idx, 1);
+    }
+
+    this.storage.push(model);
+  }
 }
