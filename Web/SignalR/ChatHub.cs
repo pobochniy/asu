@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Atheneum.Interface;
 using Atheneum.Dto.Chat;
 using Microsoft.AspNetCore.Authorization;
+using System.IO;
 
 namespace Web.SignalR
 {
@@ -18,14 +19,14 @@ namespace Web.SignalR
             this.service = service;
         }
 
-        [Authorize]
+        //[Authorize]
         public async Task PushMessage(PushChatDto msg)
         {
             var chatMsg = new ChatDto
             {
                 Id = DateTime.UtcNow.Ticks.ToString(),
                 Type = Atheneum.Enums.ChatTypeEnum.text,
-                Login = this.Context.User.Identity.Name,
+                Login = "jeer",//this.Context.User.Identity.Name,
                 Message = msg.Message,
                 Privat = msg.Privat,
                 To = msg.To
@@ -43,7 +44,15 @@ namespace Web.SignalR
 
         private async Task SendAll(ChatDto msg)
         {
-            await this.service.SaveRoomMsg(Guid.Parse(this.Context.UserIdentifier), msg);
+            //await this.service.SaveRoomMsg(Guid.Parse(this.Context.UserIdentifier), msg);
+            if (msg.Message == "img")
+            {
+                byte[] file = await File.ReadAllBytesAsync(@"C:\Avatars\whatsapp.png");//user7.jpg
+                //string base64String = Convert.ToBase64String(file);
+
+               // await Clients.All.BroadCastImage(file);
+            }
+
             await this.Clients.All.BroadCastMessage(msg);
         }
 

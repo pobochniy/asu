@@ -17,5 +17,7 @@ namespace Atheneum.Interface
         Task SysMessages(SysMessagesDto dtoS);
 
         Task PushMessage(PushChatDto msg);
+
+        Task BroadCastImage(ImageModel img);
     }
 }
