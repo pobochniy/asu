@@ -9,23 +9,24 @@ import { AuthModule } from './auth/auth.module';
 import { EpicModule } from './epic/epic.module';
 import { HomeComponent } from './home/home.component';
 import { IssueModule } from './issue/issue.module';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { RoleManagementModule } from './role-management/role-management.module';
 import { ChatModule } from './shared/chat/chat.module';
 import { ChatService } from './shared/chat/chat.service';
 import { UserService } from './shared/core/user.service';
 import { SharedModule } from './shared/shared.module';
 import { UsersApiService } from './shared/api/users-api.service';
+import { NavModule } from './shared/nav/nav.module';
+import { NavTabsService } from './shared/nav/nav-tabs.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
     HomeComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
+    NavModule,
     SharedModule,
     FormsModule,
     ChatModule,
@@ -38,7 +39,7 @@ import { UsersApiService } from './shared/api/users-api.service';
       { path: '', component: HomeComponent, pathMatch: 'full' }
     ])
   ],
-  providers: [UsersApiService, UserService, ChatService],
+  providers: [UsersApiService, UserService, ChatService, NavTabsService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

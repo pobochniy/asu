@@ -1,0 +1,13 @@
+<ul class="nav-tabs nav">
+  <li *ngFor="let tab of tabs" class="nav-item">
+    <a (click)="goTo(tab.id)" routerLink="{{tab.url}}" ngbnavlink="" role="tab" [ngClass]='{ "active": tab.isActive }' class="nav-link" aria-controls="ngb-nav-19-panel">
+      {{ tab.url }}
+      <span *ngIf="tab.id != 0" class="close position-relative pl-2 font-weight-light" (click)="close($event, tab.id)">×</span>
+    </a>
+    <ng-template ngbNavContent>
+      <p>Tab {{ id }} content</p>
+    </ng-template>
+  </li>
+</ul>
+
+<div class="mt-2"></div>

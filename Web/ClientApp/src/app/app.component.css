@@ -8,9 +8,11 @@
 .app-content {
   position: relative;
 }
-.app-content-container  {
+
+.app-content-container {
   overflow: auto;
 }
+
 .app-content-chat {
   border-top: 1px solid #5d5a5a;
   height: 30vh;

@@ -1,11 +1,14 @@
 <div class='container-fluid'>
   <div class='row'>
     <div class='col-sm-3'>
-      <app-nav-menu></app-nav-menu>
+      <shared-nav-menu></shared-nav-menu>
     </div>
     <div class='col-sm-9 body-content app-content'>
-        <router-outlet></router-outlet>
-        <app-chat-window class="chat"></app-chat-window>
+
+      <shared-nav-tabs></shared-nav-tabs>
+
+      <router-outlet></router-outlet>
+      <app-chat-window class="chat"></app-chat-window>
     </div>
   </div>
 </div>

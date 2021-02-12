@@ -3,6 +3,7 @@ using Atheneum.Interface;
 using Atheneum.Service;
 using Atheneum.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +32,8 @@ namespace Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie();
+                .AddCookie();//o => o.Cookie.HttpOnly = false
+            //services.AddAuthorization();
 
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AppConnection")));
@@ -72,13 +74,15 @@ namespace Web
                 app.UseHsts();
             }
 
+            app.UseStaticFiles();
+
             app.UseRouting();
 
+            //app.UseCookiePolicy();
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseStaticFiles();
             if (!env.IsDevelopment())
             {
                 app.UseSpaStaticFiles();
