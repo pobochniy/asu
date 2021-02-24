@@ -23,8 +23,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let epic of dataSource">
-        <td class="col">{{GetLogin(epic.assignee)}}</td>
-        <td class="col">{{GetLogin(epic.reporter)}}</td>
+        <td class="col"><shared-user-name [userId]="epic.assignee"></shared-user-name></td>
+        <td class="col"><shared-user-name [userId]="epic.reporter"></shared-user-name></td>
         <td class="col">{{GetPriority(epic.priority)}}</td>
         <td class="col">{{epic.name}}</td>
         <td class="col">{{epic.description}}</td>

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { EpicApiService } from '../../shared/api/epic-api.service';
 import { EpicModel } from '../../shared/models/epic.model';
 import { UserProfileModel } from '../../shared/models/user-profile.model';
+import { IssuePriorityEnum } from '../../shared/enums/issue-priority.enum';
 
 @Component({
   selector: 'list-epic',
@@ -33,8 +34,13 @@ export class ListComponent implements OnInit {
   }
 
   async Details(id: number) {
-
     await this.service.Details(id);
+  }
 
+  GetPriority(id: number) {
+    const priority = IssuePriorityEnum[id];
+    if (priority) return priority;
+
+    return id;
   }
 }
