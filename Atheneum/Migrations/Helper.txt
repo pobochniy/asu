@@ -1,4 +1,6 @@
-﻿add-migration NAME -Project Atheneum
+﻿средства - диспетчер пакетов NuGet - консоль
+
+add-migration [NAME] -Project Atheneum
 
 update-database
 

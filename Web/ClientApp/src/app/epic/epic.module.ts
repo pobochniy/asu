@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ListComponent } from './list/list.component';
-import { EpicRoutingModule } from './epic-routing.module';
-import { SharedModule } from '../shared/shared.module';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgxSelectModule } from 'ngx-select-ex';
-import { FormsModule } from '@angular/forms';
-import { AddComponent } from './add/add.component';
+import { EditComponent } from '../epic/edit/edit.component';
+import { SharedModule } from '../shared/shared.module';
 import { DetailsComponent } from './details/details.component';
+import { EpicRoutingModule } from './epic-routing.module';
+import { ListComponent } from './list/list.component';
 
 @NgModule({
   imports: [
@@ -17,6 +16,6 @@ import { DetailsComponent } from './details/details.component';
     NgxSelectModule,
     FormsModule
   ],
-  declarations: [ListComponent, AddComponent, DetailsComponent]
+  declarations: [ListComponent, EditComponent, DetailsComponent]
 })
 export class EpicModule { }

@@ -18,11 +18,13 @@ export class ListComponent implements OnInit{
   //public issueStatus: IssueStatusEnum;
 
   constructor(private service: IssueApiService
+    , private userApiService: UsersApiService
     , private router: Router
   ) { }
 
   async ngOnInit() {
     this.dataSource = await this.service.GetList();
+    //this.profiles = await this.userApiService.GetProfiles();
   }
 
   GetPriority(id: number) {

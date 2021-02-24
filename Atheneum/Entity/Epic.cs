@@ -14,22 +14,32 @@ namespace Atheneum.Entity.Identity
         /// </summary>
         [Key]
         public int Id { get; set; }
+
+        /// <summary>
+        /// Исполнитель
+        /// </summary>
+        public Guid? Assignee { get; set; }
+
         /// <summary>
         /// Инициатор
         /// </summary>
         public Guid? Reporter { get; set; }
+        
         /// <summary>
         /// Приоритет
         /// </summary>
-        public IssuePriorityEnum PriorityEnum { get; set; }
+        public IssuePriorityEnum Priority { get; set; }
+        
         /// <summary>
         /// Название
         /// </summary>
         public string Name { get; set; }
+        
         /// <summary>
         /// Описание
         /// </summary>
         public string Description { get; set; }
+        
         /// <summary>
         /// Время
         /// </summary>
@@ -41,7 +51,6 @@ namespace Atheneum.Entity.Identity
         {
             TimeTrackings = new List<TimeTracking>();
         }
-
     }
 }
 

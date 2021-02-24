@@ -21,8 +21,9 @@ namespace Atheneum.Service
         {
             var epic = new Epic
             {
+                Assignee = dto.Assignee,
                 Reporter = dto.Reporter,
-                PriorityEnum = dto.PriorityEnum,
+                Priority = dto.Priority,
                 Name = dto.Name,
                 Description = dto.Description,
                 DueDate = dto.DueDate
@@ -34,12 +35,15 @@ namespace Atheneum.Service
 
         public async Task<EpicDto> Details(int id)
         {
+            if (id == 0) return new EpicDto();
+
             var epic = await db.Epic.FindAsync(id);
             var epicdto = new EpicDto
             {
                 Id = epic.Id,
+                Assignee = epic.Assignee,
                 Reporter = epic.Reporter,
-                PriorityEnum = epic.PriorityEnum,
+                Priority = epic.Priority,
                 Name = epic.Name,
                 Description = epic.Description,
                 DueDate = epic.DueDate
@@ -50,8 +54,9 @@ namespace Atheneum.Service
         public async Task Update(EpicDto epicDto)
         {
             var epic = await db.Epic.FindAsync(epicDto.Id);
+            epic.Assignee = epicDto.Assignee;
             epic.Reporter = epicDto.Reporter;
-            epic.PriorityEnum = epicDto.PriorityEnum;
+            epic.Priority = epicDto.Priority;
             epic.Name = epicDto.Name;
             epic.Description = epicDto.Description;
             epic.DueDate = epicDto.DueDate;
@@ -71,8 +76,9 @@ namespace Atheneum.Service
             var epic = await db.Epic.Select(x => new EpicDto
             {
                 Id = x.Id,
+                Assignee = x.Assignee,
                 Reporter = x.Reporter,
-                PriorityEnum = x.PriorityEnum,
+                Priority = x.Priority,
                 Name = x.Name,
                 Description = x.Description,
                 DueDate = x.DueDate

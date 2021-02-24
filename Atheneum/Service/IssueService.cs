@@ -48,6 +48,8 @@ namespace Atheneum.Services
         {
             if (!id.HasValue) throw new ArgumentException("Сломано");
 
+            if (id.Value == 0) return new IssueDto();
+
             var issue = await db.Issue.FindAsync(id);
             var issuedto = new IssueDto
             {

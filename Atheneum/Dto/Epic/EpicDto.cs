@@ -13,6 +13,11 @@ namespace Atheneum.Dto.Epic
         public int Id { get; set; }
 
         /// <summary>
+        /// Исполнитель
+        /// </summary>
+        public Guid? Assignee { get; set; }
+
+        /// <summary>
         /// Инициатор
         /// </summary>
         public Guid? Reporter { get; set; }
@@ -21,8 +26,7 @@ namespace Atheneum.Dto.Epic
         /// Приоритет
         /// </summary>
         [Required]
-        [JsonProperty("priorityEnum")]
-        public IssuePriorityEnum PriorityEnum { get; set; }
+        public IssuePriorityEnum Priority { get; set; }
 
         /// <summary>
         /// Название

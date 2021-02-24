@@ -41,7 +41,6 @@ export class EditComponent implements OnInit {
 
   async ngOnInit() {
 
-    console.log('ngOnInit', this.issueForm.controls['type'].value);
     this.profiles = await this.userApiService.GetProfiles();
     this.epics = await this.epicApiService.GetList();
 
@@ -66,7 +65,7 @@ export class EditComponent implements OnInit {
       , epicLink: issue.epicLink
     });
 
-    console.log('ngOnInit', this.issueForm.controls['type'].value);
+    //console.log('ngOnInit', this.issueForm.controls['type'].value);
     for (var n in IssueTypeEnum) {
       if (typeof IssueTypeEnum[n] === 'number') {
         this.issueTypes.push({ id: <any>IssueTypeEnum[n], name: n });
