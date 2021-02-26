@@ -35,6 +35,11 @@
           </a>
         </td>
         <td>
+          <a [routerLink]="['/epic/details', epic.id]">
+            <input type="submit" value="Details" class="btn btn-primary">
+          </a>
+        </td>
+        <td>
           <input type="button" (click)="Delete(epic.id)" value="Delete" class="btn btn-default" />
         </td>
       </tr>

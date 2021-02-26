@@ -5,6 +5,8 @@ export class EpicModel {
 
   public id: number;
 
+  public assignee: string;
+
   public reporter: string;
 
   public priority: IssuePriorityEnum;
