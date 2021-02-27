@@ -1,7 +1,7 @@
 <div class="form-horizontal">
     <h4>
       Epic {{epic?.name}}
-      <a [routerLink]="['/epic/edit', epic?.id]">
+      <a [routerLink]="['/epic/edit', epic.id]">
         <input type="submit" value="Edit" class="btn btn-primary">
       </a>
     </h4>
@@ -19,17 +19,17 @@
 
     <div class="col-md-3">
       <label for="priority">Priority</label>
-      {{GetPriority(epic?.priority)}}
+      {{GetPriority(epic.priority)}}
     </div>
 
     <div class="col-md-3">
       <label for="priority">Due Date</label>
-      {{datepipe.transform(epic?.dueDate, 'yyyy-MM-dd')}}
+      {{datepipe.transform(epic.dueDate, 'yyyy-MM-dd')}}
     </div>
   </div>
 
   <div class="row">
-    <textarea class="col-md-12" rows="10" disabled="disabled">{{epic?.description}}</textarea>
+    <textarea class="col-md-12" rows="10" disabled="disabled">{{epic.description}}</textarea>
   </div>
 
 </div>
