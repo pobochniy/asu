@@ -1,35 +1,74 @@
-<div class="form-horizontal">
-    <h4>
-      Epic {{epic?.name}}
-      <a [routerLink]="['/epic/edit', epic.id]">
-        <input type="submit" value="Edit" class="btn btn-primary">
-      </a>
-    </h4>
+<div class="">
+  <h4>
 
-  <div class="row">
-    <div class="col-md-3">
+    Epic {{epic?.name}}
+
+    <a [routerLink]="['/epic/edit', epic.id]">
+
+      <input type="submit" value="Edit" class="btn btn-info btn-sm">
+
+    </a>
+
+  </h4>
+  <div class="row form-group">
+    <div class="col-lg-3">
       <label for="assignee">Assignee</label>
-      <shared-user-name [userId]="epic.assignee"></shared-user-name>
+      <shared-user-name [userId]="epic.assignee" id="assignee"></shared-user-name>
     </div>
-
-    <div class="col-md-3">
+    <div class="col-lg-3">
       <label for="reporter">Reporter</label>
-      <shared-user-name [userId]="epic.reporter"></shared-user-name>
+      <shared-user-name [userId]="epic.reporter" id="reporter"></shared-user-name>
     </div>
-
-    <div class="col-md-3">
-      <label for="priority">Priority</label>
-      {{GetPriority(epic.priority)}}
+    <div class="col-lg-3">
+      <label for="priority">Priority</label>{{GetPriority(epic.priority)}}
     </div>
-
-    <div class="col-md-3">
-      <label for="priority">Due Date</label>
-      {{datepipe.transform(epic.dueDate, 'yyyy-MM-dd')}}
+    <div class="col-lg-3">
+      <label for="priority">Due Date</label>{{datepipe.transform(epic.dueDate, 'yyyy-MM-dd')}}
     </div>
   </div>
-
-  <div class="row">
-    <textarea class="col-md-12" rows="10" disabled="disabled">{{epic.description}}</textarea>
+  <div class="md-form">
+    <textarea class="form-control md-textarea rounded-0" style="cursor:default; resize:none;" rows="10" disabled="disabled">{{epic.description}}</textarea>
   </div>
+  <br>
+  <br>
+  <table class="table table-striped">
+    <thead class="thead-light">
+      <tr class="row">
+        <td>T</td>
+        <td>Assignee</td>
+        <!--<td>Reporter</td>-->
+        <td>Summary</td>
+        <!--<td>Description</td>-->
+        <td>Status</td>
+        <td>Priority</td>
+        <td>Estimated Time</td>
+        <td>Due Date</td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let el of issues" class="row">
+        <td class="col">
+          <shared-enums-icon-type [type]="el.type"></shared-enums-icon-type>
+        </td>
+        <td class="col">
+          <shared-user-name [userId]="el.assignee"></shared-user-name>
+        </td>
+        <!--<td class="col"><shared-user-name [userId]="el.reporter"></shared-user-name></td>-->
+        <td class="col">{{el.summary}}</td>
+        <!--<td class="col">{{el.description}}</td>-->
+        <td class="col">{{GetStatus(el.status)}}</td>
+        <td class="col">{{GetPriority(el.priority)}}</td>
+        <td class="col">{{el.estimatedTime}}</td>
+        <td class="col">{{el.dueDate | date:'yyyy-MM-dd'}}</td>
+        <td>
+          <a [routerLink]="['/issue/edit', el.id]">
 
+            <input type="submit" value="Edit" class="btn btn-primary">
+
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
