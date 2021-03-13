@@ -1,0 +1,15 @@
+.issue_card {
+  margin-top:2px;
+  border:1px solid lightgray;
+  border-left: 3px solid red;
+  min-height: 200px;
+  box-shadow: -2px 2px 2px lightgray;
+  padding:10px;
+  border-radius:2px;
+  margin-bottom:0;
+}
+
+img.avatar {
+  height: 35px;
+  width: 35px;
+}

@@ -17,6 +17,7 @@ import { SharedModule } from './shared/shared.module';
 import { UsersApiService } from './shared/api/users-api.service';
 import { NavModule } from './shared/nav/nav.module';
 import { NavTabsService } from './shared/nav/nav-tabs.service';
+import { SprintModule } from './sprint/sprint.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { NavTabsService } from './shared/nav/nav-tabs.service';
     IssueModule,
     EpicModule,
     RoleManagementModule,
+    SprintModule,
     NgxSelectModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' }
