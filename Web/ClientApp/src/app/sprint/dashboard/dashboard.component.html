@@ -1,0 +1,30 @@
+<div class="container-fluid">
+  <div class="row ten-columns">
+
+    <div class="col-sm-2" id="todo">
+      <div><b>x of y </b>{{GetIssueStatus(0)}}<br /></div>
+      <issue-card *ngFor="let el of getIssuesByStatus(0)" [issue]="el"></issue-card>
+    </div>
+
+    <div class="col-sm-2" id="inwork">
+      <div><b>x of y </b>{{GetIssueStatus(1)}}<br /></div>
+      <issue-card *ngFor="let el of getIssuesByStatus(1)" [issue]="el"></issue-card>
+    </div>
+
+    <div class="col-sm-2" id="done">
+      <div><b>x of y </b>{{GetIssueStatus(2)}}<br /></div>
+      <issue-card *ngFor="let el of getIssuesByStatus(2)" [issue]="el"></issue-card>
+    </div>
+
+    <div class="col-sm-2" id="testing">
+      <div><b>x of y </b>{{GetIssueStatus(3)}}<br /></div>
+      <issue-card *ngFor="let el of getIssuesByStatus(3)" [issue]="el"></issue-card>
+    </div>
+
+    <div class="col-sm-2" id="resolved">
+      <div><b>x of y </b>{{GetIssueStatus(4)}}<br /></div>
+      <issue-card *ngFor="let el of getIssuesByStatus(4)" [issue]="el"></issue-card>
+    </div>
+
+  </div>
+</div>

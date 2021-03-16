@@ -7,23 +7,28 @@ import { IssuePriorityEnum } from '../../shared/enums/issue-priority.enum';
 import { EpicModel } from '../../shared/models/epic.model';
 import { UserProfileModel } from '../../shared/models/user-profile.model';
 import { ListComponent } from '../list/list.component';
+import { IssueApiService } from '../../shared/api/issue-api.service';
+import { IssueModel } from '../../shared/models/issue.model';
+import { IssueStatusEnum } from '../../shared/enums/issue-status.enum';
 
 
 @Component({
   selector: 'details-epic',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css'],
-  providers: [EpicApiService, ListComponent, DatePipe]
+  providers: [EpicApiService, IssueApiService, ListComponent, DatePipe]
 })
 export class DetailsComponent implements OnInit {
   public epic: EpicModel = new EpicModel();
   public profiles: UserProfileModel[];
+  public issues: IssueModel[];
   public issueTypes: { id: number; name: string }[] = [];
   public issueStatus: { id: number; name: string }[] = [];
   public issuePriority: { id: number; name: string }[] = [];
 
   constructor(private service: EpicApiService
     , private userApiService: UsersApiService
+    , private issueApiService: IssueApiService
     , private route: ActivatedRoute
     , private router: Router
     , public datepipe: DatePipe
@@ -36,6 +41,8 @@ export class DetailsComponent implements OnInit {
 
     this.epic = await this.service.Details(id);
 
+    this.issues = await this.issueApiService.GetList(this.epic.id);
+
     for (var n in IssuePriorityEnum) {
       if (typeof IssuePriorityEnum[n] === 'number') {
         this.issuePriority.push({ id: <any>IssuePriorityEnum[n], name: n });
@@ -46,7 +53,16 @@ export class DetailsComponent implements OnInit {
   GetPriority(id: number) {
     const priority = IssuePriorityEnum[id];
     if (priority) return priority;
+
     return id;
   }
+
+  GetStatus(id: number) {
+    const priority = IssueStatusEnum[id];
+    if (priority) return priority;
+
+    return id;
+  }
+
 }
 

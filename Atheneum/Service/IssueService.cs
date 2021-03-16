@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace Atheneum.Services
@@ -71,25 +73,26 @@ namespace Atheneum.Services
 
         }
 
-        public async Task<IEnumerable<IssueDto>> GetList()
+        public async Task<IEnumerable<IssueDto>> GetList(long? epicId)
         {
             var issues = await db.Issue
-            .Select(x => new IssueDto
-            {
-                Id = x.Id,
-                Assignee = x.Assignee,
-                EstimatedTime = x.EstimatedTime,
-                Description = x.Description,
-                DueDate = x.DueDate,
-                EpicLink = x.EpicLink,
-                Priority = x.Priority,
-                Reporter = x.Reporter,
-                Size = x.Size,
-                Status = x.Status,
-                Summary = x.Summary,
-                Type = x.Type
-            })
-            .ToArrayAsync();
+                .Select(x => new IssueDto
+                {
+                    Id = x.Id,
+                    Assignee = x.Assignee,
+                    EstimatedTime = x.EstimatedTime,
+                    Description = x.Description,
+                    DueDate = x.DueDate,
+                    EpicLink = x.EpicLink,
+                    Priority = x.Priority,
+                    Reporter = x.Reporter,
+                    Size = x.Size,
+                    Status = x.Status,
+                    Summary = x.Summary,
+                    Type = x.Type
+                })
+                .Where(i => i.EpicLink == (epicId ?? i.EpicLink))
+                .ToArrayAsync();
 
             return issues;
         }
@@ -153,5 +156,6 @@ namespace Atheneum.Services
                     return 0;
             }
         }
+
     }
 }

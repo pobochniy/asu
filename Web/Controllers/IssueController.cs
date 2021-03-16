@@ -50,9 +50,9 @@ namespace Web.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<IEnumerable<IssueDto>> GetList()
+        public async Task<IEnumerable<IssueDto>> GetList(long? epicId)
         {
-            return await service.GetList();
+            return await service.GetList(epicId);
         }
 
         [HttpPost]
