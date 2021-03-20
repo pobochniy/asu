@@ -83,6 +83,10 @@ namespace Atheneum.Entity.Identity
         /// </summary>
         public virtual ICollection<TimeTracking> TimeTrackings { get; set; }
 
+        /// <summary>
+        /// Ссылка на sprints
+        /// </summary>
+        public List<Sprint> Sprints { get; set; }
         public Issue()
         {
             TimeTrackings = new List<TimeTracking>();

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using static Atheneum.Entity.Sprint;
 
 namespace Atheneum.Entity.Identity
 {
@@ -13,6 +14,8 @@ namespace Atheneum.Entity.Identity
         public DbSet<Epic> Epic { get; set; }
         public DbSet<TimeTracking> TimeTracking { get; set; }
 
+        public DbSet<Sprint> Sprints { get; set; }
+        public DbSet<SprintIssues> SprintIssues { get; set; }
         public ApplicationContext(DbContextOptions options)
             : base(options)
         {
@@ -27,6 +30,16 @@ namespace Atheneum.Entity.Identity
             builder.ApplyConfiguration(new ChatPrivateConfiguration());
             builder.ApplyConfiguration(new IssueConfiguration());
             builder.ApplyConfiguration(new TimeTrackingConfiguration());
+            builder.ApplyConfiguration(new SprintConfiguration());
+
+            builder.Entity<Sprint>()
+                .HasMany(s => s.Issues)
+                .WithMany(i => i.Sprints)
+                .UsingEntity<SprintIssues>(
+                        x => x.HasOne(xs => xs.Issue).WithMany(),
+                        x => x.HasOne(xs => xs.Sprint).WithMany())
+                .HasKey(x => new { x.SprintId, x.IssueId })
+                ;
         }
     }
 }
