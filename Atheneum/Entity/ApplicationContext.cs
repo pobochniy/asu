@@ -13,7 +13,6 @@ namespace Atheneum.Entity.Identity
         public DbSet<Issue> Issue { get; set; }
         public DbSet<Epic> Epic { get; set; }
         public DbSet<TimeTracking> TimeTracking { get; set; }
-
         public DbSet<Sprint> Sprints { get; set; }
         public DbSet<SprintIssues> SprintIssues { get; set; }
         public ApplicationContext(DbContextOptions options)

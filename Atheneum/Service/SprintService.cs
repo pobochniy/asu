@@ -63,7 +63,7 @@ namespace Atheneum.Service
 
             if (id.Value == 0) return new SprintDto();
 
-            var sprint = await db.Sprints.Include(i => i.Issues).SingleAsync(x => x.Id == id); //
+            var sprint = await db.Sprints.Include(i => i.Issues).SingleAsync(x => x.Id == id);
             var sprintdto = new SprintDto
             {
                 Id = sprint.Id,

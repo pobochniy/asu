@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Atheneum.Entity
 {
+    /// <summary>
+    /// Таблица связей sprint - issue
+    /// </summary>
     public class SprintIssues
     {
         public long SprintId { get; set; }

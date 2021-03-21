@@ -44,11 +44,11 @@ namespace Atheneum.Entity
                 builder
                     .HasIndex(u => u.Id)
                     .IsUnique();
-                builder //в Issue так же)
+                builder
                     .Property(e => e.FinishtDate)
                     .HasColumnType("Date");
 
-                builder //в Issue так же)
+                builder
                     .Property(e => e.StartDate)
                     .HasColumnType("Date");
 

@@ -45,7 +45,7 @@ namespace Atheneum.Interface
         /// </summary>
         public Task DeleteIssue(long sprintId, long issueId);
 
-        //todo:
+        //TODO: заполнить описание 
         /// <summary>
         /// 
         /// </summary>
