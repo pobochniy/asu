@@ -34,15 +34,5 @@ namespace Atheneum.Dto.Sprint
         /// Ссылка на issues
         /// </summary>
         public List<IssueDto> Issues { get; set; }
-
-        public class SprintIssuesDto
-        {
-            public long SprintId { get; set; }
-            public SprintDto Sprint { get; set; }
-
-            public long IssueId { get; set; }
-            public IssueDto Issue { get; set; }
-        }
-
     }
 }

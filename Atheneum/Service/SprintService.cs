@@ -1,4 +1,5 @@
-﻿using Atheneum.Dto.Sprint;
+﻿using Atheneum.Dto.Issue;
+using Atheneum.Dto.Sprint;
 using Atheneum.Entity;
 using Atheneum.Entity.Identity;
 using Atheneum.Interface;
@@ -42,7 +43,6 @@ namespace Atheneum.Service
                 FinishtDate = dto.FinishtDate,
                 IsEnded = 0
             };
-            sprint.Issues.AddRange((IEnumerable<Issue>)dto.Issues);
             await db.Sprints.AddAsync(sprint);
             await db.SaveChangesAsync();
 
@@ -63,15 +63,28 @@ namespace Atheneum.Service
 
             if (id.Value == 0) return new SprintDto();
 
-            var sprint = await db.Sprints.FindAsync(id);
+            var sprint = await db.Sprints.Include(i => i.Issues).SingleAsync(x => x.Id == id); //
             var sprintdto = new SprintDto
             {
                 Id = sprint.Id,
                 StartDate = sprint.StartDate,
                 FinishtDate = sprint.FinishtDate,
-                IsEnded = sprint.IsEnded
+                IsEnded = sprint.IsEnded,
+                Issues = sprint.Issues.Select(x => new IssueDto {
+                    Id = x.Id,
+                    Assignee = x.Assignee,
+                    Reporter = x.Reporter,
+                    Summary = x.Summary,
+                    Description = x.Description,
+                    Type = x.Type,
+                    Status = x.Status,
+                    Priority = x.Priority,
+                    EstimatedTime = x.EstimatedTime,
+                    Size = x.Size,
+                    DueDate = x.DueDate,
+                    EpicLink = x.EpicLink,
+                }).ToList()
             };
-            sprintdto.Issues.AddRange((IEnumerable<Dto.Issue.IssueDto>)sprint.Issues);
 
             return sprintdto;
         }
@@ -87,19 +100,24 @@ namespace Atheneum.Service
             await db.SaveChangesAsync();
         }
 
-        public async Task AddIssues(long sprintId, List<long> issues)
+        public async Task AddIssue(long sprintId, long issueId)
         {
-            if (!(issues.Count > 0)) throw new ArgumentException("Сломано");
+            await db.SprintIssues.AddAsync(new SprintIssues() { SprintId = sprintId, IssueId = issueId });
 
-            await db.SprintIssues.AddRangeAsync(issues.Select(c => new Sprint.SprintIssues() { SprintId = sprintId, IssueId = c }));
+            await db.SaveChangesAsync();
         }
 
         public async Task DeleteIssue(long sprintId, long issueId)
         {
-            var model = new SprintIssues() { SprintId = sprintId, IssueId = issueId };
-            var sprintIssue = await db.SprintIssues.FindAsync(model);
+            var sprintIssue = await db.SprintIssues.SingleAsync(x => x.IssueId == issueId && x.SprintId == sprintId);
             db.SprintIssues.Remove(sprintIssue);
+
             await db.SaveChangesAsync();
+        }
+
+        public Task MoveIssueToNextSprint(long issueId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

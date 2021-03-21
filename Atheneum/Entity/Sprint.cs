@@ -37,15 +37,6 @@ namespace Atheneum.Entity
         /// </summary>
         public List<Issue> Issues { get; set; }
 
-        public class SprintIssues
-        {
-            public long SprintId { get; set; }
-            public Sprint Sprint { get; set; }
-
-            public long IssueId { get; set; }
-            public Issue Issue { get; set; }
-        }
-
         public class SprintConfiguration : IEntityTypeConfiguration<Sprint>
         {
             public void Configure(EntityTypeBuilder<Sprint> builder)
@@ -60,6 +51,14 @@ namespace Atheneum.Entity
                 builder //в Issue так же)
                     .Property(e => e.StartDate)
                     .HasColumnType("Date");
+
+                builder
+                    .HasMany(s => s.Issues)
+                    .WithMany(i => i.Sprints)
+                    .UsingEntity<SprintIssues>(
+                        x => x.HasOne(xs => xs.Issue).WithMany(),
+                        x => x.HasOne(xs => xs.Sprint).WithMany())
+                    .HasKey(x => new { x.SprintId, x.IssueId });
             }
         }
     }

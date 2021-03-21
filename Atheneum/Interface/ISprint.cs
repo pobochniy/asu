@@ -38,11 +38,17 @@ namespace Atheneum.Interface
         /// <summary>
         /// Добавить issues в спринт
         /// </summary>
-        public Task AddIssues(long sprintId, List<long> issues);
+        public Task AddIssue(long sprintId, long issueId);
 
         /// <summary>
         /// Удалить issue из спринт
         /// </summary>
         public Task DeleteIssue(long sprintId, long issueId);
+
+        //todo:
+        /// <summary>
+        /// 
+        /// </summary>
+        public Task MoveIssueToNextSprint(long issueId);
     }
 }
