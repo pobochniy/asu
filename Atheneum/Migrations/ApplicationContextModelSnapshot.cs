@@ -290,10 +290,10 @@ namespace Atheneum.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("Sprints");
+                    b.ToTable("Sprint");
                 });
 
-            modelBuilder.Entity("Atheneum.Entity.Sprint+SprintIssues", b =>
+            modelBuilder.Entity("Atheneum.Entity.SprintIssues", b =>
                 {
                     b.Property<long>("SprintId")
                         .HasColumnType("bigint");
@@ -353,7 +353,7 @@ namespace Atheneum.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Atheneum.Entity.Sprint+SprintIssues", b =>
+            modelBuilder.Entity("Atheneum.Entity.SprintIssues", b =>
                 {
                     b.HasOne("Atheneum.Entity.Identity.Issue", "Issue")
                         .WithMany()

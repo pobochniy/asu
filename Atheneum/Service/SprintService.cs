@@ -23,7 +23,7 @@ namespace Atheneum.Service
         }
         public async Task<IEnumerable<SprintDto>> GetList()
         {
-            var sprints = await db.Sprints
+            var sprints = await db.Sprint
                 .Select(x => new SprintDto
                 {
                     Id = x.Id,
@@ -43,7 +43,7 @@ namespace Atheneum.Service
                 FinishtDate = dto.FinishtDate,
                 IsEnded = 0
             };
-            await db.Sprints.AddAsync(sprint);
+            await db.Sprint.AddAsync(sprint);
             await db.SaveChangesAsync();
 
             return sprint.Id;
@@ -51,8 +51,8 @@ namespace Atheneum.Service
 
         public async Task Delete(long Id)
         {
-            var s = await db.Sprints.FindAsync(Id);
-            db.Sprints.Remove(s);
+            var s = await db.Sprint.FindAsync(Id);
+            db.Sprint.Remove(s);
 
             await db.SaveChangesAsync();
         }
@@ -63,7 +63,7 @@ namespace Atheneum.Service
 
             if (id.Value == 0) return new SprintDto();
 
-            var sprint = await db.Sprints.Include(i => i.Issues).SingleAsync(x => x.Id == id);
+            var sprint = await db.Sprint.Include(i => i.Issues).SingleAsync(x => x.Id == id);
             var sprintdto = new SprintDto
             {
                 Id = sprint.Id,
@@ -91,7 +91,7 @@ namespace Atheneum.Service
 
         public async Task Update(SprintDto sprintdto)
         {
-            var sprint = await db.Sprints.FindAsync(sprintdto.Id);
+            var sprint = await db.Sprint.FindAsync(sprintdto.Id);
 
             sprint.StartDate = sprintdto.StartDate;
             sprint.FinishtDate = sprintdto.FinishtDate;

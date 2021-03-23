@@ -86,7 +86,8 @@ namespace Atheneum.Entity.Identity
         /// <summary>
         /// Ссылка на sprints
         /// </summary>
-        public List<Sprint> Sprints { get; set; }
+        public virtual ICollection<Sprint> Sprints { get; set; }
+
         public Issue()
         {
             TimeTrackings = new List<TimeTracking>();
