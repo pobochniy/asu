@@ -32,6 +32,6 @@ namespace Atheneum.Interface
         /// <summary>
         /// Получить список событий
         /// </summary>
-        Task<IEnumerable<IssueDto>> GetList();
+        Task<IEnumerable<IssueDto>> GetList(long? epicId);
     }
 }

@@ -5,7 +5,7 @@ import { FormValidationComponent } from './form-validation/form-validation.compo
 import { FaIconComponent } from './fa-icon/fa-icon.component';
 import { UserNameComponent } from './user-name/user-name.component';
 import { EnumsIconTypeComponent } from './enums-icon/enums-icon-type/enums-icon-type.component';
-
+import { EpicNameComponent } from './epic-name/epic-name.component';
 
 @NgModule({
   imports: [
@@ -16,7 +16,8 @@ import { EnumsIconTypeComponent } from './enums-icon/enums-icon-type/enums-icon-
     FormValidationComponent,
     FaIconComponent,
     UserNameComponent,
-    EnumsIconTypeComponent
+    EnumsIconTypeComponent,
+    EpicNameComponent,
   ],
   exports: [
     FormValidationComponent,
@@ -24,6 +25,7 @@ import { EnumsIconTypeComponent } from './enums-icon/enums-icon-type/enums-icon-
     CommonModule,
     FaIconComponent,
     UserNameComponent,
+    EpicNameComponent,
     EnumsIconTypeComponent
   ]
 })

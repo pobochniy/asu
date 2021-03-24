@@ -11,8 +11,8 @@ export class IssueApiService extends BaseApiService {
     super('Issue', http)
   }
 
-  public async GetList() {
-    return this.get<IssueModel[]>('GetList').toPromise();
+  public async GetList(epicId?: number) {
+    return this.get<IssueModel[]>('GetList?epicId=' + epicId).toPromise();
   }
 
   public async Create(model: FormGroup) {
