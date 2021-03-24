@@ -59,6 +59,10 @@ namespace Atheneum.Entity
                         x => x.HasOne(xs => xs.Issue).WithMany(),
                         x => x.HasOne(xs => xs.Sprint).WithMany())
                     .HasKey(x => new { x.SprintId, x.IssueId });
+
+                builder.HasIndex(x => x.StartDate).IsUnique();
+
+                builder.HasIndex(x => x.FinishtDate).IsUnique();
             }
         }
     }

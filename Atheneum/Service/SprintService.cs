@@ -37,6 +37,9 @@ namespace Atheneum.Service
 
         public async Task<long> Create(SprintDto dto)
         {
+            checkDate(dto);
+            await checkSprintCrossAsync(dto);
+
             var sprint = new Sprint
             {
                 StartDate = dto.StartDate,
@@ -51,8 +54,10 @@ namespace Atheneum.Service
 
         public async Task Delete(long Id)
         {
-            var s = await db.Sprint.FindAsync(Id);
-            db.Sprint.Remove(s);
+            await checkSprintHasIssues(Id);
+
+            var sprint = await db.Sprint.SingleAsync(s => s.Id == Id);
+            db.Sprint.Remove(sprint);
 
             await db.SaveChangesAsync();
         }
@@ -89,13 +94,17 @@ namespace Atheneum.Service
             return sprintdto;
         }
 
-        public async Task Update(SprintDto sprintdto)
+        public async Task Update(SprintDto sprintDto)
         {
-            var sprint = await db.Sprint.FindAsync(sprintdto.Id);
+            await checkSprintHasIssues(sprintDto.Id);
+            checkDate(sprintDto);
+            await checkSprintCrossAsync(sprintDto);
 
-            sprint.StartDate = sprintdto.StartDate;
-            sprint.FinishtDate = sprintdto.FinishtDate;
-            sprint.IsEnded = sprintdto.IsEnded;
+            var sprint = await db.Sprint.FindAsync(sprintDto.Id);
+
+            sprint.StartDate = sprintDto.StartDate;
+            sprint.FinishtDate = sprintDto.FinishtDate;
+            sprint.IsEnded = sprintDto.IsEnded;
 
             await db.SaveChangesAsync();
         }
@@ -119,5 +128,27 @@ namespace Atheneum.Service
         {
             throw new NotImplementedException();
         }
+
+        #region Validation
+        private void checkDate(SprintDto model)
+        {
+            if (model.StartDate >= model.FinishtDate)
+                throw new ArgumentException("Дата начала позже даты окончания :)");
+        }
+
+        private async Task checkSprintCrossAsync(SprintDto dto)
+        {
+            bool isSprintCross = await db.Sprint.AnyAsync(x => (dto.StartDate >= x.StartDate && dto.StartDate <= x.FinishtDate) || (dto.FinishtDate >= x.StartDate && dto.FinishtDate <= x.FinishtDate));
+            if (isSprintCross)
+                throw new ArgumentException("Переоды пересекаются");
+        }
+
+        private async Task checkSprintHasIssues(long sprintId)
+        {
+            bool hasIssues = await db.SprintIssues.AnyAsync(si => si.SprintId == sprintId);
+            if (hasIssues)
+                throw new ArgumentException("Спринт содержит задачи, сперва удалите задачи");
+        }
+        #endregion
     }
 }
