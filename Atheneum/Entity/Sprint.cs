@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Atheneum.Entity
@@ -15,6 +16,7 @@ namespace Atheneum.Entity
         /// <summary>
         /// Идентификатор
         /// </summary>
+        [Key]
         public long Id { get; set; }
 
         /// <summary>
@@ -41,9 +43,6 @@ namespace Atheneum.Entity
         {
             public void Configure(EntityTypeBuilder<Sprint> builder)
             {
-                builder
-                    .HasIndex(u => u.Id)
-                    .IsUnique();
                 builder
                     .Property(e => e.FinishtDate)
                     .HasColumnType("Date");

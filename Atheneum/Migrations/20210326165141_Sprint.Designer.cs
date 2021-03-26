@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Atheneum.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210323104531_Sprint")]
+    [Migration("20210326165141_Sprint")]
     partial class Sprint
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -289,7 +289,10 @@ namespace Atheneum.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id")
+                    b.HasIndex("FinishtDate")
+                        .IsUnique();
+
+                    b.HasIndex("StartDate")
                         .IsUnique();
 
                     b.ToTable("Sprint");

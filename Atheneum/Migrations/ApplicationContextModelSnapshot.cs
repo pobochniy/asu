@@ -287,7 +287,10 @@ namespace Atheneum.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id")
+                    b.HasIndex("FinishtDate")
+                        .IsUnique();
+
+                    b.HasIndex("StartDate")
                         .IsUnique();
 
                     b.ToTable("Sprint");

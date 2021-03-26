@@ -47,9 +47,15 @@ namespace Atheneum.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sprint_Id",
+                name: "IX_Sprint_FinishtDate",
                 table: "Sprint",
-                column: "Id",
+                column: "FinishtDate",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sprint_StartDate",
+                table: "Sprint",
+                column: "StartDate",
                 unique: true);
 
             migrationBuilder.CreateIndex(

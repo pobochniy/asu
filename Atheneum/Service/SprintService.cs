@@ -30,14 +30,15 @@ namespace Atheneum.Service
                     StartDate = x.StartDate,
                     FinishtDate = x.FinishtDate,
                     IsEnded = x.IsEnded
-                }).ToArrayAsync();
+                })
+                .OrderByDescending(s => s.FinishtDate)
+                .ToArrayAsync();
 
             return sprints;
         }
 
         public async Task<long> Create(SprintDto dto)
         {
-            checkDate(dto);
             await checkSprintCrossAsync(dto);
 
             var sprint = new Sprint
@@ -64,9 +65,7 @@ namespace Atheneum.Service
 
         public async Task<SprintDto> Details(long? id)
         {
-            if (!id.HasValue) throw new ArgumentException("Сломано");
-
-            if (id.Value == 0) return new SprintDto();
+            if (!id.HasValue || id.Value == 0) throw new ArgumentException("Пустой Id");
 
             var sprint = await db.Sprint.Include(i => i.Issues).SingleAsync(x => x.Id == id);
             var sprintdto = new SprintDto
@@ -97,7 +96,6 @@ namespace Atheneum.Service
         public async Task Update(SprintDto sprintDto)
         {
             await checkSprintHasIssues(sprintDto.Id);
-            checkDate(sprintDto);
             await checkSprintCrossAsync(sprintDto);
 
             var sprint = await db.Sprint.FindAsync(sprintDto.Id);
@@ -130,17 +128,10 @@ namespace Atheneum.Service
         }
 
         #region Validation
-        private void checkDate(SprintDto model)
-        {
-            if (model.StartDate >= model.FinishtDate)
-                throw new ArgumentException("Дата начала позже даты окончания :)");
-        }
-
         private async Task checkSprintCrossAsync(SprintDto dto)
         {
             bool isSprintCross = await db.Sprint.AnyAsync(x => (dto.StartDate >= x.StartDate && dto.StartDate <= x.FinishtDate) || (dto.FinishtDate >= x.StartDate && dto.FinishtDate <= x.FinishtDate));
-            if (isSprintCross)
-                throw new ArgumentException("Переоды пересекаются");
+            if (isSprintCross) throw new ArgumentException("Переоды пересекаются");
         }
 
         private async Task checkSprintHasIssues(long sprintId)
