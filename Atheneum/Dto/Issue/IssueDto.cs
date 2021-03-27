@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System;
 using Atheneum.Enums;
+using Atheneum.Dto.Sprint;
+using System.Collections.Generic;
 
 namespace Atheneum.Dto.Issue
 {
@@ -71,5 +73,10 @@ namespace Atheneum.Dto.Issue
         /// Ссылка на эпик
         /// </summary>
         public int? EpicLink { get; set; }
+
+        /// <summary>
+        /// Ссылка на sprints
+        /// </summary>
+        public List<SprintDto> Sprints { get; set; }
     }
 }
