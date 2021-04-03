@@ -69,7 +69,7 @@ namespace Web.Controllers
             return Ok(res);
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("[action]")]
         public async Task<IActionResult> AddIssue(long sprintId, long issueId)
         {
@@ -77,7 +77,7 @@ namespace Web.Controllers
             return Ok(sprintId);
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("[action]")]
         public async Task<IActionResult> DeleteIssue(long sprintId, long issueId)
         {

@@ -1,1 +1,17 @@
-<p>list works!</p>
+
+<form class="form-horizontal" (ngOnSubmit)="ngOnInit()">
+  <h4>Sprints</h4>
+  <div class="form-group">
+    <div class="col-md-1 col-md-10">
+      <a [routerLink]='["/sprint/edit", 0]'>
+        <input type="submit" value="Create new Sprint" class="btn btn-primary">
+      </a>
+    </div>
+  </div>
+  <div class="row" *ngFor="let Sprint of dataSource">
+    <div class="col-md-3">Sprint.Id</div>
+    <div class="col-md-3">Sprint.StartDate</div>
+    <div class="col-md-3">Sprint.FinishDate</div>
+    <div class="col-md-3">Sprint.IsEnded</div>
+  </div>
+</form>

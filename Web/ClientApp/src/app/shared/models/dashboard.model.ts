@@ -3,8 +3,10 @@ import { IssueModel } from "./issue.model";
  /* Доска спринтов */
 export class DashboardModel {
 
-  public dateStart: Date;
-  public dateEnd: Date;
+  public Id: number;
+  public StartDate: Date;
+  public FinishDate: Date;
+  public IsEnded: number;
   public issues: IssueModel[] = [];
 
 }
