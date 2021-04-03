@@ -19,13 +19,13 @@ namespace Atheneum.Dto.Sprint
         /// <summary>
         /// Дата начала спринта
         /// </summary>
-        [LessThan("FinishtDate")]
+        [LessThan("FinishDate")]
         public DateTime StartDate { get; set; }
 
         /// <summary>
         /// Дата окончания спринта
         /// </summary>
-        public DateTime FinishtDate { get; set; }
+        public DateTime FinishDate { get; set; }
 
         /// <summary>
         /// Статус

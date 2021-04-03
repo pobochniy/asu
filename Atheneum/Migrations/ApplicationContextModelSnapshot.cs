@@ -276,7 +276,7 @@ namespace Atheneum.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("FinishtDate")
+                    b.Property<DateTime>("FinishDate")
                         .HasColumnType("Date");
 
                     b.Property<byte>("IsEnded")
@@ -287,7 +287,7 @@ namespace Atheneum.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FinishtDate")
+                    b.HasIndex("FinishDate")
                         .IsUnique();
 
                     b.HasIndex("StartDate")

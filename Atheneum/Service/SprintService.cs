@@ -28,10 +28,10 @@ namespace Atheneum.Service
                 {
                     Id = x.Id,
                     StartDate = x.StartDate,
-                    FinishtDate = x.FinishtDate,
+                    FinishDate = x.FinishDate,
                     IsEnded = x.IsEnded
                 })
-                .OrderByDescending(s => s.FinishtDate)
+                .OrderByDescending(s => s.FinishDate)
                 .ToArrayAsync();
 
             return sprints;
@@ -44,7 +44,7 @@ namespace Atheneum.Service
             var sprint = new Sprint
             {
                 StartDate = dto.StartDate,
-                FinishtDate = dto.FinishtDate,
+                FinishDate = dto.FinishDate,
                 IsEnded = 0
             };
             await db.Sprint.AddAsync(sprint);
@@ -65,14 +65,14 @@ namespace Atheneum.Service
 
         public async Task<SprintDto> Details(long? id)
         {
-            if (!id.HasValue || id.Value == 0) throw new ArgumentException("Пустой Id");
-
+            if (!id.HasValue) throw new ArgumentException("Пустой Id");
+            if (id.Value == 0) return new SprintDto();
             var sprint = await db.Sprint.Include(i => i.Issues).SingleAsync(x => x.Id == id);
             var sprintdto = new SprintDto
             {
                 Id = sprint.Id,
                 StartDate = sprint.StartDate,
-                FinishtDate = sprint.FinishtDate,
+                FinishDate = sprint.FinishDate,
                 IsEnded = sprint.IsEnded,
                 Issues = sprint.Issues.Select(x => new IssueDto {
                     Id = x.Id,
@@ -101,7 +101,7 @@ namespace Atheneum.Service
             var sprint = await db.Sprint.FindAsync(sprintDto.Id);
 
             sprint.StartDate = sprintDto.StartDate;
-            sprint.FinishtDate = sprintDto.FinishtDate;
+            sprint.FinishDate = sprintDto.FinishDate;
             sprint.IsEnded = sprintDto.IsEnded;
 
             await db.SaveChangesAsync();
@@ -130,7 +130,7 @@ namespace Atheneum.Service
         #region Validation
         private async Task checkSprintCrossAsync(SprintDto dto)
         {
-            bool isSprintCross = await db.Sprint.AnyAsync(x => (dto.StartDate >= x.StartDate && dto.StartDate <= x.FinishtDate) || (dto.FinishtDate >= x.StartDate && dto.FinishtDate <= x.FinishtDate));
+            bool isSprintCross = await db.Sprint.AnyAsync(x => (dto.StartDate >= x.StartDate && dto.StartDate <= x.FinishDate) || (dto.FinishDate >= x.StartDate && dto.FinishDate <= x.FinishDate));
             if (isSprintCross) throw new ArgumentException("Переоды пересекаются");
         }
 

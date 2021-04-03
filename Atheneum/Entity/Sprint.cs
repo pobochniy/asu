@@ -27,7 +27,7 @@ namespace Atheneum.Entity
         /// <summary>
         /// Дата окончания спринта
         /// </summary>
-        public DateTime FinishtDate { get; set; }
+        public DateTime FinishDate { get; set; }
 
         /// <summary>
         /// Статус
@@ -44,7 +44,7 @@ namespace Atheneum.Entity
             public void Configure(EntityTypeBuilder<Sprint> builder)
             {
                 builder
-                    .Property(e => e.FinishtDate)
+                    .Property(e => e.FinishDate)
                     .HasColumnType("Date");
 
                 builder
@@ -61,7 +61,7 @@ namespace Atheneum.Entity
 
                 builder.HasIndex(x => x.StartDate).IsUnique();
 
-                builder.HasIndex(x => x.FinishtDate).IsUnique();
+                builder.HasIndex(x => x.FinishDate).IsUnique();
             }
         }
     }
