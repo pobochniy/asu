@@ -1,103 +1,147 @@
 ﻿using Atheneum.Entity.Identity;
+using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Text.RegularExpressions;
-
-/*  Интервалы не могут пересекаться
-
-    Интервал не более 4 часов
-
-    Не более 10 часов в сутки
-
-    Дата сегодняшняя или вчерашняя
-
-    Редактировать можно сегодняшние и вчерашние записи
-
-    Должно быть заполнено что-то одно, таскИд или эпикИд
-
-    Пользователь должен проставляться текущий, за других нельзя править и создавать*/
+using System.Linq;
+using Atheneum.Extentions.Auth;
+using System.Security.Principal;
+using Atheneum.Dto.TimeTracking;
 
 namespace Atheneum.Validations.TimeTrackingValidation
 {
-    internal class TimeTrackingValidationAttribute : ValidationAttribute
+    /// <summary>
+    /// Интервал списания не должен превышать 4 часа
+    /// </summary>
+    internal class IntervalNoMoreThanFourHours : ValidationAttribute
     {
-
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var db = (ApplicationContext)validationContext.GetService(typeof(ApplicationContext));
 
-            TimeTracking timeTracking = value as TimeTracking;
+            TimeTrackingDto model = (TimeTrackingDto)validationContext.ObjectInstance;
 
-            // Дата сегодняшняя или вчерашняя
-            if (timeTracking.Date.Date != DateTime.Now.Date ||
-                timeTracking.Date.Date != DateTime.Today.AddDays(-1).Date)
+            /// Интервал не более 4 часов (будет очень смешно, если заработает)
+            if (model.From != null)
             {
-                return new ValidationResult(ErrorMessage = "Дата должна быть сегодняшняя или вчерашняя");
+                if (model.To > model.From.AddHours(+4))
+                {
+                    return new ValidationResult(ErrorMessage = "Интервал не должен превышать 4 часа");
+                }
             }
 
-            // Интервал не более 4 часов (будет очень смешно, если заработает)
-            else if (timeTracking.To > timeTracking.From.AddHours(+4)) 
-            {
-                return new ValidationResult(ErrorMessage = "Интервал не должен превышать 4 часа");
-            }
-                return ValidationResult.Success;
+            return ValidationResult.Success;
         }
+
     }
 
-    // Интервалы не могут пересекаться
-    internal class IntervalsCannotIntersect : ValidationAttribute
+    /// <summary>
+    /// Должно быть заполнено что-то одно, таскИд или эпикИд
+    /// </summary>
+    internal class TaskOrEpic : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var db = (ApplicationContext)validationContext.GetService(typeof(ApplicationContext));
+            TimeTrackingDto model = (TimeTrackingDto)validationContext.ObjectInstance;
 
-            TimeTracking timeTracking = (TimeTracking)validationContext.ObjectInstance;
-
-            db.TimeTracking.
-            if (
+            if (model.IssueId.HasValue && model.EpicId.HasValue)
             {
-               
-            };
+                return new ValidationResult(ErrorMessage = "Должно быть заполненно IssueId или EpicId");
+            }
 
             return ValidationResult.Success;
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-    ////Интервал не более указанных часов
-    internal class IntervalNotMoreThanHoursAttribute : ValidationAttribute
+    /// <summary>
+    /// Создание и редактирование возможно только за текущего пользователя
+    /// </summary>
+    internal class CurrentUser : ValidationAttribute
     {
-        private int interval;
-
-        public IntervalNotMoreThanHoursAttribute(int interval)
-        {
-            this.interval = interval;
-        }
-
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            TimeTracking timeTracking = (TimeTracking)validationContext.ObjectInstance;
+            TimeTrackingDto model = (TimeTrackingDto)validationContext.ObjectInstance;
 
-            if (timeTracking.To > timeTracking.From.AddHours(+interval))
+            var httpContextAccessor = (IHttpContextAccessor)validationContext.GetService(typeof(IHttpContextAccessor));
+
+            var userId = httpContextAccessor.HttpContext.User.GetUserId();
+
+            if (model.UserId != Guid.Empty && model.UserId != userId)
             {
-                // Надо как-то просклонять
-                return new ValidationResult(ErrorMessage = $"Интервал не может превышать {interval} часа");
-            };
+                return new ValidationResult(ErrorMessage = "Создание и редактирование возможно только за текущего пользователя");
+            }
 
+            return ValidationResult.Success;
+        }
+    }
+
+    /// <summary>
+    /// Не более 10 часов в сутки
+    /// Интервалы не могут пересекаться
+    /// </summary>
+    internal class NoMoreThanTenHoursADay : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+
+            TimeTrackingDto model = (TimeTrackingDto)validationContext.ObjectInstance;
+
+            if (model.Date == null)
+            {
+                return new ValidationResult(ErrorMessage = "Заполните поле 'Date'");
+            }
+
+            var db = (ApplicationContext)validationContext.GetService(typeof(ApplicationContext));
+
+            var httpContextAccessor = (IHttpContextAccessor)validationContext.GetService(typeof(IHttpContextAccessor));
+
+            var userId = httpContextAccessor.HttpContext.User.GetUserId();
+
+            var intervals = db.TimeTracking
+                .Where(x => x.Date.Date == model.Date.Date && x.UserId == userId)
+                .Select(res => new
+                {
+                    from = res.From,
+                    to = res.To
+                }).ToList();
+
+            var totalAmountOfTimeSpent = intervals.Select(x => (x.to - x.from).TotalMinutes).Sum();
+
+            if (totalAmountOfTimeSpent + (model.To - model.From).TotalMinutes > 10 * 60)
+            {
+                return new ValidationResult(ErrorMessage = "Списанные интервалы за сутки не должны превышать 10 часов");
+            }
+
+            foreach (var interval in intervals)
+            {
+                if (model.From > interval.from && model.From < interval.to)
+                {
+                    return new ValidationResult(ErrorMessage = "Интервалы не могут пересекаться");
+                }
+
+                else if (model.To > interval.from && model.To < interval.to)
+                {
+                    return new ValidationResult(ErrorMessage = "Интервалы не могут пересекаться");
+                }
+            }
+
+            return ValidationResult.Success;
+        }
+    }
+
+    // Дата сегодняшняя или вчерашняя
+    internal class DateTodayOrYesterday : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            TimeTrackingDto model = (TimeTrackingDto)validationContext.ObjectInstance;
+
+            if (model.Date.Date != DateTime.Now.Date ||
+               model.Date.Date != DateTime.Today.AddDays(-1).Date)
+            {
+                return new ValidationResult(ErrorMessage = "Дата должна быть сегодняшняя или вчерашняя");
+            }
             return ValidationResult.Success;
         }
     }
 }
+
