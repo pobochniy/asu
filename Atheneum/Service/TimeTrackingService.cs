@@ -2,6 +2,7 @@
 using Atheneum.Entity.Identity;
 using Atheneum.Interface;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,8 +23,8 @@ namespace Atheneum.Service
             var timeTracking = new TimeTracking
             {
                 Date = dto.Date,
-                From = dto.From.Value,
-                To = dto.To.Value,
+                From = dto.From,
+                To = dto.To,
                 Comment = dto.Comment,
                 UserId = dto.UserId,
                 IssueId = dto.IssueId,
@@ -53,17 +54,21 @@ namespace Atheneum.Service
 
         public async Task Update(TimeTrackingDto timeTrackingDto)
         {
-            var timeTracking = await db.TimeTracking.FindAsync(timeTrackingDto.Id);
-            timeTracking.Id = timeTrackingDto.Id;
-            timeTracking.Date = timeTrackingDto.Date;
-            timeTracking.From = timeTrackingDto.From.Value;
-            timeTracking.To = timeTrackingDto.To.Value;
-            timeTracking.Comment = timeTrackingDto.Comment;
-            timeTracking.UserId = timeTrackingDto.UserId;
-            timeTracking.IssueId = timeTrackingDto.IssueId;
-            timeTracking.EpicId = timeTrackingDto.EpicId;
+            if (timeTrackingDto.Date.Date == DateTime.Now.Date || timeTrackingDto.Date.Date == DateTime.Now.AddDays(-1).Date)
+            {
+                var timeTracking = await db.TimeTracking.FindAsync(timeTrackingDto.Id);
+                timeTracking.Id = timeTrackingDto.Id;
+                timeTracking.Date = timeTrackingDto.Date;
+                timeTracking.From = timeTrackingDto.From;
+                timeTracking.To = timeTrackingDto.To;
+                timeTracking.Comment = timeTrackingDto.Comment;
+                timeTracking.UserId = timeTrackingDto.UserId;
+                timeTracking.IssueId = timeTrackingDto.IssueId;
+                timeTracking.EpicId = timeTrackingDto.EpicId;
 
-            await db.SaveChangesAsync();
+                await db.SaveChangesAsync();
+            }
+            else throw new ArgumentException("Списать время возможно только за сегодня и вчера");
         }
 
         public async Task Delete(long id)

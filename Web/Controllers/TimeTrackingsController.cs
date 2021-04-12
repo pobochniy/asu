@@ -46,10 +46,9 @@ namespace Web.Controllers
             }
             else
             {
-                //timeTrackingDto.UserId = HttpContext.User.GetUserId();
-                //var id = await service.Create(timeTrackingDto);
-                //return Ok(id);
-                return Ok();
+                timeTrackingDto.UserId = HttpContext.User.GetUserId();
+                var id = await service.Create(timeTrackingDto);
+                return Ok(id);
             }
         }
 
