@@ -70,3 +70,18 @@
 .chat-item-privat {
   background-color: #ff0000;
 }
+
+.chat {
+  left: 270px;
+  right: 20px;
+  transition: all 0.3s;
+}
+
+.chat.wide {
+    left:20px;
+}
+@media (max-width: 768px) {
+  .chat {
+    left: 20px;
+  }
+}

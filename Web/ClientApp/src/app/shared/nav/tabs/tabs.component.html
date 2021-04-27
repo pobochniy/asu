@@ -1,4 +1,4 @@
-<ul class="nav-tabs nav">
+<ul class="nav-tabs nav bg-light">
   <li *ngFor="let tab of tabs" class="nav-item">
     <a (click)="goTo(tab.id)" routerLink="{{tab.url}}" ngbnavlink="" role="tab" [ngClass]='{ "active": tab.isActive }' class="nav-link" aria-controls="ngb-nav-19-panel">
       {{ tab.url }}

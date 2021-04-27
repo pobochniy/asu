@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ChatApiService } from '../../api/chat-api.service';
 import { UserService } from "../../core/user.service";
 import { PushChatModel } from "../../models/push-chat.model";
+import { EventEmitterService } from '../../nav/event-emitter.service';
 import { ChatService } from "../chat.service";
 
 @Component({
@@ -13,11 +14,13 @@ export class ChatWindowComponent implements OnInit {
 
   public text: string; // текстовове поле ввода
   private currentUser: string;
+  isWide = false; //широкий чат со свернутым меню
 
   constructor(
     public chatService: ChatService,
     public apiService: ChatApiService,
-    public userService: UserService
+    public userService: UserService,
+    private eventEmitterService: EventEmitterService
   ) {
   }
 
@@ -28,6 +31,17 @@ export class ChatWindowComponent implements OnInit {
       this.currentUser = this.userService.User.userName;
       this.chatService.connectionWebSocket();
     }
+
+    if (this.eventEmitterService.subsChat == undefined) {
+      this.eventEmitterService.subsChat = this.eventEmitterService
+        .invokeWideChatFunction.subscribe(() => {
+          this.wideChat();
+        });
+    }
+  }
+
+  wideChat() { 
+    this.isWide = !this.isWide;
   }
 
   send() {

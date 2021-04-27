@@ -22,17 +22,17 @@ export class EditComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    debugger
+
     const id = +this.route.snapshot.paramMap.get('id');
-    debugger
+
     const sprint = await this.service.Details(id);
 
     this.cdRef.detectChanges();
 
     this.sprintForm.setValue({
       id: sprint.id,
-      startDate: sprint.startDate,
-      finishDate: sprint.finishDate,
+      startDate: sprint.startDate ? sprint.startDate?.substr(0, 10) : new Date(),
+      finishDate: sprint.finishDate ? sprint.finishDate?.substr(0, 10) : new Date(),
       isEnded: sprint.isEnded
     });
     
@@ -44,20 +44,20 @@ export class EditComponent implements OnInit {
     }
 
     try {
-      //if (this.issueForm.valid) {
-      //  if (this.issueForm.value['id'] || 0 > 0) {
-      //    await this.service.Update(this.issueForm);
-      //  }
-      //  else {
-      //    this.storageSave();
-      //    await this.service.Create(this.issueForm);
-      //  }
+      if (this.sprintForm.valid) {
+        if (this.sprintForm.value['id'] || 0 > 0) {
+          await this.service.Update(this.sprintForm);
+        }
+        else {
+          await this.service.Create(this.sprintForm);
+        }
 
-      //  this.router.navigateByUrl('/issue/list');
-      //}
+        this.router.navigateByUrl('/sprint/list');
+      }
     }
-    catch {
-      alert('Возникли непредвиденные ошибки. Попробуйте ввести другие значения или сообщите программисту');
+    catch (e) {
+      console.log(e);
+      alert(e.Message);
     }
   }
 

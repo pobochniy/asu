@@ -3,12 +3,12 @@ using Atheneum.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class SprintController : Controller
     {
         private readonly ISprint service;
@@ -18,44 +18,50 @@ namespace Web.Controllers
             this.service = service;
         }
 
-        [HttpGet]
-        [Route("[action]")]
+        [HttpGet("[action]")]
         public async Task<IEnumerable<SprintDto>> GetList()
         {
             return await service.GetList();
         }
 
-        [HttpPost]
-        [Route("[action]")]
+        [HttpPost("[action]")]
         public async Task<IActionResult> Create([FromBody] SprintDto model)
         {
-            if (ModelState.IsValid)
+            try 
             {
-                var id = await service.Create(model);
+                // TODO: Вынести валидацию в модель 
+                if (ModelState.IsValid)
+                {
+                    var id = await service.Create(model);
 
-                return Ok(id);
+                    return Ok(id);
+                }
+                return BadRequest(ModelState);
             }
-
-            return BadRequest(ModelState);
+            catch(ArgumentException aex)
+            {
+                return BadRequest(ModelState); 
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
-        [HttpPost]
-        [Route("[action]")]
+        [HttpGet("[action]")]
         public async Task<IActionResult> Delete(long id)
         {
             await service.Delete(id);
             return Ok(id);
         }
 
-        [HttpGet]
-        [Route("[action]")]
+        [HttpGet("[action]")]
         public async Task<SprintDto> Details(long id)
         {
             return await service.Details(id);
         }
 
-        [HttpPost]
-        [Route("[action]")]
+        [HttpPost("[action]")]
         public async Task<IActionResult> Update([FromBody] SprintDto issuedto)
         {
             if (!ModelState.IsValid)
@@ -69,16 +75,14 @@ namespace Web.Controllers
             return Ok(res);
         }
 
-        [HttpGet]
-        [Route("[action]")]
+        [HttpGet("[action]")]
         public async Task<IActionResult> AddIssue(long sprintId, long issueId)
         {
             await service.AddIssue(sprintId, issueId);
             return Ok(sprintId);
         }
 
-        [HttpGet]
-        [Route("[action]")]
+        [HttpGet("[action]")]
         public async Task<IActionResult> DeleteIssue(long sprintId, long issueId)
         {
             await service.DeleteIssue(sprintId, issueId);

@@ -8,9 +8,10 @@ import { ListComponent } from './list/list.component';
 import { EditComponent } from './edit/edit.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
-  declarations: [DashboardComponent, IssueCardComponent, ListComponent, EditComponent],
+  declarations: [DashboardComponent, IssueCardComponent, ListComponent, EditComponent, DetailsComponent],
   imports: [
     SprintRoutingModule,
     SharedModule,

@@ -5,6 +5,7 @@ import { EditComponent } from './edit/edit.component';
 
 const routes: Routes = [{
   path: 'issue', children: [
+    { path: '', redirectTo: 'list', pathMatch: 'full' },
     { path: 'list', component: ListComponent },
     { path: 'edit/:id', component: EditComponent },
   ]

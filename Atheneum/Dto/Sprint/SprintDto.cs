@@ -1,5 +1,4 @@
 ﻿using Atheneum.Dto.Issue;
-using Foolproof;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,7 +18,6 @@ namespace Atheneum.Dto.Sprint
         /// <summary>
         /// Дата начала спринта
         /// </summary>
-        [LessThan("FinishDate")]
         public DateTime StartDate { get; set; }
 
         /// <summary>

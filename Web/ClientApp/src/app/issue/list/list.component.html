@@ -1,7 +1,7 @@
 
 <form class="form-horizontal" (ngOnSubmit)="ngOnInit()">
   <h4>Issues</h4>
-  <div class="form-group">
+  <div class="form-group row">
     <div class="col-md-1 col-md-10">
       <a [routerLink]='["/issue/edit", 0]'>
         <input type="submit" value="Create new Issue" class="btn btn-primary">
@@ -9,33 +9,33 @@
     </div>
   </div>
   <table class="table table-striped">
-    <thead>
+    <thead class="thead-dark">
       <tr>
-        <td>T</td>
-        <td>Assignee</td>
-        <td>Reporter</td>
-        <td>Summary</td>
-        <td>Description</td>
-        <td>Status</td>
-        <td>Priority</td>
-        <td>Estimated Time</td>
-        <td>Due Date</td>
-        <td>Epic Link</td>
-        <td></td>
+        <th>T</th>
+        <th>Assignee</th>
+        <th>Reporter</th>
+        <th>Summary</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Priority</th>
+        <th>Est. Time</th>
+        <th>Due Date</th>
+        <th>Epic Link</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let el of dataSource">
-        <td class="col"><shared-enums-icon-type [type]="el.type"></shared-enums-icon-type></td>
-        <td class="col"><shared-user-name [userId]="el.assignee"></shared-user-name></td>
-        <td class="col"><shared-user-name [userId]="el.reporter"></shared-user-name></td>
-        <td class="col">{{el.summary}}</td>
-        <td class="col">{{el.description}}</td>
-        <td class="col">{{GetStatus(el.status)}}</td>
-        <td class="col">{{GetPriority(el.priority)}}</td>
-        <td class="col">{{el.estimatedTime}}</td>
-        <td class="col" style="min-width: 115px">{{el.dueDate | date:'yyyy-MM-dd'}}</td>
-        <td class="col">{{el.epicLink}}</td>
+        <td><shared-enums-icon-type [type]="el.type"></shared-enums-icon-type></td>
+        <td><shared-user-name [userId]="el.assignee"></shared-user-name></td>
+        <td><shared-user-name [userId]="el.reporter"></shared-user-name></td>
+        <td>{{el.summary}}</td>
+        <td>{{el.description}}</td>
+        <td>{{GetStatus(el.status)}}</td>
+        <td>{{GetPriority(el.priority)}}</td>
+        <td style="min-width: 100px; text-align: center;">{{el.estimatedTime}}</td>
+        <td style="min-width: 120px">{{el.dueDate | date:'yyyy-MM-dd'}}</td>
+        <td style="min-width: 100px; text-align: center;">{{el.epicLink}}</td>
         <td>
           <a [routerLink]='["/issue/edit", el.id]'>
             <input type="submit" value="Edit" class="btn btn-primary">

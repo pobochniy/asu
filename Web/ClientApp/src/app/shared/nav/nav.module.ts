@@ -3,11 +3,14 @@ import { CommonModule } from '@angular/common';
 import { NavMenuComponent } from './menu/menu.component';
 import { NavTabsComponent } from './tabs/tabs.component';
 import { RouterModule } from '@angular/router';
+import { TopNavComponent } from './top-nav/top-nav.component';
+import { EventEmitterService } from './event-emitter.service';
 
 @NgModule({
   declarations: [
     NavMenuComponent,
-    NavTabsComponent
+    NavTabsComponent,
+    TopNavComponent
   ],
   imports: [
     CommonModule,
@@ -15,7 +18,11 @@ import { RouterModule } from '@angular/router';
   ],
   exports: [
     NavMenuComponent,
-    NavTabsComponent
+    NavTabsComponent,
+    TopNavComponent
+  ],
+  providers: [
+    EventEmitterService
   ]
 })
 export class NavModule { }

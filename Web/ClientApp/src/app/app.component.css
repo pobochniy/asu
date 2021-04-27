@@ -17,3 +17,18 @@
   border-top: 1px solid #5d5a5a;
   height: 30vh;
 }
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+}
+
+#content {
+  /*margin-top:30px;*/
+  width: 100%;
+  padding: 20px;
+  min-height: 100vh;
+  transition: all 0.3s;
+}
+

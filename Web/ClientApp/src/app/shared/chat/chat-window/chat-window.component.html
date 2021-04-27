@@ -1,5 +1,5 @@
 <!--<div class="app">-->
-  <div *ngIf="userService.isAuth" class="chat col-sm-9 col-xs-12" appChatResizer>
+  <div [class.wide]="isWide" *ngIf="userService.isAuth" class="chat"  appChatResizer>
     <div class="chat-resize-panel" id="resizePanel"></div>
     <div class="chat-container" id="scrollContainer">
       <div *ngFor="let mes of chatService.msgs">
