@@ -8,7 +8,7 @@ import { DashboardModel } from '../../shared/models/dashboard.model';
   selector: 'details-sprint',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css'],
-  providers: [SprintApiService, DatePipe]
+  providers: [SprintApiService]
 })
 export class DetailsComponent implements OnInit {
 

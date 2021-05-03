@@ -15,17 +15,18 @@
           <th class="col-md-1">Id</th>
           <th class="col-md-3">Start Date</th>
           <th class="col-md-3">Finish Date</th>
-          <th class="col-md-3">Is Ended</th>
+          <th class="col-md-2">Is Ended</th>
+          <th class="col-md-1"></th>
           <th class="col-md-1"></th>
           <th class="col-md-1"></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let sprint of dataSource"  class="row">
+        <tr *ngFor="let sprint of dataSource" class="row">
           <td class="col-md-1">{{sprint.id}}</td>
           <td class="col-md-3">{{datepipe.transform(sprint.startDate, 'yyyy-MM-dd')}}</td>
           <td class="col-md-3">{{datepipe.transform(sprint.finishDate, 'yyyy-MM-dd')}}</td>
-          <td class="col-md-3">{{sprint.isEnded}}</td>
+          <td class="col-md-2">{{sprint.isEnded}}</td>
 
           <td class="col-md-1">
             <a [routerLink]="['/sprint/details', sprint.id]">
@@ -34,8 +35,15 @@
           </td>
 
           <td class="col-md-1">
+            <a [routerLink]="['/sprint/edit', sprint.id]">
+              <input type="submit" value="Edit" class="btn btn-primary">
+            </a>
+          </td>
+
+          <td class="col-md-1">
             <input type="button" (click)="Delete(sprint.id)" value="Delete" class="btn btn-danger">
           </td>
+
         </tr>
       </tbody>
     </table>

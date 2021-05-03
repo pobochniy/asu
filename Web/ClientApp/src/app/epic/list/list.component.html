@@ -32,7 +32,7 @@
         <td>{{GetPriority(epic.priority)}}</td>
         <td>{{epic.name}}</td>
         <td>{{epic.description}}</td>
-        <td style="min-width:120px" >{{datepipe.transform(epic.dueDate, 'yyyy-MM-dd') }}</td>
+        <td class="mw-120">{{datepipe.transform(epic.dueDate, 'yyyy-MM-dd') }}</td>
         <td>
           <a [routerLink]="['/epic/edit', epic.id]">
             <input type="submit" value="Edit" class="btn btn-primary">

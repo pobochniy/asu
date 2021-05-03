@@ -8,7 +8,7 @@ import { DashboardModel } from '../../shared/models/dashboard.model';
   selector: 'list-sprint',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css'],
-  providers: [SprintApiService, DatePipe]
+  providers: [SprintApiService]
 })
 export class ListComponent implements OnInit {
   public dataSource: DashboardModel[];

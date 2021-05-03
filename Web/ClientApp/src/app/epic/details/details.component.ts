@@ -16,7 +16,7 @@ import { IssueStatusEnum } from '../../shared/enums/issue-status.enum';
   selector: 'details-epic',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css'],
-  providers: [EpicApiService, IssueApiService, ListComponent, DatePipe]
+  providers: [EpicApiService, IssueApiService, ListComponent]
 })
 export class DetailsComponent implements OnInit {
   public epic: EpicModel = new EpicModel();

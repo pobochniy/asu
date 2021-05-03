@@ -3,16 +3,16 @@
 
   <hr>
 
-  <div class="form-group row">
-    <label class="col-md-2 control-label" for="startDate">Date Start*</label>
-    <div class="col-md-6">
+  <div class="form-group row w-50">
+    <label class="col-md-3 control-label" for="startDate">Date Start*</label>
+    <div class="col-md-9">
       <input class="form-control" type="date" formControlName="startDate" />
     </div>
   </div>
 
-  <div class="form-group row">
-    <label class="col-md-2 control-label" for="finishDate">Date Finish*</label>
-    <div class="col-md-6">
+  <div class="form-group row w-50">
+    <label class="col-md-3 control-label" for="finishDate">Date Finish*</label>
+    <div class="col-md-9">
       <input class="form-control" type="date" formControlName="finishDate" />
       <div *ngIf="!sprintForm.controls['finishDate'].pristine && sprintForm.hasError('DateLessThan')" class="error-msg">
         <div class="text-danger">Finish date must be greater than StartDate</div>

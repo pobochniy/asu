@@ -32,9 +32,7 @@
         <tr>
           <td>T</td>
           <td>Assignee</td>
-          <!--<td>Reporter</td>-->
           <td>Summary</td>
-          <!--<td>Description</td>-->
           <td>Status</td>
           <td>Priority</td>
           <td>Estimated Time</td>
@@ -50,9 +48,7 @@
           <td class="col">
             <shared-user-name [userId]="el.assignee"></shared-user-name>
           </td>
-          <!--<td class="col"><shared-user-name [userId]="el.reporter"></shared-user-name></td>-->
           <td class="col">{{el.summary}}</td>
-          <!--<td class="col">{{el.description}}</td>-->
           <td class="col">{{GetStatus(el.status)}}</td>
           <td class="col">{{GetPriority(el.priority)}}</td>
           <td class="col">{{el.estimatedTime}}</td>

@@ -18,6 +18,7 @@ import { UsersApiService } from './shared/api/users-api.service';
 import { NavModule } from './shared/nav/nav.module';
 import { NavTabsService } from './shared/nav/nav-tabs.service';
 import { SprintModule } from './sprint/sprint.module';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -39,9 +40,10 @@ import { SprintModule } from './sprint/sprint.module';
     NgxSelectModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' }
-    ])
+    ]),
+
   ],
-  providers: [UsersApiService, UserService, ChatService, NavTabsService],
+  providers: [UsersApiService, UserService, ChatService, NavTabsService, DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

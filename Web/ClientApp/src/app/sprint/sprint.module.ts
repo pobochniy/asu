@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { EpicNameComponent } from '../shared/epic-name/epic-name.component';
 import { SharedModule } from '../shared/shared.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IssueCardComponent } from './issue-card/issue-card.component';

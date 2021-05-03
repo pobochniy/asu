@@ -17,5 +17,5 @@ export class EventEmitterService {
   onToggleMenuButtonClick() {
     this.invokeMenuToggleMenuFunction.emit();
     this.invokeWideChatFunction.emit();
-  } 
+  }
 }

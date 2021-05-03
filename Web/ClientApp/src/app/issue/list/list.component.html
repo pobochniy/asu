@@ -33,9 +33,9 @@
         <td>{{el.description}}</td>
         <td>{{GetStatus(el.status)}}</td>
         <td>{{GetPriority(el.priority)}}</td>
-        <td style="min-width: 100px; text-align: center;">{{el.estimatedTime}}</td>
-        <td style="min-width: 120px">{{el.dueDate | date:'yyyy-MM-dd'}}</td>
-        <td style="min-width: 100px; text-align: center;">{{el.epicLink}}</td>
+        <td class="mw-100 text-center">{{el.estimatedTime}}</td>
+        <td class="mw-120 text-center">{{el.dueDate | date:'yyyy-MM-dd'}}</td>
+        <td class="mw-100 text-center">{{el.epicLink}}</td>
         <td>
           <a [routerLink]='["/issue/edit", el.id]'>
             <input type="submit" value="Edit" class="btn btn-primary">

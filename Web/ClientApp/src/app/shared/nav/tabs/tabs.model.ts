@@ -14,8 +14,8 @@ export class TabsModel {
 
   private mainTabs = [
     '/',
-    '/issue/list',
-    '/epic/list',
+    '/issue',
+    '/epic',
     '/rolemanagement'
   ];
 }
