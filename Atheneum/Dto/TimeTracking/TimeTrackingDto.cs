@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Atheneum.Dto.TimeTracking
 {
-    [NoMoreThanTenHoursADay]
     [TaskOrEpic]
+    [NoMoreThanTenHoursADay]
     [IntervalNoMoreThanFourHours]
     public class TimeTrackingDto
     {
@@ -15,9 +15,14 @@ namespace Atheneum.Dto.TimeTracking
         public long Id { get; set; }
 
         /// <summary>
+        /// Системная дата
+        /// </summary>
+        public DateTime SystemDate { get; set; }
+
+        /// <summary>
         /// День на который списывать время
         /// </summary>
-        [Required]
+        [DateTodayOrYesterday]
         public DateTime Date { get; set; }
 
         /// <summary>
@@ -41,7 +46,6 @@ namespace Atheneum.Dto.TimeTracking
         /// <summary>
         /// Пользователь, потративший время
         /// </summary>
-        [Required]
         [CurrentUser]
         public Guid UserId { get; set; }
 

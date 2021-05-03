@@ -35,7 +35,7 @@ namespace Atheneum.Validations.TimeTrackingValidation
     }
 
     /// <summary>
-    /// Должно быть заполнено что-то одно, таскИд или эпикИд
+    /// Должно быть заполнено что-то одно, IssueId или EpicId
     /// </summary>
     internal class TaskOrEpic : ValidationAttribute
     {
@@ -43,7 +43,7 @@ namespace Atheneum.Validations.TimeTrackingValidation
         {
             TimeTrackingDto model = (TimeTrackingDto)validationContext.ObjectInstance;
 
-            if (model.IssueId.HasValue && model.EpicId.HasValue)
+            if (model.IssueId.HasValue & model.EpicId.HasValue)
             {
                 return new ValidationResult(ErrorMessage = "Должно быть заполненно IssueId или EpicId");
             }
@@ -59,18 +59,23 @@ namespace Atheneum.Validations.TimeTrackingValidation
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            TimeTrackingDto model = (TimeTrackingDto)validationContext.ObjectInstance;
-
-            var httpContextAccessor = (IHttpContextAccessor)validationContext.GetService(typeof(IHttpContextAccessor));
-
-            var userId = httpContextAccessor.HttpContext.User.GetUserId();
-
-            if (model.UserId != Guid.Empty && model.UserId != userId)
+            if (value != null)
             {
-                return new ValidationResult(ErrorMessage = "Создание и редактирование возможно только за текущего пользователя");
+                Guid currentUser = (Guid)value;
+
+                var httpContextAccessor = (IHttpContextAccessor)validationContext.GetService(typeof(IHttpContextAccessor));
+
+                var userId = httpContextAccessor.HttpContext.User.GetUserId();
+
+                if (currentUser != userId)
+                {
+                    return new ValidationResult(ErrorMessage = "Создание и редактирование возможно только за текущего пользователя");
+                }
+
+                return ValidationResult.Success;
             }
 
-            return ValidationResult.Success;
+                return new ValidationResult(ErrorMessage = "UserId не заполнено");
         }
     }
 
@@ -133,14 +138,20 @@ namespace Atheneum.Validations.TimeTrackingValidation
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            TimeTrackingDto model = (TimeTrackingDto)validationContext.ObjectInstance;
-
-            if (model.Date.Date != DateTime.Now.Date ||
-               model.Date.Date != DateTime.Today.AddDays(-1).Date)
+            if (value != null)
             {
-                return new ValidationResult(ErrorMessage = "Дата должна быть сегодняшняя или вчерашняя");
+                DateTime modelDate = (DateTime)value;
+
+                if (modelDate.Date != DateTime.Now.Date ||
+                   modelDate.Date != DateTime.Now.AddDays(-1).Date)
+                {
+                    return new ValidationResult(ErrorMessage = "Списать время возможно только за сегодня и вчера");
+                }
+
+                return ValidationResult.Success;
             }
-            return ValidationResult.Success;
+
+            return new ValidationResult(ErrorMessage = "Date не заполнено");
         }
     }
 }

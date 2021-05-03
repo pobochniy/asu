@@ -54,8 +54,6 @@ namespace Atheneum.Service
 
         public async Task Update(TimeTrackingDto timeTrackingDto)
         {
-            if (timeTrackingDto.Date.Date == DateTime.Now.Date || timeTrackingDto.Date.Date == DateTime.Now.AddDays(-1).Date)
-            {
                 var timeTracking = await db.TimeTracking.FindAsync(timeTrackingDto.Id);
                 timeTracking.Id = timeTrackingDto.Id;
                 timeTracking.Date = timeTrackingDto.Date;
@@ -67,8 +65,6 @@ namespace Atheneum.Service
                 timeTracking.EpicId = timeTrackingDto.EpicId;
 
                 await db.SaveChangesAsync();
-            }
-            else throw new ArgumentException("Списать время возможно только за сегодня и вчера");
         }
 
         public async Task Delete(long id)

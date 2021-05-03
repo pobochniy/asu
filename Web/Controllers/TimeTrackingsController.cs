@@ -37,19 +37,19 @@ namespace Web.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        //[Authorize]
         public async Task<IActionResult> Create([FromBody] TimeTrackingDto timeTrackingDto)
         {
-            if (!ModelState.IsValid)
+            timeTrackingDto.UserId = HttpContext.User.GetUserId();
+            timeTrackingDto.SystemDate = System.DateTime.Now.Date;
+
+            if (ModelState.IsValid)
             {
-                return BadRequest(ModelState);
-            }
-            else
-            {
-                timeTrackingDto.UserId = HttpContext.User.GetUserId();
                 var id = await service.Create(timeTrackingDto);
                 return Ok(id);
             }
+
+                return BadRequest(ModelState);
+            
         }
 
         [HttpPost]
