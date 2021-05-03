@@ -8,6 +8,6 @@
 
 .navbar-btn {
   box-shadow: none;
-  outline: none !important;
+  outline: none;
   border: none;
 }
