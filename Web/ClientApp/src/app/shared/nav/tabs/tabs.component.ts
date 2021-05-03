@@ -30,7 +30,6 @@ export class NavTabsComponent implements OnInit {
               this.tabs.push(newTab);
             }
           }
-          console.log(event);
         }
       });
   }

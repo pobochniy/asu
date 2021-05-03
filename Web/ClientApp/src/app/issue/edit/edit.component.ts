@@ -27,7 +27,7 @@ export class EditComponent implements OnInit {
   public SizeType = SizeEnum;
 
   public getCheckedType(val: number): boolean {
-    console.log(val, this.issueForm.controls['type'].value, (this.issueForm.controls['type'].value || 0) == val);
+    //console.log(val, this.issueForm.controls['type'].value, (this.issueForm.controls['type'].value || 0) == val);
     return (this.issueForm.controls['type'].value || 0) == val;
   }
 

@@ -10,6 +10,7 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,6 +28,12 @@
     <Content Remove="$(SpaRoot)**" />
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\src\app\shared\nav\event-emitter.service.spec.ts" />
+    <None Remove="ClientApp\src\app\shared\nav\top-nav\top-nav.component.spec.ts" />
+    <None Remove="ClientApp\src\app\sprint\details\details.component.spec.ts" />
   </ItemGroup>
 
   <ItemGroup>

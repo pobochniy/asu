@@ -1,0 +1,11 @@
+<div class="">
+  <h4>
+    Sprint from {{datepipe.transform(sprint.startDate, 'yyyy-MM-dd')}}  to  {{datepipe.transform(sprint.finishDate, 'yyyy-MM-dd')}}
+  </h4>
+  <a [routerLink]="['/sprint/edit', sprint.id]">
+    <input type="submit" value="Edit" class="btn btn-primary">
+  </a>
+  <div *ngFor="let issue of sprint?.issues">
+    <div>Issue</div>
+  </div>
+</div>

@@ -10,7 +10,7 @@ import { IssuePriorityEnum } from '../../shared/enums/issue-priority.enum';
   selector: 'list-epic',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css'],
-  providers: [EpicApiService, DatePipe]
+  providers: [EpicApiService]
 })
 export class ListComponent implements OnInit {
 

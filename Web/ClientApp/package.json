@@ -26,7 +26,7 @@
     "@aspnet/signalr": "^1.1.4",
     "@nguniversal/module-map-ngfactory-loader": "^5.0.0-beta.5",
     "aspnet-prerendering": "^3.0.1",
-    "bootstrap": "^3.4.1",
+    "bootstrap": "4.6.0",
     "core-js": "^2.4.1",
     "ngx-select-ex": "^3.7.8",
     "rxjs": "^6.6.3",

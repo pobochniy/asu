@@ -1,18 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { EventEmitterService } from '../event-emitter.service';
 
 @Component({
   selector: 'shared-nav-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class NavMenuComponent {
-  isExpanded = false;
+export class NavMenuComponent implements OnInit {
+  constructor(private eventEmitterService: EventEmitterService) { }
 
-  collapse() {
-    this.isExpanded = false;
+  ngOnInit(): void {
+    if (this.eventEmitterService.subsMenu == undefined) {
+      this.eventEmitterService.subsMenu = this.eventEmitterService
+        .invokeMenuToggleMenuFunction.subscribe(() => {
+          this.toggleMenu();
+        });
+    }
   }
 
-  toggle() {
+  isExpanded = false;
+
+  toggleMenu() {
     this.isExpanded = !this.isExpanded;
   }
 }

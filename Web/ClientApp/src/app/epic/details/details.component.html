@@ -7,18 +7,18 @@
   </h4>
   <div class="row form-group">
     <div class="col-lg-3">
-      <label for="assignee">Assignee</label>
-      <shared-user-name [userId]="epic.assignee" id="assignee"></shared-user-name>
+      <label class="mr-2" for="assignee">Assignee</label>
+      <b><shared-user-name [userId]="epic.assignee" id="assignee"></shared-user-name></b>
     </div>
     <div class="col-lg-3">
-      <label for="reporter">Reporter</label>
-      <shared-user-name [userId]="epic.reporter" id="reporter"></shared-user-name>
+      <label class="mr-2" for="reporter">Reporter</label>
+      <b><shared-user-name [userId]="epic.reporter" id="reporter"></shared-user-name></b>
     </div>
     <div class="col-lg-3">
-      <label for="priority">Priority</label>{{GetPriority(epic.priority)}}
+      <label class="mr-2" for="priority">Priority</label><b>{{GetPriority(epic.priority)}}</b>
     </div>
     <div class="col-lg-3">
-      <label for="priority">Due Date</label>{{datepipe.transform(epic.dueDate, 'yyyy-MM-dd')}}
+      <label class="mr-2" for="priority">Due Date</label><b>{{datepipe.transform(epic.dueDate, 'yyyy-MM-dd')}}</b>
     </div>
   </div>
   <div class="md-form">
@@ -26,42 +26,40 @@
   </div>
   <br>
   <br>
-  <table class="table table-striped">
-    <thead class="thead-light">
-      <tr class="row">
-        <td>T</td>
-        <td>Assignee</td>
-        <!--<td>Reporter</td>-->
-        <td>Summary</td>
-        <!--<td>Description</td>-->
-        <td>Status</td>
-        <td>Priority</td>
-        <td>Estimated Time</td>
-        <td>Due Date</td>
-        <td></td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let el of issues" class="row">
-        <td class="col">
-          <shared-enums-icon-type [type]="el.type"></shared-enums-icon-type>
-        </td>
-        <td class="col">
-          <shared-user-name [userId]="el.assignee"></shared-user-name>
-        </td>
-        <!--<td class="col"><shared-user-name [userId]="el.reporter"></shared-user-name></td>-->
-        <td class="col">{{el.summary}}</td>
-        <!--<td class="col">{{el.description}}</td>-->
-        <td class="col">{{GetStatus(el.status)}}</td>
-        <td class="col">{{GetPriority(el.priority)}}</td>
-        <td class="col">{{el.estimatedTime}}</td>
-        <td class="col">{{el.dueDate | date:'yyyy-MM-dd'}}</td>
-        <td>
-          <a [routerLink]="['/issue/edit', el.id]">
-            <input type="submit" value="Edit" class="btn btn-primary">
-          </a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="container-fluid">
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <td>T</td>
+          <td>Assignee</td>
+          <td>Summary</td>
+          <td>Status</td>
+          <td>Priority</td>
+          <td>Estimated Time</td>
+          <td>Due Date</td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let el of issues" class="row">
+          <td class="col">
+            <shared-enums-icon-type [type]="el.type"></shared-enums-icon-type>
+          </td>
+          <td class="col">
+            <shared-user-name [userId]="el.assignee"></shared-user-name>
+          </td>
+          <td class="col">{{el.summary}}</td>
+          <td class="col">{{GetStatus(el.status)}}</td>
+          <td class="col">{{GetPriority(el.priority)}}</td>
+          <td class="col">{{el.estimatedTime}}</td>
+          <td class="col">{{el.dueDate | date:'yyyy-MM-dd'}}</td>
+          <td>
+            <a [routerLink]="['/issue/edit', el.id]">
+              <input type="submit" value="Edit" class="btn btn-primary">
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

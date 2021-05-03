@@ -6,6 +6,7 @@ import { ListComponent } from './list/list.component';
 
 const routes: Routes = [{
   path: 'epic', children: [
+    { path: '', redirectTo: 'list', pathMatch: 'full' },
     { path: 'list', component: ListComponent },
     { path: 'edit/:id', component: EditComponent },
     { path: 'details/:id', component: DetailsComponent }

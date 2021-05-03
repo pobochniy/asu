@@ -1,0 +1,34 @@
+<form class="form-horizontal" [formGroup]="sprintForm" (ngSubmit)="onSubmit()">
+  <h4>{{this.sprintForm.value['id'] || 0 > 0 ? 'Update ' : 'Create new '}}Sprint</h4>
+
+  <hr>
+
+  <div class="form-group row w-50">
+    <label class="col-md-3 control-label" for="startDate">Date Start*</label>
+    <div class="col-md-9">
+      <input class="form-control" type="date" formControlName="startDate" />
+    </div>
+  </div>
+
+  <div class="form-group row w-50">
+    <label class="col-md-3 control-label" for="finishDate">Date Finish*</label>
+    <div class="col-md-9">
+      <input class="form-control" type="date" formControlName="finishDate" />
+      <div *ngIf="!sprintForm.controls['finishDate'].pristine && sprintForm.hasError('DateLessThan')" class="error-msg">
+        <div class="text-danger">Finish date must be greater than StartDate</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-md-offset-2 col-md-10">
+      <a [routerLink]='["/sprint/list"]'>
+        <input type="submit" value="{{this.sprintForm.value['id'] || 0 > 0 ? 'Update' : 'Create'}}" class="btn btn-primary mr-2" (click)='onSubmit()'>
+      </a>
+      <a [routerLink]='["/sprint/list"]'>
+        <input type="submit" value="<- to sprint list" class="btn btn-primary">
+      </a>
+    </div>
+  </div>
+
+</form>

@@ -1,0 +1,52 @@
+
+<form class="form-horizontal" (ngOnSubmit)="ngOnInit()">
+  <h4>Sprints</h4>
+  <div class="form-group row">
+    <div class="col-md-1 col-md-10">
+      <a [routerLink]='["/sprint/edit", 0]'>
+        <input type="submit" value="Create new Sprint" class="btn btn-primary">
+      </a>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr class="row">
+          <th class="col-md-1">Id</th>
+          <th class="col-md-3">Start Date</th>
+          <th class="col-md-3">Finish Date</th>
+          <th class="col-md-2">Is Ended</th>
+          <th class="col-md-1"></th>
+          <th class="col-md-1"></th>
+          <th class="col-md-1"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sprint of dataSource" class="row">
+          <td class="col-md-1">{{sprint.id}}</td>
+          <td class="col-md-3">{{datepipe.transform(sprint.startDate, 'yyyy-MM-dd')}}</td>
+          <td class="col-md-3">{{datepipe.transform(sprint.finishDate, 'yyyy-MM-dd')}}</td>
+          <td class="col-md-2">{{sprint.isEnded}}</td>
+
+          <td class="col-md-1">
+            <a [routerLink]="['/sprint/details', sprint.id]">
+              <input type="submit" value="Details" class="btn btn-primary">
+            </a>
+          </td>
+
+          <td class="col-md-1">
+            <a [routerLink]="['/sprint/edit', sprint.id]">
+              <input type="submit" value="Edit" class="btn btn-primary">
+            </a>
+          </td>
+
+          <td class="col-md-1">
+            <input type="button" (click)="Delete(sprint.id)" value="Delete" class="btn btn-danger">
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</form>

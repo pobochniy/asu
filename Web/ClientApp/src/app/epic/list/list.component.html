@@ -1,6 +1,6 @@
 <form class="" (ngonsubmit)="ngOnInit()">
   <h4>Epic</h4>
-  <div class="form-group">
+  <div class="form-group row">
     <div class="col-lg-1 col-lg-10">
       <a [routerLink]="['/epic/edit', 0]">
         <input type="submit" value="Create new Epic" class="btn btn-primary" />
@@ -8,43 +8,42 @@
     </div>
   </div>
   <table class="table table-striped">
-    <thead>
+    <thead class="thead-dark">
       <tr>
-        <td>Assignee</td>
-        <td>Reporter</td>
-        <td>Priority Enum</td>
-        <td>Name</td>
-        <td>Description</td>
-        <td>Due Date</td>
-        <td></td>
-        <td></td>
+        <th>Assignee</th>
+        <th>Reporter</th>
+        <th>Priority</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Due Date</th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let epic of dataSource">
-        <td class="col">
+        <td>
           <shared-user-name [userId]="epic.assignee"></shared-user-name>
         </td>
-        <td class="col">
+        <td>
           <shared-user-name [userId]="epic.reporter"></shared-user-name>
         </td>
-        <td class="col">{{GetPriority(epic.priority)}}</td>
-        <td class="col">{{epic.name}}</td>
-        <td class="col">{{epic.description}}</td>
-        <td style="min-width:105px" class="col">{{datepipe.transform(epic.dueDate, 'yyyy-MM-dd') }}</td>
-        <td class="col">
-          <a [routerlink]="['/epic/edit', epic.id]">
-
+        <td>{{GetPriority(epic.priority)}}</td>
+        <td>{{epic.name}}</td>
+        <td>{{epic.description}}</td>
+        <td class="mw-120">{{datepipe.transform(epic.dueDate, 'yyyy-MM-dd') }}</td>
+        <td>
+          <a [routerLink]="['/epic/edit', epic.id]">
             <input type="submit" value="Edit" class="btn btn-primary">
-
           </a>
         </td>
-        <td class="col">
+        <td>
           <a [routerLink]="['/epic/details', epic.id]">
             <input type="submit" value="Details" class="btn btn-primary">
           </a>
         </td>
-        <td class="col">
+        <td>
           <input type="button" (click)="Delete(epic.id)" value="Delete" class="btn btn-danger">
         </td>
       </tr>
