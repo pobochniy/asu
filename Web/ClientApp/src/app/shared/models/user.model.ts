@@ -4,11 +4,6 @@ import { UserProfileModel } from "./user-profile.model";
 export class UserModel extends UserProfileModel {
 
   /** Список ролей */
-  public roles: string[];
+  public roles: number[];
 
-  hasRole(roleName: string): boolean {
-    if (this.roles == null) return false;
-
-    return this.roles.indexOf(roleName) > -1;
-  }
 }

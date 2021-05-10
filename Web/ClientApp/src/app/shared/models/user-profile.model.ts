@@ -22,4 +22,5 @@ export class UserProfileModel {
   get shortName(): string {
     return this.userName || this.email || this.phone;
   }
+
 }

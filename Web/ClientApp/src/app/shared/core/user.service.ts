@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { debug } from 'console';
 //import { Router } from '@angular/router';
 import { UserModel } from '../models/user.model';
 //import { AuthService } from '../api/auth.service';
@@ -32,9 +33,16 @@ export class UserService {
     return this.User != null && this.User.userName != null;
   }
 
+  hasRole(roleId: number): boolean {
+    if (!this.isAuth) return false;
+    if (this.User.roles == null) return false;
+    debugger
+    return this.User.roles.indexOf(roleId) > -1;
+  }
+
   //async logOut() {
   //  this.User = null;
   //  await this.authServ.logOut();
-  //  this.router.navigateByUrl('/');
+  //  this.router.navigateByUrl('/');S
   //}
 }

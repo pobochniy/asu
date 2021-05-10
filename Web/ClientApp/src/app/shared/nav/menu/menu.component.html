@@ -23,7 +23,7 @@
     <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: true }">
       <a [routerLink]='["/"]'>Home</a>
     </li>
-    <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }">
+    <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" [class.hidden-by-role]="!hasRole(roles.issueRead)">
       <a [routerLink]='["/issue"]'>Issue</a>
     </li>
     <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }">

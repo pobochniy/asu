@@ -3,9 +3,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EpicApiService } from '../../shared/api/epic-api.service';
 import { IssueApiService } from '../../shared/api/issue-api.service';
 import { UsersApiService } from '../../shared/api/users-api.service';
+import { UserService } from '../../shared/core/user.service';
 import { IssuePriorityEnum } from '../../shared/enums/issue-priority.enum';
 import { IssueTypeEnum } from '../../shared/enums/issue-type.enum';
 import { SizeEnum } from '../../shared/enums/size.enum';
+import { UserRoleEnum } from '../../shared/enums/user-role.enum';
 import { issueFormModel } from '../../shared/form-models/issue-form.model';
 import { EpicModel } from '../../shared/models/epic.model';
 import { UserProfileModel } from '../../shared/models/user-profile.model';
@@ -25,6 +27,7 @@ export class EditComponent implements OnInit {
   public issuePriority: { id: number; name: string }[] = [];
   public issueSize: { id: number; name: string }[] = [];
   public SizeType = SizeEnum;
+  public roles = UserRoleEnum;
 
   public getCheckedType(val: number): boolean {
     //console.log(val, this.issueForm.controls['type'].value, (this.issueForm.controls['type'].value || 0) == val);
@@ -37,6 +40,7 @@ export class EditComponent implements OnInit {
     , private router: Router
     , private route: ActivatedRoute
     , private cdRef: ChangeDetectorRef
+    , private userService: UserService
   ) { }
 
   async ngOnInit() {
@@ -126,6 +130,16 @@ export class EditComponent implements OnInit {
     const strVal = localStorage.getItem(`issue-last-${name}`);
     const val = fieldtype == 'number' ? +strVal : strVal;
     if (val) this.issueForm.controls[name].setValue(val);
+  }
+
+  hasRole(): boolean {
+    return this.userService.hasRole(this.currentRole());
+  }
+
+  currentRole(): number {
+    var res = this.issueForm.value['id'] || 0 > 0 ? this.roles.issueUpdate : this.roles.issueCreate;
+
+    return res;
   }
 }
 
