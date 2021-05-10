@@ -40,7 +40,6 @@ namespace Web.Controllers
         public async Task<IActionResult> Create([FromBody] TimeTrackingDto timeTrackingDto)
         {
             timeTrackingDto.UserId = HttpContext.User.GetUserId();
-            timeTrackingDto.SystemDate = System.DateTime.Now.Date;
 
             if (ModelState.IsValid)
             {

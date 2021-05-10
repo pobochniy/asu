@@ -43,7 +43,7 @@ namespace Atheneum.Validations.TimeTrackingValidation
         {
             TimeTrackingDto model = (TimeTrackingDto)validationContext.ObjectInstance;
 
-            if (model.IssueId.HasValue & model.EpicId.HasValue)
+            if (model.IssueId.HasValue ^ model.EpicId.HasValue)
             {
                 return new ValidationResult(ErrorMessage = "Должно быть заполненно IssueId или EpicId");
             }

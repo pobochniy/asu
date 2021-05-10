@@ -21,7 +21,7 @@ namespace Atheneum.Entity.Identity
         /// <summary>
         /// Системная дата
         /// </summary>
-        public DateTime SystemDate { get; set; }
+        public DateTime CreateDate { get; set; }
 
         /// <summary>
         /// День на который списывать время

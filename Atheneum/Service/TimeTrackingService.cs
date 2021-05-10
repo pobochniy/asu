@@ -22,6 +22,7 @@ namespace Atheneum.Service
         {
             var timeTracking = new TimeTracking
             {
+                CreateDate = DateTime.Now.Date,
                 Date = dto.Date,
                 From = dto.From,
                 To = dto.To,

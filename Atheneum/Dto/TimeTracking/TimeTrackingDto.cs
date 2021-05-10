@@ -15,11 +15,6 @@ namespace Atheneum.Dto.TimeTracking
         public long Id { get; set; }
 
         /// <summary>
-        /// Системная дата
-        /// </summary>
-        public DateTime SystemDate { get; set; }
-
-        /// <summary>
         /// День на который списывать время
         /// </summary>
         [DateTodayOrYesterday]
