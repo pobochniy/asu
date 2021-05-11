@@ -2,6 +2,7 @@
 using Atheneum.Entity.Identity;
 using Atheneum.Interface;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace Atheneum.Service
         {
             var timeTracking = new TimeTracking
             {
+                CreateDate = DateTime.Now,
                 Date = dto.Date,
                 From = dto.From,
                 To = dto.To,
@@ -53,17 +55,17 @@ namespace Atheneum.Service
 
         public async Task Update(TimeTrackingDto timeTrackingDto)
         {
-            var timeTracking = await db.TimeTracking.FindAsync(timeTrackingDto.Id);
-            timeTracking.Id = timeTrackingDto.Id;
-            timeTracking.Date = timeTrackingDto.Date;
-            timeTracking.From = timeTrackingDto.From;
-            timeTracking.To = timeTrackingDto.To;
-            timeTracking.Comment = timeTrackingDto.Comment;
-            timeTracking.UserId = timeTrackingDto.UserId;
-            timeTracking.IssueId = timeTrackingDto.IssueId;
-            timeTracking.EpicId = timeTrackingDto.EpicId;
+                var timeTracking = await db.TimeTracking.FindAsync(timeTrackingDto.Id);
+                timeTracking.Id = timeTrackingDto.Id;
+                timeTracking.Date = timeTrackingDto.Date;
+                timeTracking.From = timeTrackingDto.From;
+                timeTracking.To = timeTrackingDto.To;
+                timeTracking.Comment = timeTrackingDto.Comment;
+                timeTracking.UserId = timeTrackingDto.UserId;
+                timeTracking.IssueId = timeTrackingDto.IssueId;
+                timeTracking.EpicId = timeTrackingDto.EpicId;
 
-            await db.SaveChangesAsync();
+                await db.SaveChangesAsync();
         }
 
         public async Task Delete(long id)

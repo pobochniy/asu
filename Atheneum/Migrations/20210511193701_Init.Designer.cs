@@ -10,15 +10,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Atheneum.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210212202142_epic_assignee")]
-    partial class epic_assignee
+    [Migration("20210511193701_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Atheneum.Entity.Identity.ChatPrivate", b =>
@@ -203,6 +203,9 @@ namespace Atheneum.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -271,6 +274,48 @@ namespace Atheneum.Migrations
                     b.ToTable("UserInRole");
                 });
 
+            modelBuilder.Entity("Atheneum.Entity.Sprint", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("FinishDate")
+                        .HasColumnType("Date");
+
+                    b.Property<byte>("IsEnded")
+                        .HasColumnType("tinyint");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("Date");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FinishDate")
+                        .IsUnique();
+
+                    b.HasIndex("StartDate")
+                        .IsUnique();
+
+                    b.ToTable("Sprint");
+                });
+
+            modelBuilder.Entity("Atheneum.Entity.SprintIssues", b =>
+                {
+                    b.Property<long>("SprintId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("IssueId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("SprintId", "IssueId");
+
+                    b.HasIndex("IssueId");
+
+                    b.ToTable("SprintIssues");
+                });
+
             modelBuilder.Entity("Atheneum.Entity.Identity.Profile", b =>
                 {
                     b.HasOne("Atheneum.Entity.Identity.User", "User")
@@ -278,6 +323,8 @@ namespace Atheneum.Migrations
                         .HasForeignKey("Atheneum.Entity.Identity.Profile", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Atheneum.Entity.Identity.TimeTracking", b =>
@@ -295,6 +342,12 @@ namespace Atheneum.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Epic");
+
+                    b.Navigation("Issue");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Atheneum.Entity.Identity.UserInRole", b =>
@@ -304,6 +357,46 @@ namespace Atheneum.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Atheneum.Entity.SprintIssues", b =>
+                {
+                    b.HasOne("Atheneum.Entity.Identity.Issue", "Issue")
+                        .WithMany()
+                        .HasForeignKey("IssueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Atheneum.Entity.Sprint", "Sprint")
+                        .WithMany()
+                        .HasForeignKey("SprintId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Issue");
+
+                    b.Navigation("Sprint");
+                });
+
+            modelBuilder.Entity("Atheneum.Entity.Identity.Epic", b =>
+                {
+                    b.Navigation("TimeTrackings");
+                });
+
+            modelBuilder.Entity("Atheneum.Entity.Identity.Issue", b =>
+                {
+                    b.Navigation("TimeTrackings");
+                });
+
+            modelBuilder.Entity("Atheneum.Entity.Identity.User", b =>
+                {
+                    b.Navigation("Profile");
+
+                    b.Navigation("TimeTrackings");
+
+                    b.Navigation("UserInRoles");
                 });
 #pragma warning restore 612, 618
         }

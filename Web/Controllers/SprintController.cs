@@ -38,7 +38,7 @@ namespace Web.Controllers
                 }
                 return BadRequest(ModelState);
             }
-            catch(ArgumentException aex)
+            catch(ArgumentException)
             {
                 return BadRequest(ModelState); 
             }

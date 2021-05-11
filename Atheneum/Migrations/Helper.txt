@@ -2,7 +2,7 @@
 
 add-migration [NAME] -Project Atheneum
 
-update-database
+update-database -Project Atheneum
 
 remove-migration
 

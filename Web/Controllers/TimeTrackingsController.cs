@@ -1,11 +1,14 @@
 ﻿using Atheneum.Dto.TimeTracking;
+using Atheneum.Extentions.Auth;
 using Atheneum.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Web.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class TimeTrackingsController : Controller
@@ -32,20 +35,20 @@ namespace Web.Controllers
             return await service.GetList();
         }
 
-        // TODO : Не хватает ограничений при создании и обновлении
         [HttpPost]
         [Route("[action]")]
         public async Task<IActionResult> Create([FromBody] TimeTrackingDto timeTrackingDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            else
+            timeTrackingDto.UserId = HttpContext.User.GetUserId();
+
+            if (ModelState.IsValid)
             {
                 var id = await service.Create(timeTrackingDto);
                 return Ok(id);
             }
+
+                return BadRequest(ModelState);
+            
         }
 
         [HttpPost]

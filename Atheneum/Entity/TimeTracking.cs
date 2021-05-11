@@ -19,6 +19,11 @@ namespace Atheneum.Entity.Identity
         public long Id { get; set; }
 
         /// <summary>
+        /// Системная дата
+        /// </summary>
+        public DateTime CreateDate { get; set; }
+
+        /// <summary>
         /// День на который списывать время
         /// </summary>
         public DateTime Date { get; set; }

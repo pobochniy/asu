@@ -1,7 +1,12 @@
-﻿using System;
+﻿using Atheneum.Validations.TimeTrackingValidation;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Atheneum.Dto.TimeTracking
 {
+    [TaskOrEpic]
+    [NoMoreThanTenHoursADay]
+    [IntervalNoMoreThanFourHours]
     public class TimeTrackingDto
     {
         /// <summary>
@@ -12,26 +17,31 @@ namespace Atheneum.Dto.TimeTracking
         /// <summary>
         /// День на который списывать время
         /// </summary>
+        [DateTodayOrYesterday]
         public DateTime Date { get; set; }
 
         /// <summary>
         /// Время "с"
         /// </summary>
+        [Required]
         public DateTime From { get; set; }
 
         /// <summary>
         /// Время "по"
         /// </summary>
+        [Required]
         public DateTime To { get; set; }
 
         /// <summary>
         /// Описание работы
         /// </summary>
+        [Required]
         public string Comment { get; set; }
 
         /// <summary>
         /// Пользователь, потративший время
         /// </summary>
+        [CurrentUser]
         public Guid UserId { get; set; }
 
         /// <summary>

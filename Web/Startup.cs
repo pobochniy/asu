@@ -46,6 +46,7 @@ namespace Web
             services.AddTransient<IEpic, EpicService>();
             services.AddTransient<ISprint, SprintService>();
             services.AddTransient<ITimeTracking, TimeTrackingService>();
+            services.AddHttpContextAccessor();
 
             services.AddMvc();
 
