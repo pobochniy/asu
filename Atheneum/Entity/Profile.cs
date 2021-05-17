@@ -18,6 +18,8 @@ namespace Atheneum.Entity.Identity
 
         public virtual User User { get; set; }
 
+        public string Comment { get; set; }
+
         public string ToCustomString()
         {
             return $"{this.UserName} {this.Email} {this.PhoneNumber}".Trim();
@@ -39,6 +41,10 @@ namespace Atheneum.Entity.Identity
             builder
                 .HasIndex(u => u.PhoneNumber)
                 .IsUnique();
+
+            builder
+                .Property(u => u.Comment)
+                .HasColumnType("nvarchar(4000)");
         }
     }
 }
