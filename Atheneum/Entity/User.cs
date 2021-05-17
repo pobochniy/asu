@@ -23,6 +23,8 @@ namespace Atheneum.Entity.Identity
 
         public virtual Profile Profile { get; set; }
 
+        public virtual Avatar Avatar { get; set; }
+
         public virtual ICollection<UserInRole> UserInRoles { get; set; }
 
         public virtual ICollection<TimeTracking> TimeTrackings { get; set; }
