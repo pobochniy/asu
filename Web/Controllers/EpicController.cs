@@ -1,13 +1,16 @@
 ﻿using Atheneum.Dto.Epic;
+using Atheneum.Enums;
 using Atheneum.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Web.Middleware;
 
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AuthorizeRoles(RoleEnum.epicCrud)]
     public class EpicController : Controller
     {
         private readonly IEpic service;

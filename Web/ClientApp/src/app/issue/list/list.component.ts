@@ -21,7 +21,7 @@ export class ListComponent implements OnInit{
 
   constructor(private service: IssueApiService
     , private userApiService: UsersApiService
-    , private userService: UserService
+    , public userService: UserService
     , private router: Router
   ) { }
 
@@ -43,7 +43,4 @@ export class ListComponent implements OnInit{
     return id;
   }
 
-  hasRole(roleId: number): boolean {
-    return this.userService.hasRole(roleId);
-  }
 }

@@ -1,8 +1,13 @@
 export enum UserRoleEnum {
   none,
   roleManagement,
+
   issueRead = 10,
   issueCreate,
   issueUpdate,
-  issueDelete
+  issueDelete,
+
+  epicCrud = 20,
+
+  sprintCrud = 30
 }

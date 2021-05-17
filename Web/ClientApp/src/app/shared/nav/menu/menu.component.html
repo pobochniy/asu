@@ -23,16 +23,16 @@
     <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: true }">
       <a [routerLink]='["/"]'>Home</a>
     </li>
-    <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" [class.hidden-by-role]="!hasRole(roles.issueRead)">
+    <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" [class.hidden-by-role]="!userService.hasRole(roles.issueRead)">
       <a [routerLink]='["/issue"]'>Issue</a>
     </li>
-    <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }">
+    <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" [class.hidden-by-role]="!userService.hasRole(roles.epicCrud)">
       <a [routerLink]='["/epic"]'>Epic</a>
     </li>
-    <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }">
+    <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" [class.hidden-by-role]="!userService.hasRole(roles.sprintCrud)">
       <a [routerLink]='["/sprint"]'>Sprint</a>
     </li>
-    <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }">
+    <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" [class.hidden-by-role]="!userService.hasRole(roles.roleManagement)">
       <a [routerLink]='["/rolemanagement"]'>Role Management</a>
     </li>
   </ul>

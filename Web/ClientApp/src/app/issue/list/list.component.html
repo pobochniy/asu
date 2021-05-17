@@ -4,7 +4,7 @@
   <div class="form-group row">
     <div class="col-md-1 col-md-10">
       <a [routerLink]='["/issue/edit", 0]'>
-        <input type="submit" value="Create new Issue" class="btn btn-primary" [disabled]="!this.hasRole(roles.issueCreate)">
+        <input type="submit" value="Create new Issue" class="btn btn-primary" [disabled]="!userService.hasRole(roles.issueCreate)">
       </a>
     </div>
   </div>
@@ -24,7 +24,7 @@
         <th></th>
       </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="userService.hasRole(roles.issueRead)">
       <tr *ngFor="let el of dataSource">
         <td><shared-enums-icon-type [type]="el.type"></shared-enums-icon-type></td>
         <td><shared-user-name [userId]="el.assignee"></shared-user-name></td>
@@ -38,7 +38,7 @@
         <td class="mw-100 text-center">{{el.epicLink}}</td>
         <td>
           <a [routerLink]='["/issue/edit", el.id]'>
-            <input type="submit" value="Edit" class="btn btn-primary" [disabled]="!this.hasRole(roles.issueUpdate)">
+            <input type="submit" value="Edit" class="btn btn-primary" [disabled]="!userService.hasRole(roles.issueUpdate)">
           </a>
         </td>
       </tr>

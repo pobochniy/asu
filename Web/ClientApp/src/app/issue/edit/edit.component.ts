@@ -40,7 +40,7 @@ export class EditComponent implements OnInit {
     , private router: Router
     , private route: ActivatedRoute
     , private cdRef: ChangeDetectorRef
-    , private userService: UserService
+    , public userService: UserService
   ) { }
 
   async ngOnInit() {
@@ -130,10 +130,6 @@ export class EditComponent implements OnInit {
     const strVal = localStorage.getItem(`issue-last-${name}`);
     const val = fieldtype == 'number' ? +strVal : strVal;
     if (val) this.issueForm.controls[name].setValue(val);
-  }
-
-  hasRole(): boolean {
-    return this.userService.hasRole(this.currentRole());
   }
 
   currentRole(): number {

@@ -10,7 +10,7 @@ import { EventEmitterService } from '../event-emitter.service';
 })
 export class NavMenuComponent implements OnInit {
   constructor(private eventEmitterService: EventEmitterService,
-    private userService: UserService
+    public userService: UserService
   ) { }
 
   public roles = UserRoleEnum;

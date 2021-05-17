@@ -1,14 +1,17 @@
 ﻿using Atheneum.Dto.Sprint;
+using Atheneum.Enums;
 using Atheneum.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Web.Middleware;
 
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AuthorizeRoles(RoleEnum.sprintCrud)]
     public class SprintController : Controller
     {
         private readonly ISprint service;
