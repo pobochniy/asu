@@ -5,8 +5,3 @@
 .mw-120 {
   min-width: 120px;
 }
-
-/* недоступность элемента по правам */
-input:disabled {
-  cursor: not-allowed;
-}

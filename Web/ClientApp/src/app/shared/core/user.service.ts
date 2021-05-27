@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import { debug } from 'console';
-//import { Router } from '@angular/router';
 import { UserModel } from '../models/user.model';
-//import { AuthService } from '../api/auth.service';
 
 @Injectable()
 export class UserService {

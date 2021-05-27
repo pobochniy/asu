@@ -1,4 +1,4 @@
-<form class="form-horizontal" [formGroup]="epicForm" (ngSubmit)="onSubmit()">
+<form *ngIf="userService.hasRole(roles.epicCrud)" class="form-horizontal" [formGroup]="epicForm" (ngSubmit)="onSubmit()">
   <h4>{{this.epicForm.value['id'] || 0 > 0 ? 'Update ' : 'Create new '}}Epic</h4>
   <hr>
 

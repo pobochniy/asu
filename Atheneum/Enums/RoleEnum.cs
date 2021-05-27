@@ -11,7 +11,9 @@
         issueDelete,
 
         epicCrud = 20,
+        epicRead,
 
-        sprintCrud = 30
+        sprintCrud = 30,
+        sprintRead
     }
 }

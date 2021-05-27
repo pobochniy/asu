@@ -29,8 +29,4 @@ export class NavMenuComponent implements OnInit {
   toggleMenu() {
     this.isExpanded = !this.isExpanded;
   }
-
-  hasRole(roleId: number): boolean {
-    return this.userService.hasRole(roleId);
-  }
 }

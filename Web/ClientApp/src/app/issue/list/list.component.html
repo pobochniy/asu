@@ -1,14 +1,13 @@
-
 <form class="form-horizontal" (ngOnSubmit)="ngOnInit()">
   <h4>Issues</h4>
   <div class="form-group row">
-    <div class="col-md-1 col-md-10">
+    <div class="col-md-1 col-md-10" *ngIf="userService.hasRole(roles.issueCreate)">
       <a [routerLink]='["/issue/edit", 0]'>
-        <input type="submit" value="Create new Issue" class="btn btn-primary" [disabled]="!userService.hasRole(roles.issueCreate)">
+        <input type="submit" value="Create new Issue" class="btn btn-primary">
       </a>
     </div>
   </div>
-  <table class="table table-striped">
+  <table *ngIf="userService.hasRole(roles.issueRead)" class="table table-striped">
     <thead class="thead-dark">
       <tr>
         <th>T</th>
@@ -21,10 +20,10 @@
         <th>Est. Time</th>
         <th>Due Date</th>
         <th>Epic Link</th>
-        <th></th>
+        <th *ngIf="userService.hasRole(roles.issueUpdate)"></th>
       </tr>
     </thead>
-    <tbody *ngIf="userService.hasRole(roles.issueRead)">
+    <tbody>
       <tr *ngFor="let el of dataSource">
         <td><shared-enums-icon-type [type]="el.type"></shared-enums-icon-type></td>
         <td><shared-user-name [userId]="el.assignee"></shared-user-name></td>
@@ -36,9 +35,9 @@
         <td class="mw-100 text-center">{{el.estimatedTime}}</td>
         <td class="mw-120 text-center">{{el.dueDate | date:'yyyy-MM-dd'}}</td>
         <td class="mw-100 text-center">{{el.epicLink}}</td>
-        <td>
+        <td *ngIf="userService.hasRole(roles.issueUpdate)">
           <a [routerLink]='["/issue/edit", el.id]'>
-            <input type="submit" value="Edit" class="btn btn-primary" [disabled]="!userService.hasRole(roles.issueUpdate)">
+            <input type="submit" value="Edit" class="btn btn-primary">
           </a>
         </td>
       </tr>

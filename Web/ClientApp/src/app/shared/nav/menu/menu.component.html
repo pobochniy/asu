@@ -23,16 +23,16 @@
     <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: true }">
       <a [routerLink]='["/"]'>Home</a>
     </li>
-    <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" [class.hidden-by-role]="!userService.hasRole(roles.issueRead)">
+    <li *ngIf="userService.hasRole(roles.issueRead)" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" >
       <a [routerLink]='["/issue"]'>Issue</a>
     </li>
-    <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" [class.hidden-by-role]="!userService.hasRole(roles.epicCrud)">
+    <li *ngIf="userService.hasRole(roles.epicRead) || userService.hasRole(roles.epicCrud)" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" >
       <a [routerLink]='["/epic"]'>Epic</a>
     </li>
-    <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" [class.hidden-by-role]="!userService.hasRole(roles.sprintCrud)">
+    <li *ngIf="userService.hasRole(roles.sprintRead) || userService.hasRole(roles.sprintCrud)" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" >
       <a [routerLink]='["/sprint"]'>Sprint</a>
     </li>
-    <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" [class.hidden-by-role]="!userService.hasRole(roles.roleManagement)">
+    <li *ngIf="userService.hasRole(roles.roleManagement)" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" >
       <a [routerLink]='["/rolemanagement"]'>Role Management</a>
     </li>
   </ul>

@@ -1,4 +1,4 @@
-<form class="form-horizontal" [formGroup]="sprintForm" (ngSubmit)="onSubmit()">
+<form *ngIf="userService.hasRole(roles.sprintCrud)" class="form-horizontal" [formGroup]="sprintForm" (ngSubmit)="onSubmit()">
   <h4>{{this.sprintForm.value['id'] || 0 > 0 ? 'Update ' : 'Create new '}}Sprint</h4>
 
   <hr>
