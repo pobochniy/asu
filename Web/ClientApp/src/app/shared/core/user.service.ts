@@ -31,9 +31,8 @@ export class UserService {
   }
 
   hasRole(roleId: number): boolean {
-    if (!this.isAuth) return false;
-    if (this.User.roles == null) return false;
-
+    if (!this.isAuth || this.User.roles == null)
+      return false;
     return this.User.roles.indexOf(roleId) > -1;
   }
 

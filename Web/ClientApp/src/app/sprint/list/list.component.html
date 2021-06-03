@@ -1,9 +1,9 @@
-<form *ngIf="userService.hasRole(roles.sprintRead) || userService.hasRole(roles.sprintCrud)" class="form-horizontal" (ngOnSubmit)="ngOnInit()">
+<form class="form-horizontal" (ngOnSubmit)="ngOnInit()">
   <h4>Sprints</h4>
-  <div *ngIf="userService.hasRole(roles.sprintCrud)" class="form-group row">
+  <div class="form-group row">
     <div class="col-md-1 col-md-10">
       <a [routerLink]='["/sprint/edit", 0]'>
-        <input type="submit" value="Create new Sprint" class="btn btn-primary">
+        <input type="submit" value="Create new Sprint" class="btn btn-primary" [disabled]="!userService.hasRole(roles.sprintCrud)">
       </a>
     </div>
   </div>
@@ -34,13 +34,13 @@
           </td>
 
           <td class="col-md-1">
-            <a *ngIf="userService.hasRole(roles.sprintCrud)" [routerLink]="['/sprint/edit', sprint.id]">
-              <input type="submit" value="Edit" class="btn btn-primary">
+            <a [routerLink]="['/sprint/edit', sprint.id]">
+              <input type="submit" value="Edit" class="btn btn-primary" [disabled]="!userService.hasRole(roles.sprintCrud)" />
             </a>
           </td>
 
           <td class="col-md-1">
-            <input *ngIf="userService.hasRole(roles.sprintCrud)" type="button" (click)="Delete(sprint.id)" value="Delete" class="btn btn-danger">
+            <input type="button" (click)="Delete(sprint.id)" value="Delete" class="btn btn-danger" [disabled]="!userService.hasRole(roles.sprintCrud)">
           </td>
 
         </tr>

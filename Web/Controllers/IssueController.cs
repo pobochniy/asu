@@ -23,7 +23,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        [AuthorizeRoles(RoleEnum.issueCreate)]
+        [AuthorizeRoles(RoleEnum.issueCrud)]
         public async Task<IActionResult> Create([FromBody]IssueDto model)
         {
             if (ModelState.IsValid)
@@ -38,7 +38,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        [AuthorizeRoles(RoleEnum.issueDelete)]
+        [AuthorizeRoles(RoleEnum.issueCrud)]
         public async Task<IActionResult> Delete(long id)
         {
             await service.Delete(id);
@@ -47,7 +47,7 @@ namespace Web.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [AuthorizeRoles(RoleEnum.issueRead)]
+        [AuthorizeRoles(RoleEnum.issueRead, RoleEnum.issueCrud)]
         public async Task<IssueDto> Details(long id)
         {
             return await service.Details(id);
@@ -55,7 +55,7 @@ namespace Web.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [AuthorizeRoles(RoleEnum.issueRead)]
+        [AuthorizeRoles(RoleEnum.issueRead, RoleEnum.issueCrud)]
         public async Task<IEnumerable<IssueDto>> GetList(long? epicId)
         {
             return await service.GetList(epicId);
@@ -63,7 +63,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        [AuthorizeRoles(RoleEnum.issueUpdate)]
+        [AuthorizeRoles(RoleEnum.issueCrud)]
         public async Task<IActionResult> Update([FromBody]IssueDto issuedto)
         {
             if(!ModelState.IsValid)

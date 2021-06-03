@@ -1,9 +1,9 @@
-<div *ngIf="userService.hasRole(roles.sprintCrud) || userService.hasRole(roles.sprintRead)" class="">
+<div>
   <h4>
     Sprint from {{datepipe.transform(sprint.startDate, 'yyyy-MM-dd')}}  to  {{datepipe.transform(sprint.finishDate, 'yyyy-MM-dd')}}
   </h4>
-  <a *ngIf="userService.hasRole(roles.sprintCrud)" [routerLink]="['/sprint/edit', sprint.id]">
-    <input type="submit" value="Edit" class="btn btn-primary">
+  <a [routerLink]="['/sprint/edit', sprint.id]">
+    <input type="submit" value="Edit" class="btn btn-primary" [disabled]="!userService.hasRole(roles.sprintCrud)">
   </a>
   <div *ngFor="let issue of sprint?.issues">
     <div>Issue</div>

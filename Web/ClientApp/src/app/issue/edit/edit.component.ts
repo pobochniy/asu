@@ -132,10 +132,5 @@ export class EditComponent implements OnInit {
     if (val) this.issueForm.controls[name].setValue(val);
   }
 
-  currentRole(): number {
-    var res = this.issueForm.value['id'] || 0 > 0 ? this.roles.issueUpdate : this.roles.issueCreate;
-
-    return res;
-  }
 }
 

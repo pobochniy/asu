@@ -1,9 +1,9 @@
-<form *ngIf="userService.hasRole(roles.epicRead) ||userService.hasRole(roles.epicCrud)" class="" (ngonsubmit)="ngOnInit()">
+<form class="" (ngonsubmit)="ngOnInit()">
   <h4>Epic</h4>
-  <div *ngIf="userService.hasRole(roles.epicCrud)" class="form-group row">
+  <div class="form-group row">
     <div class="col-lg-1 col-lg-10">
       <a [routerLink]="['/epic/edit', 0]">
-        <input type="submit" value="Create new Epic" class="btn btn-primary" />
+        <input type="submit" value="Create new Epic" class="btn btn-primary" [disabled]="!userService.hasRole(roles.epicCrud)"/>
       </a>
     </div>
   </div>
@@ -16,9 +16,9 @@
         <th>Name</th>
         <th>Description</th>
         <th>Due Date</th>
-        <th *ngIf="userService.hasRole(roles.epicCrud)"></th>
         <th></th>
-        <th *ngIf="userService.hasRole(roles.epicCrud)"></th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -33,18 +33,21 @@
         <td>{{epic.name}}</td>
         <td>{{epic.description}}</td>
         <td class="mw-120">{{datepipe.transform(epic.dueDate, 'yyyy-MM-dd') }}</td>
-        <td *ngIf="userService.hasRole(roles.epicCrud)">
-          <a [routerLink]="['/epic/edit', epic.id]">
-            <input type="submit" value="Edit" class="btn btn-primary">
-          </a>
-        </td>
+
         <td>
           <a [routerLink]="['/epic/details', epic.id]">
             <input type="submit" value="Details" class="btn btn-primary">
           </a>
         </td>
-        <td *ngIf="userService.hasRole(roles.epicCrud)">
-          <input type="button" (click)="Delete(epic.id)" value="Delete" class="btn btn-danger">
+
+        <td>
+          <a [routerLink]="['/epic/edit', epic.id]">
+            <input type="submit" value="Edit" class="btn btn-primary" [disabled]="!userService.hasRole(roles.epicCrud)">
+          </a>
+        </td>
+
+        <td>
+          <input type="button" (click)="Delete(epic.id)" value="Delete" class="btn btn-danger" [disabled]="!userService.hasRole(roles.epicCrud)">
         </td>
       </tr>
     </tbody>

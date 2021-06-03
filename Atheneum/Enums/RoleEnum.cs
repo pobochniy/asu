@@ -6,9 +6,7 @@
         roleManagement,
 
         issueRead = 10,
-        issueCreate,
-        issueUpdate,
-        issueDelete,
+        issueCrud,
 
         epicCrud = 20,
         epicRead,

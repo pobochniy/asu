@@ -23,7 +23,7 @@
     <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: true }">
       <a [routerLink]='["/"]'>Home</a>
     </li>
-    <li *ngIf="userService.hasRole(roles.issueRead)" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" >
+    <li *ngIf="userService.hasRole(roles.issueRead) || userService.hasRole(roles.issueCrud)" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" >
       <a [routerLink]='["/issue"]'>Issue</a>
     </li>
     <li *ngIf="userService.hasRole(roles.epicRead) || userService.hasRole(roles.epicCrud)" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" >
