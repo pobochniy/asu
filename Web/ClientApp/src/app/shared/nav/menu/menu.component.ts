@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../core/user.service';
+import { UserRoleEnum } from '../../enums/user-role.enum';
 import { EventEmitterService } from '../event-emitter.service';
 
 @Component({
@@ -7,7 +9,11 @@ import { EventEmitterService } from '../event-emitter.service';
   styleUrls: ['./menu.component.css']
 })
 export class NavMenuComponent implements OnInit {
-  constructor(private eventEmitterService: EventEmitterService) { }
+  constructor(private eventEmitterService: EventEmitterService,
+    public userService: UserService
+  ) { }
+
+  public roles = UserRoleEnum;
 
   ngOnInit(): void {
     if (this.eventEmitterService.subsMenu == undefined) {

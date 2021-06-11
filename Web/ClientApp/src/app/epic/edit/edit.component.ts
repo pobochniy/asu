@@ -2,7 +2,9 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EpicApiService } from '../../shared/api/epic-api.service';
 import { UsersApiService } from '../../shared/api/users-api.service';
+import { UserService } from '../../shared/core/user.service';
 import { IssuePriorityEnum } from '../../shared/enums/issue-priority.enum';
+import { UserRoleEnum } from '../../shared/enums/user-role.enum';
 import { epicFormModel } from '../../shared/form-models/epic-form.model';
 import { UserProfileModel } from '../../shared/models/user-profile.model';
 
@@ -17,12 +19,14 @@ export class EditComponent implements OnInit {
   public epicForm = epicFormModel;
   public profiles: UserProfileModel[];
   public epicPriority: { id: number; name: string }[] = [];
+  public roles = UserRoleEnum;
 
   constructor(private service: EpicApiService
     , private userApiService: UsersApiService
     , private router: Router
     , private route: ActivatedRoute
     , private cdRef: ChangeDetectorRef
+    , public userService: UserService
   ) { }
 
   async ngOnInit() {

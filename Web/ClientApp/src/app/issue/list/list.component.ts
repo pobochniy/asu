@@ -5,6 +5,8 @@ import { IssueModel } from '../../shared/models/issue.model';
 import { UsersApiService } from '../../shared/api/users-api.service';
 import { IssueStatusEnum } from '../../shared/enums/issue-status.enum';
 import { IssuePriorityEnum } from '../../shared/enums/issue-priority.enum';
+import { UserService } from '../../shared/core/user.service';
+import { UserRoleEnum } from '../../shared/enums/user-role.enum';
 
 @Component({
   selector: 'list-issue',
@@ -15,16 +17,16 @@ import { IssuePriorityEnum } from '../../shared/enums/issue-priority.enum';
 export class ListComponent implements OnInit{
 
   public dataSource: IssueModel[];
-  //public issueStatus: IssueStatusEnum;
+  public roles = UserRoleEnum;
 
   constructor(private service: IssueApiService
     , private userApiService: UsersApiService
+    , public userService: UserService
     , private router: Router
   ) { }
 
   async ngOnInit() {
     this.dataSource = await this.service.GetList();
-    //this.profiles = await this.userApiService.GetProfiles();
   }
 
   GetPriority(id: number) {
@@ -40,4 +42,5 @@ export class ListComponent implements OnInit{
 
     return id;
   }
+
 }

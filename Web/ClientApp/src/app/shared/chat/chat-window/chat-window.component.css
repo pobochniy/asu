@@ -74,7 +74,6 @@
 .chat {
   left: 270px;
   right: 20px;
-  transition: all 0.3s;
 }
 
 .chat.wide {

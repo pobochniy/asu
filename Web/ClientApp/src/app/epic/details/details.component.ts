@@ -10,6 +10,8 @@ import { ListComponent } from '../list/list.component';
 import { IssueApiService } from '../../shared/api/issue-api.service';
 import { IssueModel } from '../../shared/models/issue.model';
 import { IssueStatusEnum } from '../../shared/enums/issue-status.enum';
+import { UserService } from '../../shared/core/user.service';
+import { UserRoleEnum } from '../../shared/enums/user-role.enum';
 
 
 @Component({
@@ -25,6 +27,7 @@ export class DetailsComponent implements OnInit {
   public issueTypes: { id: number; name: string }[] = [];
   public issueStatus: { id: number; name: string }[] = [];
   public issuePriority: { id: number; name: string }[] = [];
+  public roles = UserRoleEnum;
 
   constructor(private service: EpicApiService
     , private userApiService: UsersApiService
@@ -32,6 +35,7 @@ export class DetailsComponent implements OnInit {
     , private route: ActivatedRoute
     , private router: Router
     , public datepipe: DatePipe
+    , public userService: UserService
   ) {
   }
 

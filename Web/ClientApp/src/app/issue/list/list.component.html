@@ -1,10 +1,9 @@
-
 <form class="form-horizontal" (ngOnSubmit)="ngOnInit()">
   <h4>Issues</h4>
   <div class="form-group row">
     <div class="col-md-1 col-md-10">
       <a [routerLink]='["/issue/edit", 0]'>
-        <input type="submit" value="Create new Issue" class="btn btn-primary">
+        <input type="submit" value="Create new Issue" class="btn btn-primary" [disabled]="!userService.hasRole(roles.issueCrud)">
       </a>
     </div>
   </div>
@@ -38,7 +37,7 @@
         <td class="mw-100 text-center">{{el.epicLink}}</td>
         <td>
           <a [routerLink]='["/issue/edit", el.id]'>
-            <input type="submit" value="Edit" class="btn btn-primary">
+            <input type="submit" value="Edit" class="btn btn-primary" [disabled]="!userService.hasRole(roles.issueCrud)">
           </a>
         </td>
       </tr>

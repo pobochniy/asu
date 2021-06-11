@@ -141,3 +141,8 @@ a.article:hover {
     display: none;
   }
 }
+
+.hidden-by-role {
+  display:none;
+}
+

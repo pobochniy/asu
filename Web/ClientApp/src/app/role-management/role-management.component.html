@@ -1,11 +1,11 @@
 <h4>Role Management</h4>
-
-<ngx-select [items]="profiles" optionValueField="id" optionTextField="userName"
-            (ngModel)="userId"
-            placeholder="Select user"
-            (select)="userSelected($event)">
-</ngx-select>
-
+<div>
+  <ngx-select [items]="profiles" optionValueField="id" optionTextField="userName"
+              (ngModel)="userId"
+              placeholder="Select user"
+              (select)="userSelected($event)">
+  </ngx-select>
+</div>
 <br />
 
 <div *ngIf="!!userId">

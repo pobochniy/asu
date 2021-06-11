@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersApiService } from '../shared/api/users-api.service';
+import { UserService } from '../shared/core/user.service';
 import { UserRoleEnum } from '../shared/enums/user-role.enum';
 import { UserProfileModel } from '../shared/models/user-profile.model';
 import { UserRoleInfoModel } from '../shared/models/user-role-info.model';
@@ -16,8 +17,12 @@ export class RoleManagementComponent implements OnInit {
   public profiles: UserProfileModel[];
   public userId: string;
   public userRoles: number[] = [];
+  public roleEnum = UserRoleEnum;
 
-  constructor(private service: UsersApiService) {
+  constructor(
+    private service: UsersApiService,
+    public userService: UserService
+  ) {
   }
 
   async ngOnInit() {
@@ -67,10 +72,16 @@ export class RoleManagementComponent implements OnInit {
   private fillRoles() {
     this.roles = [
       new UserRoleInfoModel(UserRoleEnum.roleManagement, 'Role Management', 'roleManagement'),
+
       new UserRoleInfoModel(UserRoleEnum.issueRead, 'Просмотр Issue', 'issue'),
-      new UserRoleInfoModel(UserRoleEnum.issueCreate, 'Создание Issue', 'issue'),
-      new UserRoleInfoModel(UserRoleEnum.issueUpdate, 'Редактирование Issue', 'issue'),
-      new UserRoleInfoModel(UserRoleEnum.issueDelete, 'Удаление Issue', 'issue')
+      new UserRoleInfoModel(UserRoleEnum.issueCrud, 'Редактирование, содание, удаление Issue', 'issue'),
+
+      new UserRoleInfoModel(UserRoleEnum.epicRead, 'Просмотр Epic', 'epic'),
+      new UserRoleInfoModel(UserRoleEnum.epicCrud, 'Редактирование, содание, удаление Epic', 'epic'),
+
+      new UserRoleInfoModel(UserRoleEnum.sprintRead, 'Просмотр Sprint', 'sprint'),
+      new UserRoleInfoModel(UserRoleEnum.sprintCrud, 'Редактирование, содание, удаление Sprint', 'sprint')
     ]
   }
+
 }

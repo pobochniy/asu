@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { sprintFormModel } from '../../shared/form-models/sprint-form.model';
 import { DashboardModel } from '../../shared/models/dashboard.model';
 import { SprintApiService } from '../../shared/api/sprint-api.service';
+import { UserService } from '../../shared/core/user.service';
+import { UserRoleEnum } from '../../shared/enums/user-role.enum';
 
 @Component({
   selector: 'sprint-edit',
@@ -15,10 +17,13 @@ export class EditComponent implements OnInit {
   public model: DashboardModel;
   public sprintForm = sprintFormModel;
 
+  public roles = UserRoleEnum;
+
   constructor(private service: SprintApiService
     , private router: Router
     , private route: ActivatedRoute
     , private cdRef: ChangeDetectorRef
+    , public userService: UserService
   ) { }
 
   async ngOnInit() {

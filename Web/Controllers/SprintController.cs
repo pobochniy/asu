@@ -1,9 +1,11 @@
 ﻿using Atheneum.Dto.Sprint;
+using Atheneum.Enums;
 using Atheneum.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Web.Middleware;
 
 namespace Web.Controllers
 {
@@ -19,12 +21,14 @@ namespace Web.Controllers
         }
 
         [HttpGet("[action]")]
+        [AuthorizeRoles(RoleEnum.sprintCrud, RoleEnum.epicRead)]
         public async Task<IEnumerable<SprintDto>> GetList()
         {
             return await service.GetList();
         }
 
         [HttpPost("[action]")]
+        [AuthorizeRoles(RoleEnum.sprintCrud)]
         public async Task<IActionResult> Create([FromBody] SprintDto model)
         {
             try 
@@ -49,6 +53,7 @@ namespace Web.Controllers
         }
 
         [HttpGet("[action]")]
+        [AuthorizeRoles(RoleEnum.sprintCrud)]
         public async Task<IActionResult> Delete(long id)
         {
             await service.Delete(id);
@@ -56,12 +61,14 @@ namespace Web.Controllers
         }
 
         [HttpGet("[action]")]
+        [AuthorizeRoles(RoleEnum.sprintCrud, RoleEnum.sprintRead)]
         public async Task<SprintDto> Details(long id)
         {
             return await service.Details(id);
         }
 
         [HttpPost("[action]")]
+        [AuthorizeRoles(RoleEnum.sprintCrud)]
         public async Task<IActionResult> Update([FromBody] SprintDto issuedto)
         {
             if (!ModelState.IsValid)
@@ -76,6 +83,7 @@ namespace Web.Controllers
         }
 
         [HttpGet("[action]")]
+        [AuthorizeRoles(RoleEnum.sprintCrud)]
         public async Task<IActionResult> AddIssue(long sprintId, long issueId)
         {
             await service.AddIssue(sprintId, issueId);
@@ -83,6 +91,7 @@ namespace Web.Controllers
         }
 
         [HttpGet("[action]")]
+        [AuthorizeRoles(RoleEnum.sprintCrud)]
         public async Task<IActionResult> DeleteIssue(long sprintId, long issueId)
         {
             await service.DeleteIssue(sprintId, issueId);

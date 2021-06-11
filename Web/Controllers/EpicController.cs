@@ -1,8 +1,10 @@
 ﻿using Atheneum.Dto.Epic;
+using Atheneum.Enums;
 using Atheneum.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Web.Middleware;
 
 namespace Web.Controllers
 {
@@ -18,6 +20,7 @@ namespace Web.Controllers
         }
 
         [HttpGet("[action]")]
+        [AuthorizeRoles(RoleEnum.epicCrud, RoleEnum.epicRead)]
         public async Task<EpicDto> Details([FromQuery]int id)
         {
             var res = await service.Details(id);
@@ -25,12 +28,14 @@ namespace Web.Controllers
         }
 
         [HttpGet("[action]")]
+        [AuthorizeRoles(RoleEnum.epicCrud, RoleEnum.epicRead)]
         public async Task<IEnumerable<EpicDto>> GetList()
         {
             return await service.GetList();
         }
 
         [HttpPost("[action]")]
+        [AuthorizeRoles(RoleEnum.epicCrud)]
         public async Task<IActionResult> Create([FromBody] EpicDto epicDto)
         {
             if (!ModelState.IsValid)
@@ -46,6 +51,7 @@ namespace Web.Controllers
         }
 
         [HttpPost("[action]")]
+        [AuthorizeRoles(RoleEnum.epicCrud)]
         public async Task<IActionResult> Delete([FromBody] int id)
         {
             await service.Delete(id);
@@ -54,6 +60,7 @@ namespace Web.Controllers
         }
 
         [HttpPost("[action]")]
+        [AuthorizeRoles(RoleEnum.epicCrud)]
         public async Task<IActionResult> Update([FromBody] EpicDto epicDto)
         {
             if (!ModelState.IsValid)

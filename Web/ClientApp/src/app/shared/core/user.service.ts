@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-//import { Router } from '@angular/router';
 import { UserModel } from '../models/user.model';
-//import { AuthService } from '../api/auth.service';
 
 @Injectable()
 export class UserService {
@@ -30,6 +28,12 @@ export class UserService {
 
   get isAuth(): boolean {
     return this.User != null && this.User.userName != null;
+  }
+
+  hasRole(roleId: number): boolean {
+    if (!this.isAuth || this.User.roles == null)
+      return false;
+    return this.User.roles.indexOf(roleId) > -1;
   }
 
   //async logOut() {

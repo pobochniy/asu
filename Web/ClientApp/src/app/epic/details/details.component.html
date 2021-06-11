@@ -2,7 +2,7 @@
   <h4>
     Epic {{epic?.name}}
     <a [routerLink]="['/epic/edit', epic.id]">
-      <input type="submit" value="Edit" class="btn btn-info btn-sm">
+      <input type="submit" value="Edit" class="btn btn-info btn-sm" [disabled]="!userService.hasRole(roles.epicCrud)">
     </a>
   </h4>
   <div class="row form-group">
@@ -30,36 +30,39 @@
     <table class="table table-striped">
       <thead class="thead-dark">
         <tr>
-          <td>T</td>
-          <td>Assignee</td>
-          <td>Summary</td>
-          <td>Status</td>
-          <td>Priority</td>
-          <td>Estimated Time</td>
-          <td>Due Date</td>
-          <td></td>
+          <th>T</th>
+          <th>Assignee</th>
+          <th>Summary</th>
+          <th>Status</th>
+          <th>Priority</th>
+          <th>Estimated Time</th>
+          <th>Due Date</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let el of issues" class="row">
-          <td class="col">
+        <tr *ngFor="let el of issues">
+          <td>
             <shared-enums-icon-type [type]="el.type"></shared-enums-icon-type>
           </td>
-          <td class="col">
+          <td>
             <shared-user-name [userId]="el.assignee"></shared-user-name>
           </td>
-          <td class="col">{{el.summary}}</td>
-          <td class="col">{{GetStatus(el.status)}}</td>
-          <td class="col">{{GetPriority(el.priority)}}</td>
-          <td class="col">{{el.estimatedTime}}</td>
-          <td class="col">{{el.dueDate | date:'yyyy-MM-dd'}}</td>
+          <td>{{el.summary}}</td>
+          <td>{{GetStatus(el.status)}}</td>
+          <td>{{GetPriority(el.priority)}}</td>
+          <td>{{el.estimatedTime}}</td>
+          <td>{{el.dueDate | date:'yyyy-MM-dd'}}</td>
           <td>
             <a [routerLink]="['/issue/edit', el.id]">
-              <input type="submit" value="Edit" class="btn btn-primary">
+              <input type="submit" value="Edit" class="btn btn-primary" [disabled]="!userService.hasRole(roles.epicCrud)">
             </a>
           </td>
         </tr>
       </tbody>
     </table>
+    <div *ngIf="!userService.hasRole(roles.issueRead)">
+      Нет прав для просмотра Issue
+    </div>
   </div>
 </div>
