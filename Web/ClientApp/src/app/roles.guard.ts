@@ -12,17 +12,13 @@ export class RolesGuard implements CanActivate {
   constructor(public userSrvice: UserService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const roles = route.data.allowedRoles as Array<UserRoleEnum>;
-    var res = false;
+    const roles = route.data.allowedRoles 
 
-    roles.forEach(role => {
-      if (this.userSrvice.hasRole(role)) {
-        res = true;
-      }
-        
-    });
+    for (let role of roles as Array<UserRoleEnum>)
+      if (this.userSrvice.hasRole(role))
+        return true;
 
-    return res;
+    return false;
   }
   
 }
