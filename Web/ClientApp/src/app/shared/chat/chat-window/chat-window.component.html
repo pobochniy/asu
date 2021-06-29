@@ -11,6 +11,12 @@
           {{mes.message}}
         </div>
       </div>
+      <div class="Users">
+        <div *ngFor="let usr of chatService.onlineUsers">
+          {{usr}}
+          <shared-user-name [userId]="usr"></shared-user-name>
+        </div>
+      </div>
     </div>
     <div class="chat-controls">
       <div class="chat-controls-textarea">

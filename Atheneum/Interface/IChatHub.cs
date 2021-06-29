@@ -1,5 +1,6 @@
 ﻿using Atheneum.Dto.Chat;
 using Atheneum.Enums;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Atheneum.Interface
@@ -17,5 +18,7 @@ namespace Atheneum.Interface
         Task SysMessages(SysMessagesDto dtoS);
 
         Task PushMessage(PushChatDto msg);
+
+        Task SendUsers(List<string> usersOnline);
     }
 }

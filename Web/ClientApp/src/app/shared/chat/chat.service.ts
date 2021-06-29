@@ -12,6 +12,7 @@ export class ChatService {
   private chatList: ChatModel[] = [];
   public msgs: Array<ChatModel> = []; // это с сервера
   public connection: HubConnection;
+  public onlineUsers: Array<string> = [];
 
   constructor(public userService: UsersApiService) { }
 
@@ -47,6 +48,12 @@ export class ChatService {
           break;
       }
     });
+
+    this.connection.on("SendUsers", data => {
+      this.onlineUsers = [];
+      this.onlineUsers.push(data);
+    });
+
   }
 
   async send(text: string) {
