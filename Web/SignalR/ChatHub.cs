@@ -22,7 +22,7 @@ namespace Web.SignalR
 
         public override Task OnConnectedAsync()
         {
-            if (!UsersOnline.Contains(Context.UserIdentifier))
+            if (!UsersOnline.Contains(Context.UserIdentifier) && !String.IsNullOrEmpty(Context.UserIdentifier))
             {
                 UsersOnline.Add(Context.UserIdentifier);
                 Clients.All.SendUsers(UsersOnline);
@@ -33,7 +33,7 @@ namespace Web.SignalR
 
         public override Task OnDisconnectedAsync(Exception exception)
         {
-            if (UsersOnline.Contains(Context.UserIdentifier))
+            if (UsersOnline.Contains(Context.UserIdentifier) && !String.IsNullOrEmpty(Context.UserIdentifier))
             {
                 UsersOnline.Remove(Context.UserIdentifier);
                 Clients.All.SendUsers(UsersOnline);

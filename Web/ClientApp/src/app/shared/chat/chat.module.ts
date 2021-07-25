@@ -6,11 +6,13 @@ import { ChatService } from './chat.service';
 import { ChatApiService } from '../api/chat-api.service';
 import { ChatResizerDirective } from './chat-resizer.directive';
 import { UserService } from "../core/user.service";
+import { SharedModule } from '../shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   declarations: [
     ChatWindowComponent,

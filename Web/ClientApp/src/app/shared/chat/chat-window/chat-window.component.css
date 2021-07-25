@@ -74,6 +74,8 @@
 .chat {
   left: 270px;
   right: 20px;
+  min-height:100px;
+  max-height:80%;
 }
 
 .chat.wide {
@@ -85,8 +87,10 @@
   }
 }
 
-.Users {
+.chat-users {
   height: 100%;
-  width: 300px;
-  border: 2px solid black;
+  border: 2px ridge gray;
+  float: right;
+  overflow-y:auto;
+  overflow-x:hidden;
 }

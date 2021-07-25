@@ -50,8 +50,7 @@ export class ChatService {
     });
 
     this.connection.on("SendUsers", data => {
-      this.onlineUsers = [];
-      this.onlineUsers.push(data);
+      this.onlineUsers = data;
     });
 
   }

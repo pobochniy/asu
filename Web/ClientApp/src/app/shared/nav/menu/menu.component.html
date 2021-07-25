@@ -1,7 +1,7 @@
 <nav [class.active]="isExpanded" id="sidebar">
 
   <div class="sidebar-header">
-    <h3>ASU</h3>
+    <h3><i class="fab fa-angular"></i>ASU</h3>
   </div>
 
   <ul class="list-unstyled components">
@@ -21,19 +21,19 @@
       </ul>
     </li>-->
     <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: true }">
-      <a [routerLink]='["/"]'>Home</a>
+      <a [routerLink]='["/"]'><i class="fas fa-home"></i>Home</a>
     </li>
     <li *ngIf="userService.hasRole(roles.issueRead) || userService.hasRole(roles.issueCrud)" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" >
-      <a [routerLink]='["/issue"]'>Issue</a>
+      <a [routerLink]='["/issue"]'><i class="far fa-id-card"></i>Issue</a>
     </li>
     <li *ngIf="userService.hasRole(roles.epicRead) || userService.hasRole(roles.epicCrud)" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" >
-      <a [routerLink]='["/epic"]'>Epic</a>
+      <a [routerLink]='["/epic"]'><i class="fas fa-helicopter"></i>Epic</a>
     </li>
     <li *ngIf="userService.hasRole(roles.sprintRead) || userService.hasRole(roles.sprintCrud)" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" >
-      <a [routerLink]='["/sprint"]'>Sprint</a>
+      <a [routerLink]='["/sprint"]'><i class="fas fa-running"></i>Sprint</a>
     </li>
     <li *ngIf="userService.hasRole(roles.roleManagement)" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" >
-      <a [routerLink]='["/rolemanagement"]'>Role Management</a>
+      <a [routerLink]='["/rolemanagement"]'><i class="fas fa-user-tag"></i>Role Management</a>
     </li>
   </ul>
 
