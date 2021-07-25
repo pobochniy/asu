@@ -1,9 +1,9 @@
 <!--<div class="app">-->
   <div [class.wide]="isWide" *ngIf="userService.isAuth" class="chat"  appChatResizer>
     <div class="chat-resize-panel" id="resizePanel"></div>
-    <div id="scrollContainer" class="chat-container row">
+    <div id="scrollContainer" class="chat-container">
       
-      <div class="chat-container col-md-9" >
+      <div class="chat-msgs-container" >
         <div *ngFor="let mes of chatService.msgs">
           <div class="chat-item">
             [{{mes.getTime()}}]
@@ -15,7 +15,7 @@
         </div>
       </div>
 
-      <div class="chat-users col-md-3">
+      <div class="chat-users">
         <div *ngFor="let user of chatService.onlineUsers">
           <chat-user-name [userId]="user" (addPrivatTo)="addPrivatToParent($event)"></chat-user-name>
         </div>
