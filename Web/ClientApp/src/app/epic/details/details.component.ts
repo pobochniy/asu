@@ -77,7 +77,9 @@ export class DetailsComponent implements OnInit {
   public showTimeTrack() {
     var model = new TimeTrackingModel();
     model.epicId = this.epic.id;
-    this.timePopup.show(model);
+    this.timePopup.show(model).subscribe(x => {
+      debugger
+    });
 
    
   }

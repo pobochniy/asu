@@ -8,11 +8,13 @@ import { EnumsIconTypeComponent } from './enums-icon/enums-icon-type/enums-icon-
 import { EpicNameComponent } from './epic-name/epic-name.component';
 import { ChatUserNameComponent } from './chat-user-name/chat-user-name.component';
 import { TimeTrackingPopupComponent } from './time-tracking-popup/time-tracking-popup.component';
+import { NgxSelectModule } from 'ngx-select-ex';
 
 @NgModule({
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSelectModule
   ],
   declarations: [
     FormValidationComponent,

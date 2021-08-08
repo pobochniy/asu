@@ -27,7 +27,7 @@
 }
 .chat-msgs-container {
   width: 75%;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .chat-users {
   width: 25%;
@@ -99,3 +99,17 @@
   }
 }
 
+div::-webkit-scrollbar {
+  width: 12px;
+}
+
+div::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 4px #7386D5;
+  border-radius: 6px;
+}
+
+div::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background-color: #fff;
+  -webkit-box-shadow: inset 0 0 4px #7386D5;
+}

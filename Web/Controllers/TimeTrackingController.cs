@@ -11,11 +11,11 @@ namespace Web.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    public class TimeTrackingsController : Controller
+    public class TimeTrackingController : Controller
     {
         private readonly ITimeTracking service;
 
-        public TimeTrackingsController(ITimeTracking context)
+        public TimeTrackingController(ITimeTracking context)
         {
             this.service = context;
         }
@@ -40,15 +40,15 @@ namespace Web.Controllers
         public async Task<IActionResult> Create([FromBody] TimeTrackingDto timeTrackingDto)
         {
             timeTrackingDto.UserId = HttpContext.User.GetUserId();
+            return Ok(timeTrackingDto);
+            //if (ModelState.IsValid)
+            //{
+            //    var id = await service.Create(timeTrackingDto);
+            //    return Ok(id);
+            //}
 
-            if (ModelState.IsValid)
-            {
-                var id = await service.Create(timeTrackingDto);
-                return Ok(id);
-            }
-
-                return BadRequest(ModelState);
-            
+            //return BadRequest(ModelState);
+   
         }
 
         [HttpPost]
