@@ -73,5 +73,14 @@ namespace Web.Controllers
             var res = await service.Details(timeTrackingDto.Id);
             return Ok(res);
         }
+
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IEnumerable<TaskItemDto>> GetUserTasks()
+        {
+            var UserId = HttpContext.User.GetUserId();
+            var res = await service.GetUserEpicsIssues(UserId);
+            return res;
+        }
     }
 }
