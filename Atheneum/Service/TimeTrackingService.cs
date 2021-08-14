@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Atheneum.Service
 {
-    public class TimeTrackingService: ITimeTracking
+    public class TimeTrackingService : ITimeTracking
     {
         private ApplicationContext db;
 
@@ -55,17 +55,17 @@ namespace Atheneum.Service
 
         public async Task Update(TimeTrackingDto timeTrackingDto)
         {
-                var timeTracking = await db.TimeTracking.FindAsync(timeTrackingDto.Id);
-                timeTracking.Id = timeTrackingDto.Id;
-                timeTracking.Date = timeTrackingDto.Date;
-                timeTracking.From = timeTrackingDto.From;
-                timeTracking.To = timeTrackingDto.To;
-                timeTracking.Comment = timeTrackingDto.Comment;
-                timeTracking.UserId = timeTrackingDto.UserId;
-                timeTracking.IssueId = timeTrackingDto.IssueId;
-                timeTracking.EpicId = timeTrackingDto.EpicId;
+            var timeTracking = await db.TimeTracking.FindAsync(timeTrackingDto.Id);
+            timeTracking.Id = timeTrackingDto.Id;
+            timeTracking.Date = timeTrackingDto.Date;
+            timeTracking.From = timeTrackingDto.From;
+            timeTracking.To = timeTrackingDto.To;
+            timeTracking.Comment = timeTrackingDto.Comment;
+            timeTracking.UserId = timeTrackingDto.UserId;
+            timeTracking.IssueId = timeTrackingDto.IssueId;
+            timeTracking.EpicId = timeTrackingDto.EpicId;
 
-                await db.SaveChangesAsync();
+            await db.SaveChangesAsync();
         }
 
         public async Task Delete(long id)
@@ -91,5 +91,11 @@ namespace Atheneum.Service
             return timeTracking;
         }
 
+        public async Task<IEnumerable<TaskItemDto>> GetUserEpicsIssues(Guid userId)
+        {
+            List<TaskItemDto> res = await db.Epic.Where(e => e.Assignee == userId).Select(x => new TaskItemDto { Id = x.Id, Description = x.Name, Type = "Epic" }).ToListAsync();
+            res.AddRange(await db.Issue.Where(e => e.Assignee == userId).Select(x => new TaskItemDto { Id = x.Id, Description = x.Summary, Type = "Issue" }).ToListAsync());
+            return res;
+        }
     }
 }

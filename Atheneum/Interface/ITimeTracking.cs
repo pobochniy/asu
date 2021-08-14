@@ -1,4 +1,5 @@
 ﻿using Atheneum.Dto.TimeTracking;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -30,6 +31,13 @@ namespace Atheneum.Interface
         /// Получить список
         /// </summary>
         Task<IEnumerable<TimeTrackingDto>> GetList();
+
+        /// <summary>
+        /// Список эпиков или ишьюсов пользователя
+        /// </summary>
+        /// <param name="userId">id пользователя</param>
+        /// <returns><Id,IsEpic></returns>
+        Task<IEnumerable<TaskItemDto>> GetUserEpicsIssues(long userId);
 
     }
 }
