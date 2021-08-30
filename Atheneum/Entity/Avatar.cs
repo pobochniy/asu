@@ -13,7 +13,7 @@ namespace Atheneum.Entity
 
         public byte[] ImgData { get; set; }
 
-        public User User { get; set; }
+        public virtual User User { get; set; }
 
         public class AvatarConfiguration : IEntityTypeConfiguration<Avatar>
         {
