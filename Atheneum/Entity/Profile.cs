@@ -16,6 +16,11 @@ namespace Atheneum.Entity.Identity
 
         public string PhoneNumber { get; set; }
 
+        /// <summary>
+        /// Деньги пользователя
+        /// </summary>
+        public decimal Cash { get; set; }
+
         public virtual User User { get; set; }
 
         public string ToCustomString()
@@ -39,6 +44,11 @@ namespace Atheneum.Entity.Identity
             builder
                 .HasIndex(u => u.PhoneNumber)
                 .IsUnique();
+
+            builder
+                .Property(x => x.Cash)
+                .HasPrecision(18, 10)
+                .HasDefaultValue(0);
         }
     }
 }
