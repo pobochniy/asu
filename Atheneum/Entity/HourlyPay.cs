@@ -1,0 +1,59 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+
+namespace Atheneum.Entity.Identity
+{
+    /// <summary>
+    /// Модель для фиксации почасовой ставки сотрудника
+    /// </summary>
+    public class HourlyPay
+    {
+        /// <summary>
+        /// Id Ставки
+        /// </summary>
+        [Key]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// ID работника
+        /// </summary>
+        public Guid UserId { get; set; }
+
+        /// <summary>
+        /// Дата начала действия ставки
+        /// </summary>
+        public DateTime Started { get; set; }
+
+        /// <summary>
+        /// Стоимость часа сотрудника
+        /// </summary>
+        public decimal Cash { get; set; }
+
+        /// <summary>
+        /// Id пользователя создавшего запись 
+        /// </summary>
+        public Guid UserIdCreated { get; set; }
+
+        /// <summary>
+        /// Дата создания записи
+        /// </summary>
+        public DateTime Created { get; set; }
+    }
+
+    public class HourlyPayConfiguration : IEntityTypeConfiguration<HourlyPay>
+    {
+        public void Configure(EntityTypeBuilder<HourlyPay> builder)
+        {
+            builder
+              .HasIndex(u => u.Id)
+              .IsUnique();
+            builder
+                .Property(e => e.Started)
+                .HasColumnType("Date");
+        }
+    }
+}
