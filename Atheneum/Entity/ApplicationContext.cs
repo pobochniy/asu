@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using static Atheneum.Entity.Sprint;
 
 namespace Atheneum.Entity.Identity
@@ -32,6 +33,11 @@ namespace Atheneum.Entity.Identity
             builder.ApplyConfiguration(new TimeTrackingConfiguration());
             builder.ApplyConfiguration(new SprintConfiguration());
             builder.ApplyConfiguration(new CashFlowConfiguration());
+        }
+
+        public static implicit operator AppContext(ApplicationContext v)
+        {
+            throw new NotImplementedException();
         }
     }
 }
