@@ -13,7 +13,7 @@ namespace Atheneum.Entity
         /// <summary>
         /// Кто передал деньги
         /// </summary>
-        public Guid UserIdPassed { get; set; }
+        public Guid? UserIdPassed { get; set; }
 
         /// <summary>
         /// Кто принял деньги

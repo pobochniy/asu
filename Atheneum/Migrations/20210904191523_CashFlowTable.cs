@@ -20,8 +20,8 @@ namespace Atheneum.Migrations
                 name: "CashFlow",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserIdPassed = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "newsequentialid()"),
+                    UserIdPassed = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     UserIdReceived = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Cash = table.Column<decimal>(type: "decimal(18,10)", precision: 18, scale: 10, nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),

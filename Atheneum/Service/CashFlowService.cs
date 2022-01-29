@@ -2,14 +2,16 @@
 using Atheneum.Entity;
 using Atheneum.Entity.Identity;
 using Atheneum.Interface;
+using Atheneum.Mapping;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Atheneum.Service
 {
-    public class CashFlowService // : ICashFlow
+    public class CashFlowService : ICashFlow
     {
         private ApplicationContext db;
 
@@ -18,41 +20,59 @@ namespace Atheneum.Service
             db = context;
         }
 
-        public async Task Create(CashFlowDto dto)
+        public async Task<Guid> Create(CashFlowDto dto)
         {
+            var sender = await db.Profiles.SingleAsync(x => x.Id == dto.UserIdPassed);
+            var recipient = await db.Profiles.SingleAsync(x => x.Id == dto.UserIdReceived);
+
+            if (sender.Cash < dto.Cash) throw new Exception("Недостаточно средств");
+
+            sender.Cash -= dto.Cash;
+            recipient.Cash += dto.Cash;
+
             var cashflow = new CashFlow
             {
                 UserIdPassed = dto.UserIdPassed,
                 UserIdReceived = dto.UserIdReceived,
                 Cash = dto.Cash,
-                Created = dto.Created,
+                Created = DateTime.Now,
                 Comment = dto.Comment
             };
             await db.CashFlow.AddAsync(cashflow);
             await db.SaveChangesAsync();
-            
+
+            return cashflow.Id;
         }
 
-        public async Task Delete(long id)
+        //public async Task Delete(Guid id)
+        //{
+        //    var entity = await db.CashFlow.SingleAsync(x => x.Id == id);
+        //    db.CashFlow.Remove(entity);
+
+        //    await db.SaveChangesAsync();
+        //}
+
+        public async Task<CashFlowDto> Details(Guid id)
         {
-            var i = await db.CashFlow.FindAsync(id);
-            db.CashFlow.Remove(i);
+            var res = await db.CashFlow.ToDto().SingleAsync(x => x.Id == id);
 
-            await db.SaveChangesAsync();
+            return res;
         }
 
-        public Task Read(long? id)
+        public async Task<IEnumerable<CashFlowDto>> GetList(Guid? userId)
         {
-            
-            var cashflow = new CashFlow
-            {
-                UserIdPassed = 
-            }
+            var query = db.CashFlow.ToDto();
+
+            if (userId != null) query = query.Where(x => x.UserIdPassed == userId || x.UserIdReceived == userId);
+
+            var res = await query.ToArrayAsync();
+
+            return res;
         }
 
-        public Task Update(ICashFlow model)
-        {
-            throw new NotImplementedException();
-        }
+        //public Task Update(ICashFlow model)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

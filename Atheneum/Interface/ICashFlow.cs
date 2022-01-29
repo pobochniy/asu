@@ -1,8 +1,6 @@
 ﻿using Atheneum.Dto.CashFlow;
-using Atheneum.Dto.Issue;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Atheneum.Interface
@@ -12,26 +10,26 @@ namespace Atheneum.Interface
         /// <summary>
         /// Создать событие
         /// </summary>
-        Task<long> Create(CashFlowDto model);
+        Task<Guid> Create(CashFlowDto model);
 
         /// <summary>
         /// Получить информацию о событии
         /// </summary>
-        Task<ICashFlow> Details(long? id);
+        Task<CashFlowDto> Details(Guid id);
 
         /// <summary>
         /// Изменить событие
         /// </summary>
-        Task Update(ICashFlow model);
+        //Task Update(CashFlowDto model);
 
         /// <summary>
         /// Удалить событие
         /// </summary>
-        Task Delete(long id);
+        //Task Delete(Guid id);
 
         /// <summary>
         /// Получить список событий
         /// </summary>
-        Task<IEnumerable<ICashFlow>> GetList(long? epicId);
+        Task<IEnumerable<CashFlowDto>> GetList(Guid? userId);
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Atheneum.Dto.CashFlow
 {
@@ -11,7 +9,7 @@ namespace Atheneum.Dto.CashFlow
         /// <summary>
         /// Кто передал деньги
         /// </summary>
-        public Guid UserIdPassed { get; set; }
+        public Guid? UserIdPassed { get; set; }
 
         /// <summary>
         /// Кто принял деньги
