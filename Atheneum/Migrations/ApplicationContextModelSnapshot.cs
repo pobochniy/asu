@@ -119,10 +119,10 @@ namespace Atheneum.Migrations
                     b.Property<decimal>("Cash")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Started")
+                    b.Property<DateTime>("StartedDate")
                         .HasColumnType("Date");
 
                     b.Property<Guid>("UserId")
@@ -133,8 +133,7 @@ namespace Atheneum.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id")
-                        .IsUnique();
+                    b.HasIndex("Id");
 
                     b.ToTable("HourlyPay");
                 });

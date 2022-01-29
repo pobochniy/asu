@@ -21,11 +21,22 @@ namespace Atheneum.Service
 
         public async Task<int> Create(HourlyPayDto dto)
         {
+            //проверяем существование юзеров
+            var currentUser = await db.Profiles.SingleAsync(x => x.Id == dto.UserIdCreated);
+            var createdUser = await db.Profiles.SingleAsync(x => x.Id == dto.UserId);
+
+            var lastData = await db.HourlyPay.OrderByDescending(x => x.StartedDate).FirstOrDefaultAsync(x => x.UserId == dto.UserId);
+            
+            if(lastData != null && lastData.StartedDate > dto.StartedDate)
+            {
+                throw new Exception("Дата назначения часовой ставки должна быть не раньше уже имеющейся");
+            }
+
             var hourlyPay = new HourlyPay
             {
-                Created = dto.Created,
+                CreatedDate = DateTime.Now,
                 Cash = dto.Cash,
-                Started = dto.Started,
+                StartedDate = dto.StartedDate,
                 UserId = dto.UserId,
                 UserIdCreated = dto.UserIdCreated
             };
@@ -44,9 +55,9 @@ namespace Atheneum.Service
             var hourlyPayDto = new HourlyPayDto
             {
                 Id = hourlyPay.Id,
-                Created = hourlyPay.Created,
+                CreatedDate = hourlyPay.CreatedDate,
                 Cash = hourlyPay.Cash,
-                Started = hourlyPay.Started,
+                StartedDate = hourlyPay.StartedDate,
                 UserId = hourlyPay.UserId,
                 UserIdCreated = hourlyPay.UserIdCreated
             };
@@ -59,9 +70,9 @@ namespace Atheneum.Service
             var hourlyPay = await db.HourlyPay.FindAsync(dto.Id);
 
             hourlyPay.Id = dto.Id;
-            hourlyPay.Created = dto.Created;
+            hourlyPay.CreatedDate = dto.CreatedDate;
             hourlyPay.Cash = dto.Cash;
-            hourlyPay.Started = dto.Started;
+            hourlyPay.StartedDate = dto.StartedDate;
             hourlyPay.UserId = dto.UserId;
             hourlyPay.UserIdCreated = dto.UserIdCreated;
 
@@ -76,18 +87,25 @@ namespace Atheneum.Service
             await db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<HourlyPayDto>> GetList(int Id)
+        public async Task<IEnumerable<HourlyPayDto>> GetList(Guid? userId)
         {
-            var hourlyPay = await db.HourlyPay
+            var query = db.HourlyPay
                 .Select(x => new HourlyPayDto
                 {
                     Id = x.Id,
-                    Created = x.Created,
+                    CreatedDate = x.CreatedDate,
                     Cash = x.Cash,
-                    Started = x.Started,
+                    StartedDate = x.StartedDate,
                     UserId = x.UserId,
                     UserIdCreated = x.UserIdCreated
-                }).ToArrayAsync();
+                });
+            
+            if(userId != null)
+            {
+                query = query.Where(x => x.UserId == userId);
+            }
+
+            var hourlyPay = await query.ToArrayAsync();
 
             return hourlyPay;
         }

@@ -1,11 +1,12 @@
 ﻿using Atheneum.Dto.HourlyPay;
 using Atheneum.Enums;
+using Atheneum.Extentions.Auth;
 using Atheneum.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Web.Middleware;
-
+using System;
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
@@ -24,24 +25,24 @@ namespace Web.Controllers
         [AuthorizeRoles(RoleEnum.hourlyPayCrud)]
         public async Task<IActionResult> Create([FromBody] HourlyPayDto model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var id = await service.Create(model);
+                model.UserIdCreated = User.GetUserId();
 
-                return Ok(id);
+                if (ModelState.IsValid)
+                {
+                    var id = await service.Create(model);
+
+                    return Ok(id);
+                }
+                return BadRequest(ModelState);
             }
-
-            return BadRequest(ModelState);
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }         
         }
 
-        [HttpPost]
-        [Route("[action]")]
-        [AuthorizeRoles(RoleEnum.hourlyPayCrud)]
-        public async Task<IActionResult> Delete(int id)
-        {
-            await service.Delete(id);
-            return Ok(id);
-        }
 
         [HttpGet]
         [Route("[action]")]
@@ -54,14 +55,14 @@ namespace Web.Controllers
         [HttpGet]
         [Route("[action]")]
         [AuthorizeRoles(RoleEnum.hourlyPayRead, RoleEnum.hourlyPayCrud)]
-        public async Task<IEnumerable<HourlyPayDto>> GetList(int id)
+        public async Task<IEnumerable<HourlyPayDto>> GetList(Guid? userId)
         {
-            return await service.GetList(id);
+            return await service.GetList(userId);
         }
 
-        [HttpPost]
+        /*[HttpPost]
         [Route("[action]")]
-        [AuthorizeRoles(RoleEnum.hourlyPayCrud)]
+        //[AuthorizeRoles(RoleEnum.hourlyPayCrud)]
         public async Task<IActionResult> Update([FromBody] HourlyPayDto hourlyPaydto)
         {
             if (!ModelState.IsValid)
@@ -73,6 +74,6 @@ namespace Web.Controllers
 
             var res = await service.Details(hourlyPaydto.Id);
             return Ok(res);
-        }
+        }*/
     }
 }

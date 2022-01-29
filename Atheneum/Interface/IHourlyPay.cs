@@ -31,6 +31,6 @@ namespace Atheneum.Interface
         /// <summary>
         /// Получить список событий
         /// </summary>
-        Task<IEnumerable<HourlyPayDto>> GetList(int Id);
+        Task<IEnumerable<HourlyPayDto>> GetList(Guid? userId);
     }
 }
