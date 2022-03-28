@@ -13,9 +13,33 @@ namespace Web.SignalR
     {
         private readonly IChatService service;
 
+        public static List<string> UsersOnline = new List<string>();
+
         public ChatHub(IChatService service)
         {
             this.service = service;
+        }
+
+        public override Task OnConnectedAsync()
+        {
+            if (!UsersOnline.Contains(Context.UserIdentifier) && !String.IsNullOrEmpty(Context.UserIdentifier))
+            {
+                UsersOnline.Add(Context.UserIdentifier);
+                Clients.All.SendUsers(UsersOnline);
+            }
+
+            return base.OnConnectedAsync();
+        }
+
+        public override Task OnDisconnectedAsync(Exception exception)
+        {
+            if (UsersOnline.Contains(Context.UserIdentifier) && !String.IsNullOrEmpty(Context.UserIdentifier))
+            {
+                UsersOnline.Remove(Context.UserIdentifier);
+                Clients.All.SendUsers(UsersOnline);
+            }
+
+            return base.OnDisconnectedAsync(exception);
         }
 
         [Authorize]
@@ -41,6 +65,11 @@ namespace Web.SignalR
             }
         }
 
+        public async Task GetUsersOnline()
+        {
+            await Clients.Caller.SendUsers(UsersOnline);
+        }
+
         private async Task SendAll(ChatDto msg)
         {
             await this.service.SaveRoomMsg(Guid.Parse(this.Context.UserIdentifier), msg);
@@ -64,5 +93,7 @@ namespace Web.SignalR
                 catch { }
             }
         }
+
+
     }
 }

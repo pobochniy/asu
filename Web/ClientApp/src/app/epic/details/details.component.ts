@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EpicApiService } from '../../shared/api/epic-api.service';
 import { UsersApiService } from '../../shared/api/users-api.service';
@@ -12,6 +12,9 @@ import { IssueModel } from '../../shared/models/issue.model';
 import { IssueStatusEnum } from '../../shared/enums/issue-status.enum';
 import { UserService } from '../../shared/core/user.service';
 import { UserRoleEnum } from '../../shared/enums/user-role.enum';
+import { TimeTrackingPopupComponent } from '../../shared/time-tracking-popup/time-tracking-popup.component';
+import { time } from 'console';
+import { TimeTrackingModel } from '../../shared/models/time-tracking.model';
 
 
 @Component({
@@ -21,6 +24,9 @@ import { UserRoleEnum } from '../../shared/enums/user-role.enum';
   providers: [EpicApiService, IssueApiService, ListComponent]
 })
 export class DetailsComponent implements OnInit {
+
+  @ViewChild(TimeTrackingPopupComponent) timePopup: TimeTrackingPopupComponent;
+
   public epic: EpicModel = new EpicModel();
   public profiles: UserProfileModel[];
   public issues: IssueModel[];
@@ -66,6 +72,16 @@ export class DetailsComponent implements OnInit {
     if (priority) return priority;
 
     return id;
+  }
+
+  public showTimeTrack() {
+    var model = new TimeTrackingModel();
+    model.epicId = this.epic.id;
+    this.timePopup.show(model).subscribe(x => {
+      debugger
+    });
+
+   
   }
 
 }

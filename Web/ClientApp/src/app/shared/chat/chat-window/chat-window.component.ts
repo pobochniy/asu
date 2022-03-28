@@ -60,6 +60,10 @@ export class ChatWindowComponent implements OnInit {
     this.addRecipientsToText(recipients, sender, true);
   }
 
+  async addPrivatToParent(model: any) {
+    this.addRecipientsToText([model.userName] , model.userName, model.isPrivat)
+  }
+
   private addRecipientsToText(recipients: string[], sender: string, isPrivate: boolean) {
     let msg = new PushChatModel(this.text);
 

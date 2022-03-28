@@ -6,11 +6,15 @@ import { FaIconComponent } from './fa-icon/fa-icon.component';
 import { UserNameComponent } from './user-name/user-name.component';
 import { EnumsIconTypeComponent } from './enums-icon/enums-icon-type/enums-icon-type.component';
 import { EpicNameComponent } from './epic-name/epic-name.component';
+import { ChatUserNameComponent } from './chat-user-name/chat-user-name.component';
+import { TimeTrackingPopupComponent } from './time-tracking-popup/time-tracking-popup.component';
+import { NgxSelectModule } from 'ngx-select-ex';
 
 @NgModule({
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSelectModule
   ],
   declarations: [
     FormValidationComponent,
@@ -18,6 +22,8 @@ import { EpicNameComponent } from './epic-name/epic-name.component';
     UserNameComponent,
     EnumsIconTypeComponent,
     EpicNameComponent,
+    ChatUserNameComponent,
+    TimeTrackingPopupComponent,
   ],
   exports: [
     FormValidationComponent,
@@ -26,7 +32,9 @@ import { EpicNameComponent } from './epic-name/epic-name.component';
     FaIconComponent,
     UserNameComponent,
     EpicNameComponent,
-    EnumsIconTypeComponent
+    EnumsIconTypeComponent,
+    ChatUserNameComponent,
+    TimeTrackingPopupComponent
   ]
 })
 export class SharedModule { }

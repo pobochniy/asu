@@ -22,14 +22,16 @@ export class ChatResizerDirective implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.el = document.getElementById('resizePanel');
     this.el.addEventListener('mousedown', this.onDown.bind(this));
-    this.el.addEventListener('mouseup', this.onUp.bind(this));
+    document.addEventListener('mouseup', this.onUp.bind(this));
+    document.addEventListener('mouseleave', this.onUp.bind(this));
     document.addEventListener('mousemove', this.onMove.bind(this));
     this.startHeight = (this.element.nativeElement as HTMLElement).offsetHeight;
   }
 
   ngOnDestroy() {
     this.el.removeEventListener('mousedown');
-    this.el.removeEventListener('mouseup');
+    //this.el.removeEventListener('mouseup');
+    //this.el.removeEventListener('mouseleave');
   }
   
   onDown(e: MouseEvent) {
