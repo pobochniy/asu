@@ -4,47 +4,22 @@ using Atheneum.Entity.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Atheneum.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220129173215_HourlyPay")]
+    partial class HourlyPay
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Atheneum.Entity.CashFlow", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Cash")
-                        .HasPrecision(18, 10)
-                        .HasColumnType("decimal(18,10)");
-
-                    b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("UserIdPassed")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UserIdReceived")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CashFlow");
-                });
 
             modelBuilder.Entity("Atheneum.Entity.Identity.ChatPrivate", b =>
                 {
@@ -220,12 +195,6 @@ namespace Atheneum.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Cash")
-                        .ValueGeneratedOnAdd()
-                        .HasPrecision(18, 10)
-                        .HasColumnType("decimal(18,10)")
-                        .HasDefaultValue(0m);
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(450)");

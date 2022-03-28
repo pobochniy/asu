@@ -17,6 +17,7 @@ namespace Atheneum.Entity.Identity
         public DbSet<Sprint> Sprint { get; set; }
         public DbSet<SprintIssues> SprintIssues { get; set; }
         public DbSet<CashFlow> CashFlow { get; set; }
+        public DbSet<HourlyPay> HourlyPay { get; set; }
 
         public ApplicationContext(DbContextOptions options)
             : base(options)
@@ -34,6 +35,7 @@ namespace Atheneum.Entity.Identity
             builder.ApplyConfiguration(new TimeTrackingConfiguration());
             builder.ApplyConfiguration(new SprintConfiguration());
             builder.ApplyConfiguration(new CashFlowConfiguration());
+            builder.ApplyConfiguration(new HourlyPayConfiguration());
         }
     }
 }

@@ -47,6 +47,7 @@ namespace Web
             services.AddTransient<ISprint, SprintService>();
             services.AddTransient<ITimeTracking, TimeTrackingService>();
             services.AddTransient<ICashFlow, CashFlowService>();
+            services.AddTransient<IHourlyPay, HourlyPayService>();
 
             services.AddHttpContextAccessor();
 
