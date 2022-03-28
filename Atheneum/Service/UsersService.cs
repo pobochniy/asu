@@ -28,6 +28,51 @@ namespace Atheneum.Services
             return res;
         }
 
+        public async Task<UserEditDto> Details(Guid id)
+        {
+            var profile = await db.Profiles.FindAsync(id);
+
+            var userdto = new UserEditDto
+            {
+                UserName = profile.UserName,
+                Email = profile.Email,
+                Phone = profile.PhoneNumber,
+                Comment = profile.Comment
+            };
+
+            return userdto;
+        }
+        
+        public async Task Edit(UserEditDto userdto)
+        {
+            var profile = await db.Profiles.SingleAsync(x => x.Id == userdto.Id);
+
+            profile.UserName = userdto.UserName;
+            profile.Email = userdto.Email;
+            profile.PhoneNumber = userdto.Phone;
+            profile.Comment = userdto.Comment;
+
+            await db.SaveChangesAsync();
+        }
+
+        public async Task SetAvatar(Guid userId, byte[] img)
+        {
+            var avatar = await db.Avatar.FindAsync(userId);
+            
+            if (avatar == null)
+            {
+                avatar = new Entity.Avatar();
+
+                avatar.UserId = userId;
+                
+                await db.Avatar.AddAsync(avatar);
+            }
+
+            avatar.ImgData = img;
+
+            await db.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<RoleEnum>> GetRoles(Guid userId)
         {
             var query = db.UserInRole
@@ -58,7 +103,6 @@ namespace Atheneum.Services
                 db.UserInRole.Add(userInRole);
             }
             await db.SaveChangesAsync();
-
         }
     }
 }

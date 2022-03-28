@@ -4,14 +4,16 @@ using Atheneum.Entity.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Atheneum.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20210517121045_Avatar")]
+    partial class Avatar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,33 +21,6 @@ namespace Atheneum.Migrations
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-<<<<<<< HEAD
-            modelBuilder.Entity("Atheneum.Entity.CashFlow", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Cash")
-                        .HasPrecision(18, 10)
-                        .HasColumnType("decimal(18,10)");
-
-                    b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("UserIdPassed")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UserIdReceived")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CashFlow");
-=======
             modelBuilder.Entity("Atheneum.Entity.Avatar", b =>
                 {
                     b.Property<Guid>("UserId")
@@ -57,7 +32,6 @@ namespace Atheneum.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Avatar");
->>>>>>> origin/UserProfile
                 });
 
             modelBuilder.Entity("Atheneum.Entity.Identity.ChatPrivate", b =>
@@ -150,35 +124,6 @@ namespace Atheneum.Migrations
                     b.ToTable("Epic");
                 });
 
-            modelBuilder.Entity("Atheneum.Entity.Identity.HourlyPay", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("Cash")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("StartedDate")
-                        .HasColumnType("Date");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UserIdCreated")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Id");
-
-                    b.ToTable("HourlyPay");
-                });
-
             modelBuilder.Entity("Atheneum.Entity.Identity.Issue", b =>
                 {
                     b.Property<long>("Id")
@@ -235,16 +180,8 @@ namespace Atheneum.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-<<<<<<< HEAD
-                    b.Property<decimal>("Cash")
-                        .ValueGeneratedOnAdd()
-                        .HasPrecision(18, 10)
-                        .HasColumnType("decimal(18,10)")
-                        .HasDefaultValue(0m);
-=======
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(4000)");
->>>>>>> origin/UserProfile
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(450)");

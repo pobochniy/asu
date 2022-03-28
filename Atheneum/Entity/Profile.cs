@@ -21,6 +21,8 @@ namespace Atheneum.Entity.Identity
         /// </summary>
         public decimal Cash { get; set; }
 
+        public string Comment { get; set; }
+
         public virtual User User { get; set; }
 
         public string ToCustomString()
@@ -49,6 +51,10 @@ namespace Atheneum.Entity.Identity
                 .Property(x => x.Cash)
                 .HasPrecision(18, 10)
                 .HasDefaultValue(0);
+
+            builder
+                .Property(u => u.Comment)
+                .HasColumnType("nvarchar(4000)");
         }
     }
 }

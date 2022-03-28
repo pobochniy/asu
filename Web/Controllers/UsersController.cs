@@ -1,6 +1,8 @@
-﻿using Atheneum.Dto.User;
+﻿using Atheneum.Dto.Auth;
+using Atheneum.Dto.User;
 using Atheneum.Entity.Identity;
 using Atheneum.Enums;
+using Atheneum.Extentions.Auth;
 using Atheneum.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +14,7 @@ using Web.Middleware;
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class UsersController : Controller
     {
         private IUsersService service;
@@ -19,6 +22,42 @@ namespace Web.Controllers
         public UsersController(IUsersService service)
         {
             this.service = service;
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        [Authorize]
+        public async Task<UserEditDto> Details([FromQuery] Guid id)
+        {
+            return await service.Details(id);
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        [Authorize]
+        public async Task<IActionResult> Edit([FromBody] UserEditDto userdto)
+        {
+            /*if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }*/
+
+            userdto.Id = HttpContext.User.GetUserId();
+
+            await service.Edit(userdto);
+
+            var res = await service.Details(HttpContext.User.GetUserId());
+            return Ok(res);
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        [Authorize]
+        public async Task<IActionResult> ChangeAvatar([FromBody] byte[] img)
+        {
+            await service.SetAvatar(HttpContext.User.GetUserId(), img);
+
+            return Ok();
         }
 
         [HttpGet]

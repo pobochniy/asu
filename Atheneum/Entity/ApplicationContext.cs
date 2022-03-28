@@ -8,6 +8,7 @@ namespace Atheneum.Entity.Identity
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Profile> Profiles { get; set; }
+        public DbSet<Avatar> Avatar { get; set; }
         public DbSet<UserInRole> UserInRole { get; set; }
         public DbSet<ChatRoom> ChatRoom { get; set; }
         public DbSet<ChatPrivate> ChatPrivate { get; set; }
