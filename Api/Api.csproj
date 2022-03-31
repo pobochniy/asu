@@ -19,7 +19,6 @@
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\AsuLibrary\AsuLibrary.csproj" />
 		<ProjectReference Include="..\Atheneum\Atheneum.csproj" />
 	</ItemGroup>
 </Project>
