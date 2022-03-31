@@ -1,5 +1,5 @@
 ﻿using Atheneum.Dto.HourlyPay;
-using Atheneum.Entity.Identity;
+using Atheneum.Entity;
 using Atheneum.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Atheneum.Service
+namespace Atheneum.Services
 {
     public class HourlyPayService : IHourlyPay
     {
@@ -26,8 +26,8 @@ namespace Atheneum.Service
             var createdUser = await db.Profiles.SingleAsync(x => x.Id == dto.UserId);
 
             var lastData = await db.HourlyPay.OrderByDescending(x => x.StartedDate).FirstOrDefaultAsync(x => x.UserId == dto.UserId);
-            
-            if(lastData != null && lastData.StartedDate > dto.StartedDate)
+
+            if (lastData != null && lastData.StartedDate > dto.StartedDate)
             {
                 throw new Exception("Дата назначения часовой ставки должна быть не раньше уже имеющейся");
             }
@@ -99,8 +99,8 @@ namespace Atheneum.Service
                     UserId = x.UserId,
                     UserIdCreated = x.UserIdCreated
                 });
-            
-            if(userId != null)
+
+            if (userId != null)
             {
                 query = query.Where(x => x.UserId == userId);
             }

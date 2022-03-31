@@ -37,6 +37,6 @@ namespace Atheneum.Interface
         /// </summary>
         /// <param name="userId">id пользователя</param>
         /// <returns><Id,IsEpic></returns>
-        Task<IEnumerable<TaskItemDto>> GetUserEpicsIssues(Guid userId);
+        //Task<IEnumerable<TaskItemDto>> GetUserEpicsIssues(Guid userId);
     }
 }

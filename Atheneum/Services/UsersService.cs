@@ -1,5 +1,5 @@
 ﻿using Atheneum.Dto.Auth;
-using Atheneum.Entity.Identity;
+using Atheneum.Entity;
 using Atheneum.Enums;
 using Atheneum.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -42,7 +42,7 @@ namespace Atheneum.Services
 
             return userdto;
         }
-        
+
         public async Task Edit(UserEditDto userdto)
         {
             var profile = await db.Profiles.SingleAsync(x => x.Id == userdto.Id);
@@ -58,13 +58,13 @@ namespace Atheneum.Services
         public async Task SetAvatar(Guid userId, byte[] img)
         {
             var avatar = await db.Avatar.FindAsync(userId);
-            
+
             if (avatar == null)
             {
                 avatar = new Entity.Avatar();
 
                 avatar.UserId = userId;
-                
+
                 await db.Avatar.AddAsync(avatar);
             }
 
@@ -99,7 +99,7 @@ namespace Atheneum.Services
                     UserId = userId,
                     RoleId = role
                 };
-                
+
                 db.UserInRole.Add(userInRole);
             }
             await db.SaveChangesAsync();

@@ -1,7 +1,6 @@
 ﻿using System;
 using Atheneum.Enums;
 using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
 
 namespace Atheneum.Dto.Epic
 {

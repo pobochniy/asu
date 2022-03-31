@@ -1,6 +1,5 @@
 ﻿using Atheneum.Dto.CashFlow;
 using Atheneum.Entity;
-using Atheneum.Entity.Identity;
 using Atheneum.Interface;
 using Atheneum.Mapping;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Atheneum.Service
+namespace Atheneum.Services
 {
     public class CashFlowService : ICashFlow
     {

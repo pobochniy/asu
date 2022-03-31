@@ -1,11 +1,11 @@
-﻿using Atheneum.Entity.Identity;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Atheneum.Extentions.Auth;
 using System.Security.Principal;
 using Atheneum.Dto.TimeTracking;
+using Atheneum.Entity;
 
 namespace Atheneum.Validations.TimeTrackingValidation
 {
@@ -75,7 +75,7 @@ namespace Atheneum.Validations.TimeTrackingValidation
                 return ValidationResult.Success;
             }
 
-                return new ValidationResult(ErrorMessage = "UserId не заполнено");
+            return new ValidationResult(ErrorMessage = "UserId не заполнено");
         }
     }
 

@@ -4,48 +4,47 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Atheneum.Entity.Identity
+namespace Atheneum.Entity;
+
+public class User
 {
-    public class User
+    [Key]
+    public Guid Id { get; set; }
+
+    public string PasswordHash { get; set; }
+
+    public string SecurityStamp { get; set; }
+
+    public int AccessFailedCount { get; set; }
+
+    public bool EmailConfirmed { get; set; }
+
+    public bool PhoneNumberConfirmed { get; set; }
+
+    public virtual Profile Profile { get; set; }
+
+    public virtual Avatar Avatar { get; set; }
+
+    public virtual ICollection<UserInRole> UserInRoles { get; set; }
+
+    public virtual ICollection<TimeTracking> TimeTrackings { get; set; }
+
+
+    public User()
     {
-        [Key]
-        public Guid Id { get; set; }
+        TimeTrackings = new List<TimeTracking>();
 
-        public string PasswordHash { get; set; }
-
-        public string SecurityStamp { get; set; }
-
-        public int AccessFailedCount { get; set; }
-
-        public bool EmailConfirmed { get; set; }
-
-        public bool PhoneNumberConfirmed { get; set; }
-
-        public virtual Profile Profile { get; set; }
-
-        public virtual Avatar Avatar { get; set; }
-
-        public virtual ICollection<UserInRole> UserInRoles { get; set; }
-
-        public virtual ICollection<TimeTracking> TimeTrackings { get; set; }
-
-
-        public User()
-        {
-            TimeTrackings = new List<TimeTracking>();
-
-            UserInRoles = new List<UserInRole>();
-        }
+        UserInRoles = new List<UserInRole>();
     }
+}
 
-    public class UserConfiguration : IEntityTypeConfiguration<User>
+public class UserConfiguration : IEntityTypeConfiguration<User>
+{
+    public void Configure(EntityTypeBuilder<User> builder)
     {
-        public void Configure(EntityTypeBuilder<User> builder)
-        {
-            builder
-                .HasOne(u => u.Profile)
-                .WithOne(p => p.User)
-                .HasForeignKey<Profile>(p => p.Id);
-        }
+        builder
+            .HasOne(u => u.Profile)
+            .WithOne(p => p.User)
+            .HasForeignKey<Profile>(p => p.Id);
     }
 }

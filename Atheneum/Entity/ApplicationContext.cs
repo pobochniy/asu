@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using static Atheneum.Entity.Sprint;
 
-namespace Atheneum.Entity.Identity
+namespace Atheneum.Entity
 {
     public class ApplicationContext : DbContext
     {

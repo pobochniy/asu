@@ -1,13 +1,13 @@
 ﻿using Atheneum.Dto.TimeTracking;
-using Atheneum.Entity.Identity;
 using Atheneum.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Atheneum.Entity;
 
-namespace Atheneum.Service
+namespace Atheneum.Services
 {
     public class TimeTrackingService : ITimeTracking
     {
@@ -91,11 +91,5 @@ namespace Atheneum.Service
             return timeTracking;
         }
 
-        public async Task<IEnumerable<TaskItemDto>> GetUserEpicsIssues(Guid userId)
-        {
-            List<TaskItemDto> res = await db.Epic.Where(e => e.Assignee == userId).Select(x => new TaskItemDto { Id = x.Id, Description = x.Name, Type = "Epic" }).ToListAsync();
-            res.AddRange(await db.Issue.Where(e => e.Assignee == userId).Select(x => new TaskItemDto { Id = x.Id, Description = x.Summary, Type = "Issue" }).ToListAsync());
-            return res;
-        }
     }
 }

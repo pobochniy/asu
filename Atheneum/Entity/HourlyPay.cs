@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Atheneum.Entity.Identity
+namespace Atheneum.Entity
 {
     /// <summary>
     /// Модель для фиксации почасовой ставки сотрудника

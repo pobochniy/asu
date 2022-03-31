@@ -1,5 +1,5 @@
 ﻿using Atheneum.Dto.Auth;
-using Atheneum.Entity.Identity;
+using Atheneum.Entity;
 using Atheneum.Enums;
 using System;
 using System.Collections.Generic;

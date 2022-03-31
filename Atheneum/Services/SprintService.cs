@@ -1,7 +1,6 @@
 ﻿using Atheneum.Dto.Issue;
 using Atheneum.Dto.Sprint;
 using Atheneum.Entity;
-using Atheneum.Entity.Identity;
 using Atheneum.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static Atheneum.Entity.Sprint;
 
-namespace Atheneum.Service
+namespace Atheneum.Services
 {
     public class SprintService : ISprint
     {
@@ -74,7 +73,8 @@ namespace Atheneum.Service
                 StartDate = sprint.StartDate,
                 FinishDate = sprint.FinishDate,
                 IsEnded = sprint.IsEnded,
-                Issues = sprint.Issues.Select(x => new IssueDto {
+                Issues = sprint.Issues.Select(x => new IssueDto
+                {
                     Id = x.Id,
                     Assignee = x.Assignee,
                     Reporter = x.Reporter,

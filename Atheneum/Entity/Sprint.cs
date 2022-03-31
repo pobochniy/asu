@@ -1,68 +1,66 @@
-﻿using Atheneum.Entity.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Atheneum.Entity
+namespace Atheneum.Entity;
+
+/// <summary>
+/// Таблица спринтов
+/// </summary>
+public class Sprint
 {
     /// <summary>
-    /// Таблица спринтов
+    /// Идентификатор
     /// </summary>
-    public class Sprint
+    [Key]
+    public long Id { get; set; }
+
+    /// <summary>
+    /// Дата начала спринта
+    /// </summary>
+    public DateTime StartDate { get; set; }
+
+    /// <summary>
+    /// Дата окончания спринта
+    /// </summary>
+    public DateTime FinishDate { get; set; }
+
+    /// <summary>
+    /// Статус
+    /// </summary>
+    public byte IsEnded { get; set; }
+
+    /// <summary>
+    /// Ссылка на issues
+    /// </summary>
+    public List<Issue> Issues { get; set; }
+}
+
+public class SprintConfiguration : IEntityTypeConfiguration<Sprint>
+{
+    public void Configure(EntityTypeBuilder<Sprint> builder)
     {
-        /// <summary>
-        /// Идентификатор
-        /// </summary>
-        [Key]
-        public long Id { get; set; }
+        builder
+            .Property(e => e.FinishDate)
+            .HasColumnType("Date");
 
-        /// <summary>
-        /// Дата начала спринта
-        /// </summary>
-        public DateTime StartDate { get; set; }
+        builder
+            .Property(e => e.StartDate)
+            .HasColumnType("Date");
 
-        /// <summary>
-        /// Дата окончания спринта
-        /// </summary>
-        public DateTime FinishDate { get; set; }
+        builder
+            .HasMany(s => s.Issues)
+            .WithMany(i => i.Sprints)
+            .UsingEntity<SprintIssues>(
+                x => x.HasOne(xs => xs.Issue).WithMany(),
+                x => x.HasOne(xs => xs.Sprint).WithMany())
+            .HasKey(x => new { x.SprintId, x.IssueId });
 
-        /// <summary>
-        /// Статус
-        /// </summary>
-        public byte IsEnded { get; set; }
+        builder.HasIndex(x => x.StartDate).IsUnique();
 
-        /// <summary>
-        /// Ссылка на issues
-        /// </summary>
-        public List<Issue> Issues { get; set; }
-
-        public class SprintConfiguration : IEntityTypeConfiguration<Sprint>
-        {
-            public void Configure(EntityTypeBuilder<Sprint> builder)
-            {
-                builder
-                    .Property(e => e.FinishDate)
-                    .HasColumnType("Date");
-
-                builder
-                    .Property(e => e.StartDate)
-                    .HasColumnType("Date");
-
-                builder
-                    .HasMany(s => s.Issues)
-                    .WithMany(i => i.Sprints)
-                    .UsingEntity<SprintIssues>(
-                        x => x.HasOne(xs => xs.Issue).WithMany(),
-                        x => x.HasOne(xs => xs.Sprint).WithMany())
-                    .HasKey(x => new { x.SprintId, x.IssueId });
-
-                builder.HasIndex(x => x.StartDate).IsUnique();
-
-                builder.HasIndex(x => x.FinishDate).IsUnique();
-            }
-        }
+        builder.HasIndex(x => x.FinishDate).IsUnique();
     }
 }

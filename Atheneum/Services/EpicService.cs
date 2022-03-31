@@ -1,12 +1,12 @@
 ﻿using Atheneum.Dto.Epic;
-using Atheneum.Entity.Identity;
 using Atheneum.Interface;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Atheneum.Entity;
 
-namespace Atheneum.Service
+namespace Atheneum.Services
 {
     public class EpicService : IEpic
     {

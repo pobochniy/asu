@@ -1,5 +1,4 @@
 using Atheneum.Dto.Issue;
-using Atheneum.Entity.Identity;
 using Atheneum.Enums;
 using Atheneum.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Atheneum.Entity;
 
 namespace Atheneum.Services
 {
