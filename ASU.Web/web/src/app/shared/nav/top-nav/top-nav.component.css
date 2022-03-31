@@ -4,10 +4,17 @@
   border-radius: 0;
   margin-left: 0px;
   padding-left: 0px;
+  display: none;
 }
 
 .navbar-btn {
   box-shadow: none;
   outline: none;
   border: none;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    display: block;
+  }
 }
