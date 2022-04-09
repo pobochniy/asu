@@ -1,8 +1,4 @@
-﻿using Atheneum.Enums;
-using Microsoft.AspNetCore.Mvc.Filters;
-using System;
-
-namespace Web.Middleware
+﻿namespace Web.Middleware
 {
     public class AuthorizeRoles : Attribute, IFilterFactory
     {

@@ -1,17 +1,4 @@
-﻿using Atheneum.Dto.Auth;
-using Atheneum.Dto.Chat;
-using Atheneum.Enums;
-using Atheneum.Interface;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
-using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Web.SignalR;
+﻿using Web.SignalR;
 
 namespace Web.Controllers
 {

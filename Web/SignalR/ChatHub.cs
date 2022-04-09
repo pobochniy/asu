@@ -1,13 +1,4 @@
-﻿using Microsoft.AspNetCore.SignalR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Atheneum.Interface;
-using Atheneum.Dto.Chat;
-using Microsoft.AspNetCore.Authorization;
-
-namespace Web.SignalR
+﻿namespace Web.SignalR
 {
     public class ChatHub : Hub<IChatHub>
     {

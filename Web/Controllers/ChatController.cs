@@ -1,10 +1,4 @@
-﻿using Atheneum.Extentions.Auth;
-using Atheneum.Interface;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-
-namespace Web.Controllers
+﻿namespace Web.Controllers
 {
     [Route("api/[controller]")]
     public class ChatController : Controller

@@ -3,7 +3,6 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Atheneum.Extentions.Auth;
-using System.Security.Principal;
 using Atheneum.Dto.TimeTracking;
 using Atheneum.Entity;
 

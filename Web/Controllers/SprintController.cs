@@ -1,11 +1,4 @@
-﻿using Atheneum.Dto.Sprint;
-using Atheneum.Enums;
-using Atheneum.Interface;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Web.Middleware;
+﻿using Web.Middleware;
 
 namespace Web.Controllers
 {

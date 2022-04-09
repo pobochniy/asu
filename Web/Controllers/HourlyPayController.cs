@@ -1,12 +1,5 @@
-﻿using Atheneum.Dto.HourlyPay;
-using Atheneum.Enums;
-using Atheneum.Extentions.Auth;
-using Atheneum.Interface;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Web.Middleware;
-using System;
+﻿using Web.Middleware;
+
 namespace Web.Controllers
 {
     [Route("api/[controller]")]

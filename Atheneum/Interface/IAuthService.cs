@@ -1,6 +1,4 @@
 ﻿using Atheneum.Dto.Auth;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Atheneum.Interface

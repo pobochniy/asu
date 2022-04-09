@@ -8,7 +8,7 @@ namespace Api.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class EpicController : Controller
+    public class EpicController : ControllerBase
     {
         private readonly IEpic service;
 

@@ -1,8 +1,6 @@
 ﻿using Atheneum.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Collections.Generic;
 
 namespace Atheneum.Entity;

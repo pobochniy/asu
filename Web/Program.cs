@@ -1,6 +1,3 @@
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-
 namespace Web
 {
     public class Program

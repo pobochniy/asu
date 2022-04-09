@@ -1,12 +1,4 @@
-﻿using Atheneum.Dto.TimeTracking;
-using Atheneum.Extentions.Auth;
-using Atheneum.Interface;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Web.Controllers
+﻿namespace Web.Controllers
 {
 
     [Route("api/[controller]")]

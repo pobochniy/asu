@@ -1,11 +1,4 @@
-﻿using Atheneum.Enums;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using System;
-using System.Linq;
-using System.Security.Claims;
-
-namespace Web.Middleware
+﻿namespace Web.Middleware
 {
     public class RolesValidation : Attribute, IActionFilter
     {

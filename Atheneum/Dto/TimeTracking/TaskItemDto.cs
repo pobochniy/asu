@@ -1,8 +1,4 @@
-﻿using Atheneum.Validations.TimeTrackingValidation;
-using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace Atheneum.Dto.TimeTracking
+﻿namespace Atheneum.Dto.TimeTracking
 {
     /// <summary>
     /// Список задач
