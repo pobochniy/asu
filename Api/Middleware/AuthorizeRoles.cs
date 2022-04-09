@@ -6,7 +6,7 @@ namespace Api.Middleware
     public class AuthorizeRoles : Attribute, IFilterFactory
     {
         public bool IsReusable => false;
-        public RoleEnum[] Roles { get; set; }
+        private RoleEnum[] Roles { get; }
 
         public AuthorizeRoles(params RoleEnum[] roles)
         {

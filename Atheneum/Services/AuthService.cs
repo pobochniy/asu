@@ -3,11 +3,13 @@ using Atheneum.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Atheneum.Entity;
+using Atheneum.Enums;
 
 namespace Atheneum.Services
 {
@@ -22,12 +24,19 @@ namespace Atheneum.Services
 
         public async Task Register(RegisterDto dto)
         {
-
-            if (await db.Profiles.AnyAsync(x => x.UserName == dto.UserName)
-                || !string.IsNullOrWhiteSpace(dto.Email) && await db.Profiles.AnyAsync(x => x.Email == dto.Email)
-                || !string.IsNullOrWhiteSpace(dto.Phone) && await db.Profiles.AnyAsync(x => x.PhoneNumber == dto.Phone))
+            if (await db.Profiles.AnyAsync(x => x.UserName == dto.UserName))
             {
-                throw new ArgumentException();
+                throw new ConstraintException("UserName");
+            }
+
+            if (!string.IsNullOrWhiteSpace(dto.Email) && await db.Profiles.AnyAsync(x => x.Email == dto.Email))
+            {
+                throw new ConstraintException("Email");
+            }
+
+            if (!string.IsNullOrWhiteSpace(dto.Phone) && await db.Profiles.AnyAsync(x => x.PhoneNumber == dto.Phone))
+            {
+                throw new ConstraintException("Phone");
             }
 
             var salt = Guid.NewGuid();
@@ -47,6 +56,22 @@ namespace Atheneum.Services
 
             await db.Profiles.AddAsync(profile);
             await db.SaveChangesAsync();
+
+            if (db.Profiles.Count() == 1)
+            {
+                var allRoles = Enum.GetValues(typeof(RoleEnum))
+                    .Cast<RoleEnum>()
+                    .Select(x => new UserInRole
+                    {
+                        UserId = profile.Id,
+                        RoleId = x
+                    })
+                    .Where(x => x.RoleId != 0)
+                    .ToArray();
+
+                await db.UserInRole.AddRangeAsync(allRoles);
+                await db.SaveChangesAsync();
+            }
         }
 
         public async Task<UserDto> LogIn(LoginDto dto)
@@ -55,18 +80,19 @@ namespace Atheneum.Services
 
             if (dto.IsPhone)
             {
-                profile = await db.Profiles.Include(x => x.User).SingleAsync(x => x.PhoneNumber == dto.Login);
+                profile = await db.Profiles.Include(x => x.User).SingleOrDefaultAsync(x => x.PhoneNumber == dto.Login);
             }
             else if (dto.IsEmail)
             {
-                profile = await db.Profiles.Include(x => x.User).SingleAsync(x => x.Email == dto.Login);
+                profile = await db.Profiles.Include(x => x.User).SingleOrDefaultAsync(x => x.Email == dto.Login);
             }
             else
             {
                 profile = await db.Profiles.Include(x => x.User).SingleOrDefaultAsync(x => x.UserName == dto.Login);
             }
 
-            if (profile == null || profile.User.PasswordHash != GetHashString($"{profile.User.SecurityStamp}#{dto.Password}"))
+            if (profile == null || profile.User.PasswordHash !=
+                GetHashString($"{profile.User.SecurityStamp}#{dto.Password}"))
                 throw new UnauthorizedAccessException();
 
             var res = new UserDto
@@ -74,13 +100,12 @@ namespace Atheneum.Services
                 Id = profile.Id,
                 UserName = profile.UserName,
                 Email = profile.Email,
-                Phone = profile.PhoneNumber
+                Phone = profile.PhoneNumber,
+                Roles = await db.UserInRole
+                    .Where(x => x.UserId == profile.Id)
+                    .Select(x => x.RoleId)
+                    .ToArrayAsync()
             };
-
-            res.Roles = await db.UserInRole
-                .Where(x => x.UserId == profile.Id)
-                .Select(x => x.RoleId)
-                .ToArrayAsync();
 
             return res;
         }
@@ -94,20 +119,10 @@ namespace Atheneum.Services
             return sb.ToString();
         }
 
-        private byte[] GetHash(string inputString)
+        private IEnumerable<byte> GetHash(string inputString)
         {
-            HashAlgorithm algorithm = MD5.Create();  //or use SHA256.Create();
+            HashAlgorithm algorithm = SHA256.Create();
             return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
         }
-
-        //public async Task<IEnumerable<string>> GetRoles(Guid userId)
-        //{
-        //    var roles = await db.Roles
-        //        .Where(x => x.UserInRoles.Any(r => r.UserId == userId))
-        //        .Select(x => x.RoleName)
-        //        .ToArrayAsync();
-
-        //    return roles;
-        //}
     }
 }
