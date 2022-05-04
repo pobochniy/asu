@@ -10,26 +10,34 @@ namespace Api.Controllers
     [ApiController]
     public class EpicController : ControllerBase
     {
-        private readonly IEpic service;
+        private readonly IEpicService _service;
 
-        public EpicController(IEpic context)
+        public EpicController(IEpicService context)
         {
-            this.service = context;
+            _service = context;
         }
 
         [HttpGet]
+        [Produces(typeof(EpicDto))]
         [AuthorizeRoles(RoleEnum.epicCrud, RoleEnum.epicRead)]
-        public async Task<EpicDto> Details([FromQuery] int id)
+        public async Task<IActionResult> Details([FromQuery] int id)
         {
-            var res = await service.Details(id);
-            return res;
+            try
+            {
+                var res = await _service.Details(id);
+                return Ok(res);
+            }
+            catch (Exception e)
+            {
+                return BadRequest($"{e.GetType()}: {e.Message}");
+            }
         }
 
         [HttpGet]
         [AuthorizeRoles(RoleEnum.epicCrud, RoleEnum.epicRead)]
         public async Task<IEnumerable<EpicDto>> GetList()
         {
-            return await service.GetList();
+            return await _service.GetList();
         }
 
         [HttpPost]
@@ -41,7 +49,7 @@ namespace Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var id = await service.Create(epicDto);
+            var id = await _service.Create(epicDto);
             return Ok(id);
         }
 
@@ -49,7 +57,7 @@ namespace Api.Controllers
         [AuthorizeRoles(RoleEnum.epicCrud)]
         public async Task<IActionResult> Delete([FromBody] int id)
         {
-            await service.Delete(id);
+            await _service.Delete(id);
 
             return Ok();
         }
@@ -63,9 +71,9 @@ namespace Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            await service.Update(epicDto);
+            await _service.Update(epicDto);
 
-            var res = await service.Details(epicDto.Id);
+            var res = await _service.Details(epicDto.Id);
             return Ok(res);
         }
     }

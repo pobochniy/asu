@@ -43,7 +43,7 @@ services.AddTransient<IAuthService, AuthService>();
 services.AddTransient<IChatService, ChatService>();
 services.AddTransient<IIssue, IssueService>();
 services.AddTransient<IUsersService, UsersService>();
-services.AddTransient<IEpic, EpicService>();
+services.AddTransient<IEpicService, EpicServiceService>();
 services.AddTransient<ISprint, SprintService>();
 services.AddTransient<ITimeTracking, TimeTrackingService>();
 services.AddHttpContextAccessor();

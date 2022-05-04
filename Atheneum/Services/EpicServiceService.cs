@@ -8,11 +8,11 @@ using Atheneum.Entity;
 
 namespace Atheneum.Services
 {
-    public class EpicService : IEpic
+    public class EpicServiceService : IEpicService
     {
         private ApplicationContext db;
 
-        public EpicService(ApplicationContext context)
+        public EpicServiceService(ApplicationContext context)
         {
             db = context;
         }
@@ -38,7 +38,7 @@ namespace Atheneum.Services
             if (id == 0) return new EpicDto();
 
             var epic = await db.Epic.FindAsync(id);
-            var epicdto = new EpicDto
+            var res = new EpicDto
             {
                 Id = epic.Id,
                 Assignee = epic.Assignee,
@@ -48,7 +48,7 @@ namespace Atheneum.Services
                 Description = epic.Description,
                 DueDate = epic.DueDate
             };
-            return epicdto;
+            return res;
         }
 
         public async Task Update(EpicDto epicDto)
@@ -66,8 +66,8 @@ namespace Atheneum.Services
 
         public async Task Delete(int id)
         {
-            var i = await db.Epic.FindAsync(id);
-            db.Epic.Remove(i);
+            var epic = await db.Epic.FindAsync(id);
+            db.Epic.Remove(epic);
             await db.SaveChangesAsync();
         }
 

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Atheneum.Interface
 {
-    public interface IEpic
+    public interface IEpicService
     {
         /// <summary>
         /// Создать 
@@ -14,7 +14,7 @@ namespace Atheneum.Interface
         /// <summary>
         /// Получить детали
         /// </summary>
-       Task<EpicDto> Details(int Id);
+       Task<EpicDto> Details(int id);
 
         /// <summary>
         /// Изменить
@@ -24,7 +24,7 @@ namespace Atheneum.Interface
         /// <summary>
         /// Удалить
         /// </summary>
-        Task Delete(int Id);
+        Task Delete(int id);
 
         /// <summary>
         /// Получить список

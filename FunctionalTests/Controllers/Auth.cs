@@ -1,45 +1,25 @@
 using System;
-using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Atheneum.Dto.Auth;
+using FunctionalTests.ArrangeEntityBuilders;
 using FunctionalTests.Arranges;
 using FunctionalTests.Asserts;
 using Xunit;
 
 namespace FunctionalTests.Controllers;
 
-public class Auth : IClassFixture<FunctionalTestsApiApplication>
+public class Auth
 {
-    private readonly HttpClient _client;
-
-    public Auth(FunctionalTestsApiApplication factory)
-    {
-        _client = factory.CreateClient();
-        //_factory = new FunctionalTestsApiApplication();
-        //     factory.WithWebHostBuilder(builder =>
-        // {
-        //     builder.ConfigureServices(services =>
-        //     {
-        //     });
-        // });
-        //.CreateClient();
-    }
-
     [Fact]
     public async Task CreateUser()
     {
-        var usr = new RegisterDto
-        {
-            UserName = "pob",
-            Email = "pob@email.ru",
-            Phone = "+79091112234",
-            Password = "123", 
-            PasswordConfirm = "123"
-        };
+        // Assert
+        var usr = ArrangeUsers.Vlad;
+        var client = await new ApiApplicationFactory<Program>().SetupApplication(null, Guid.NewGuid().ToString(), false);
 
         // Act
-        var response = await _client.PostAsJsonAsync<RegisterDto>("/api/Auth/Register", usr);
+        var response = await client.PostAsJsonAsync<RegisterDto>("/api/Auth/Register", usr);
 
         // Assert
         await response.ShouldBeSuccessful();
@@ -47,22 +27,27 @@ public class Auth : IClassFixture<FunctionalTestsApiApplication>
         Assert.True(result.UserName == usr.UserName, "UserName");
         Assert.True(result.Id != Guid.Empty, "UserId");
     }
-    
+
     [Theory]
     [InlineData("admin")]
     [InlineData("admin@test.ru")]
     [InlineData("+79091112233")]
-    public async Task Login(string login)
+    public async Task Login(string adminLogin)
     {
         // Arrange
+        var admin = Given.Admin();
+        
+        var client = await new ApiApplicationFactory<Program>()
+            .SetupApplication(x => x.Profiles.Add(admin), Guid.NewGuid().ToString(), false);
+        
         var loginModel = new LoginDto
         {
-            Login = login,
-            Password = ArrangeUsers.SuperAdminPassword
+            Login = adminLogin,
+            Password = UserBuilder.SuperAdminPassword
         };
 
         // Act
-        var response = await _client.PostAsJsonAsync<LoginDto>("/api/Auth/Login", loginModel);
+        var response = await client.PostAsJsonAsync<LoginDto>("/api/Auth/Login", loginModel);
 
         // Assert
         await response.ShouldBeSuccessful();

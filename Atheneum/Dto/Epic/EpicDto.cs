@@ -17,7 +17,7 @@ namespace Atheneum.Dto.Epic
         public Guid? Assignee { get; set; }
 
         /// <summary>
-        /// Инициатор
+        /// Инициатор (Owner)
         /// </summary>
         public Guid? Reporter { get; set; }
 
