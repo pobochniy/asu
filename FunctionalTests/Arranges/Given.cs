@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Atheneum.Entity;
+using Atheneum.Enums;
 using FunctionalTests.ArrangeEntityBuilders;
 
 namespace FunctionalTests.Arranges;
@@ -20,10 +22,18 @@ public static class Given
             .WithAllRoles()
             .Please();
     }
+    
+    public static Profile Vlad(ICollection<RoleEnum> roles)
+    {
+        return new UserBuilder(UserBuilder.VladName, UserBuilder.VladEmail, UserBuilder.VladPhone)
+            .WithRoles(roles)
+            .Please();
+    }
 
-    public static Epic Epic(Guid userId)
+    public static Epic Epic(Guid userId, int? epicId = null)
     {
         return new EpicBuilder()
+            .WithId(epicId)
             .WithAssignee(userId)
             .WithReporter(userId)
             .Please();

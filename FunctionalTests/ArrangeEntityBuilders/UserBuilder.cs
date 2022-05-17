@@ -12,6 +12,9 @@ public class UserBuilder
     public static readonly string SuperAdminName = "admin";
     public static readonly string SuperAdminEmail = "admin@test.ru";
     public static readonly string SuperAdminPhone = "+79091112233";
+    public static readonly string VladName = "Vlad";
+    public static readonly string VladEmail = "vlad@asuemail.ru";
+    public static readonly string VladPhone = "+79091113344";
     private Profile _profile;
 
     public UserBuilder(string name, string email, string phone)
@@ -48,9 +51,13 @@ public class UserBuilder
         return this;
     }
 
-    public UserBuilder WithRoles(ICollection<UserInRole> roles)
+    public UserBuilder WithRoles(ICollection<RoleEnum> roles)
     {
-        _profile.User.UserInRoles = roles;
+        foreach (var role in roles)
+        {
+            _profile.User.UserInRoles.Add(new UserInRole {UserId = _profile.Id, RoleId = role});
+        }
+
         return this;
     }
 

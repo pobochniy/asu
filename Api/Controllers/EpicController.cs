@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers
 {
     [Route("api/[controller]/[action]")]
-    [ApiController]
     public class EpicController : ControllerBase
     {
         private readonly IEpicService _service;
@@ -34,6 +33,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
+        [Produces(typeof(IEnumerable<EpicDto>))]
         [AuthorizeRoles(RoleEnum.epicCrud, RoleEnum.epicRead)]
         public async Task<IEnumerable<EpicDto>> GetList()
         {
@@ -41,13 +41,11 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [Produces(typeof(int))]
         [AuthorizeRoles(RoleEnum.epicCrud)]
         public async Task<IActionResult> Create([FromBody] EpicDto epicDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) return UnprocessableEntity(ModelState);
 
             var id = await _service.Create(epicDto);
             return Ok(id);
@@ -63,13 +61,11 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [Produces(typeof(EpicDto))]
         [AuthorizeRoles(RoleEnum.epicCrud)]
         public async Task<IActionResult> Update([FromBody] EpicDto epicDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) return UnprocessableEntity(ModelState);
 
             await _service.Update(epicDto);
 

@@ -20,6 +20,13 @@ public class EpicBuilder
         };
     }
 
+    public EpicBuilder WithId(int? epicId)
+    {
+        if (epicId.HasValue) _epic.Id = epicId.Value;
+
+        return this;
+    }
+
     public EpicBuilder WithAssignee(Guid userId)
     {
         _epic.Assignee = userId;
