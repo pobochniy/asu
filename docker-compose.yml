@@ -1,0 +1,13 @@
+---
+version: '3.1'
+services:
+  database:
+    image: mysql:5.7.23
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: asu
+      MYSQL_USER: app
+      MYSQL_PASSWORD: 12345
+    ports:
+      - 3307:3306
