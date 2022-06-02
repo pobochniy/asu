@@ -30,6 +30,6 @@ jobs:
         run: |
           mkdir inspect-out
           echo "::group::Inspect code"
-          jb inspectcode --dotnetcoresdk=$DOTNET_VERSION --no-build -f=sarif -o=inspect-out/report.json kafka-outbox.sln
+          jb inspectcode --dotnetcoresdk=$DOTNET_VERSION --no-build -f=sarif -o=inspect-out/report.json ASU.sln
           echo "::endgroup::"
           jq "$Q_RESULTS | $Q_CONTENTS | $Q_NOTICE" -r inspect-out/report.json
