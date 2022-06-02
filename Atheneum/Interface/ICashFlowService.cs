@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Atheneum.Interface
 {
-    public interface ICashFlow
+    public interface ICashFlowService
     {
         /// <summary>
         /// Создать событие

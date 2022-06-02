@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Atheneum.Interface
 {
-    public interface IHourlyPay
+    public interface IHourlyPayService
     {
         /// <summary>
         /// Создать событие

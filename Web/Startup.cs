@@ -1,5 +1,9 @@
-using Web.Middleware;
-using Web.SignalR;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 
 namespace Web
@@ -16,35 +20,6 @@ namespace Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie();//o => o.Cookie.HttpOnly = false
-            //services.AddAuthorization();
-
-            services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("AppConnection")));
-
-            services.AddTransient<RolesValidation>();
-            services.AddTransient<IAuthService, AuthService>();
-            services.AddTransient<IChatService, ChatService>();
-            services.AddTransient<IIssue, IssueService>();
-            services.AddTransient<IUsersService, UsersService>();
-            services.AddTransient<IEpic, EpicService>();
-            services.AddTransient<ISprint, SprintService>();
-            services.AddTransient<ITimeTracking, TimeTrackingService>();
-            services.AddTransient<ICashFlow, CashFlowService>();
-            services.AddTransient<IHourlyPay, HourlyPayService>();
-
-            services.AddHttpContextAccessor();
-
-            services.AddMvc();
-
-            services.AddSignalR();
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "asu api", Version = "v1" });
-            });
-
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
@@ -66,28 +41,10 @@ namespace Web
 
             app.UseStaticFiles();
 
-            app.UseRouting();
-
-            //app.UseCookiePolicy();
-            app.UseHttpsRedirection();
-            app.UseAuthentication();
-            app.UseAuthorization();
-
             if (!env.IsDevelopment())
             {
                 app.UseSpaStaticFiles();
             }
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapHub<ChatHub>("/chat");
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
-            });
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "asu api"); });
 
             app.UseSpa(spa =>
             {

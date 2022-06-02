@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Atheneum.Services
 {
-    public class CashFlowService : ICashFlow
+    public class CashFlowService : ICashFlowService
     {
-        private ApplicationContext db;
+        private readonly ApplicationContext db;
 
         public CashFlowService(ApplicationContext context)
         {
