@@ -1,0 +1,35 @@
+name: Build
+
+on: push
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    env:
+      ARTIFACT_DIR: out
+      DOTNET_VERSION: "6.0.300"
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - run: docker compose up -d --wait
+      - name: Install JetBrains GlobalTools
+        run: dotnet tool install -g JetBrains.ReSharper.GlobalTools
+      - name: Restore
+        run: dotnet restore
+      - run: mkdir out
+      - name: Build
+        run: dotnet build --no-restore -c Release -o $ARTIFACT_DIR
+      - name: Test
+        run: dotnet test --no-restore --no-build -o $ARTIFACT_DIR
+      - name: Inspect
+        env:
+          Q_RESULTS: ".runs[].results[]"
+          Q_CONTENTS: "{message:.message.text, file:.locations[0].physicalLocation.artifactLocation.uri, region: .locations[0].physicalLocation.region}"
+          Q_NOTICE: '"::notice file=\(.file),line=\(.region.startLine),endLine=\(.region.endLine),col=\(.region.startColumn),endColumn=\(.region.endColumn)::\(.message)"'
+        run: |
+          mkdir inspect-out
+          echo "::group::Inspect code"
+          jb inspectcode --dotnetcoresdk=$DOTNET_VERSION --no-build -f=sarif -o=inspect-out/report.json kafka-outbox.sln
+          echo "::endgroup::"
+          jq "$Q_RESULTS | $Q_CONTENTS | $Q_NOTICE" -r inspect-out/report.json
