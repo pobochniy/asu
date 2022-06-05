@@ -12,16 +12,23 @@ jobs:
       - uses: actions/setup-dotnet@v2
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-      - run: docker compose up -d --wait
-      - name: Install JetBrains GlobalTools
-        run: dotnet tool install -g JetBrains.ReSharper.GlobalTools
       - name: Restore
         run: dotnet restore
       - run: mkdir out
       - name: Build
         run: dotnet build --no-restore -c Release -o $ARTIFACT_DIR
+  Tests:
+    runs-on: ubuntu-latest
+    needs: Build
+    steps:
       - name: Test
         run: dotnet test --no-restore --no-build -o $ARTIFACT_DIR
+  JetBrainsInspect:
+    runs-on: ubuntu-latest
+    needs: Build
+    steps:
+      - name: Install JetBrains GlobalTools
+        run: dotnet tool install -g JetBrains.ReSharper.GlobalTools
       - name: Inspect
         env:
           Q_RESULTS: ".runs[].results[]"
@@ -33,3 +40,5 @@ jobs:
           jb inspectcode --dotnetcoresdk=$DOTNET_VERSION --no-build -f=sarif -o=inspect-out/report.json ASU.sln
           echo "::endgroup::"
           jq "$Q_RESULTS | $Q_CONTENTS | $Q_NOTICE" -r inspect-out/report.json
+    
+    
