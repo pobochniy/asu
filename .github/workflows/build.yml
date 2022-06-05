@@ -1,11 +1,13 @@
 name: Build
 
 on: push
+env:
+  ARTIFACT_DIR: out
+  
 jobs:
   Build:
     runs-on: ubuntu-latest
     env:
-      ARTIFACT_DIR: out
       DOTNET_VERSION: "6.0.300"
     steps:
       - uses: actions/checkout@v3
