@@ -16,9 +16,9 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       - name: Restore
         run: dotnet restore
-      - run: mkdir out
+      - run: mkdir ${{ env.ARTIFACT_DIR }}
       - name: Build
-        run: dotnet build --no-restore -c Release -o $ARTIFACT_DIR
+        run: dotnet build --no-restore -c Release -o ${{ env.ARTIFACT_DIR }}
       - name: UploadArtifact
         uses: actions/upload-artifact@v3
         with:
