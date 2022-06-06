@@ -22,8 +22,9 @@ jobs:
       - name: UploadArtifact
         uses: actions/upload-artifact@v3
         with:
-          name: $ARTIFACT_NAME
+          name: ${{ env.ARTIFACT_NAME }}
           path: $ARTIFACT_DIR
+          if-no-files-found: error
           retention-days: 1
   Tests:
     runs-on: ubuntu-latest
@@ -33,7 +34,7 @@ jobs:
       - name: DownloadArtifact
         uses: actions/download-artifact@v3
         with:
-          name: $ARTIFACT_NAME
+          name: ${{ env.ARTIFACT_NAME }}
       - name: Test
         run: dotnet test --no-restore --no-build -o $ARTIFACT_DIR
   JetBrainsInspect:
