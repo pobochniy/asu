@@ -167,7 +167,7 @@ public class Epic
         // Assert
         await response.ShouldBeSuccessful();
         var result = await response.Content.ReadFromJsonAsync<IEnumerable<EpicDto>>();
-        Assert.True(result.Count() == 3);
+        Assert.True(result.Count() == 5);
         result.Single(x => x.Id == 42).AssertEquals(epic);
     }
 }
