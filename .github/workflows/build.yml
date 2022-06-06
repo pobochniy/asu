@@ -33,7 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Test
-        run: dotnet test --no-restore --no-build -o ${{ env.ARTIFACT_DIR }}
+        run: dotnet test
         
   JetBrainsInspect:
     runs-on: ubuntu-latest
