@@ -30,6 +30,10 @@ jobs:
     needs: Build
     steps:
       - uses: actions/checkout@v3
+      - name: DownloadArtifact
+        uses: actions/download-artifact@v3
+        with:
+          name: $ARTIFACT_NAME
       - name: Test
         run: dotnet test --no-restore --no-build -o $ARTIFACT_DIR
   JetBrainsInspect:
