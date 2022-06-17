@@ -11,6 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var config = builder.Configuration;
 
+services.AddCors(c => c.AddPolicy("AllowSpecificOrigin", corsBuilder =>
+{
+    corsBuilder
+        .WithOrigins("http://localhost:3000")
+        .AllowCredentials()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+}));
+
 services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, o =>
@@ -51,14 +60,15 @@ services.AddHttpContextAccessor();
 services.AddSignalR();
 
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+app.UseCors("AllowSpecificOrigin");
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseStaticFiles();
-
-app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -66,4 +76,7 @@ app.MapControllers();
 
 app.Run();
 
-public partial class Program { /* Expose the Program class for use with WebApplicationFactory<T> */ }
+public partial class Program
+{
+    /* Expose the Program class for use with WebApplicationFactory<T> */
+}

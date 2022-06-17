@@ -49,7 +49,7 @@ public class AuthController : ControllerBase
 
     [HttpPost]
     [Produces(typeof(UserDto))]
-    public async Task<IActionResult> LogIn([FromBody] LoginDto model)
+    public async Task<IActionResult> LogIn([FromBody]LoginDto model)
     {
         if (!ModelState.IsValid) return UnprocessableEntity(ModelState);
 
@@ -75,7 +75,7 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Logout()
     {
         await HttpContext.SignOutAsync();
-        return Ok();
+        return new NoContentResult();
     }
 
     private async Task SignInAsync(UserDto user)

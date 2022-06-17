@@ -6,6 +6,7 @@ namespace Atheneum.Dto.Auth
     public class LoginDto
     {
         [Required]
+        [MinLength(3)]
         public string Login { get; set; }
 
         [Required]
