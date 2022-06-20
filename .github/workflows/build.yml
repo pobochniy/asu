@@ -2,15 +2,17 @@ name: Build
 
 on: push
 env:
-  ARTIFACT_DIR: out
+  ARTIFACT_DIR: publishfolder
   ARTIFACT_NAME: assembly
   DOTNET_VERSION: "6.0.300"
   
 jobs:
+  
   Build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: checkout 🛎️
+        uses: actions/checkout@v3
       - uses: actions/setup-dotnet@v2
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
@@ -29,16 +31,21 @@ jobs:
           
   Tests:
     runs-on: ubuntu-latest
+    needs: Build
     steps:
       - uses: actions/checkout@v3
       - name: Test
-        run: dotnet test
+        run: dotnet test --no-restore --no-build -o $ARTIFACT_DIR
         
   JetBrainsInspect:
     runs-on: ubuntu-latest
+    env:
+      DOTNET_VERSION: "6.0.300"
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
       - name: Install JetBrains GlobalTools
         run: dotnet tool install -g JetBrains.ReSharper.GlobalTools
       - name: Inspect
