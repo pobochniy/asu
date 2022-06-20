@@ -45,7 +45,7 @@ jobs:
       DOTNET_VERSION: "6.0.300"
     steps:
       - name: checkout 🙈🙉🙊
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
       - uses: actions/setup-dotnet@v2
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
