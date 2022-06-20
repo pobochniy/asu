@@ -13,15 +13,16 @@ jobs:
     steps:
       - name: checkout 🛎️
         uses: actions/checkout@v3
-      - uses: actions/setup-dotnet@v2
+      - name: setup dotnet 
+        uses: actions/setup-dotnet@v2
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-      - name: Restore
+      - name: restore
         run: dotnet restore
       - run: mkdir ${{ env.ARTIFACT_DIR }}
-      - name: Build
+      - name: build 🏗️
         run: dotnet build --no-restore -c Release -o ${{ env.ARTIFACT_DIR }}
-      - name: UploadArtifact
+      - name: upload Artifact 🧙🏼‍
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.ARTIFACT_NAME }}
@@ -33,8 +34,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: Build
     steps:
-      - uses: actions/checkout@v3
-      - name: Test
+      - name: checkout 🔮
+        uses: actions/checkout@v3
+      - name: test 🦑
         run: dotnet test --no-restore --no-build -o $ARTIFACT_DIR
         
   JetBrainsInspect:
@@ -42,6 +44,7 @@ jobs:
     env:
       DOTNET_VERSION: "6.0.300"
     steps:
+      - name: checkout 🙈🙉🙊
       - uses: actions/checkout@v3
       - uses: actions/setup-dotnet@v2
         with:
