@@ -2,7 +2,7 @@ name: Build
 
 on: push
 env:
-  ARTIFACT_DIR: out
+  ARTIFACT_DIR: publishfolder
   ARTIFACT_NAME: assembly
   DOTNET_VERSION: "6.0.300"
   
@@ -11,6 +11,10 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
+      - name: Add emoji 🥰
+        uses: tiena2cva/action-emoji@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: checkout 🛎️
         uses: actions/checkout@v3
       - uses: actions/setup-dotnet@v2
