@@ -37,7 +37,7 @@ jobs:
       - name: checkout 🔮
         uses: actions/checkout@v3
       - name: test 🦑
-        run: dotnet test --no-restore --no-build -o $ARTIFACT_DIR
+        run: dotnet test
         
   JetBrainsInspect:
     runs-on: ubuntu-latest
