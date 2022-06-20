@@ -4,6 +4,7 @@ using Atheneum.Services;
 using Atheneum.Interface;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using OpenTelemetry.Metrics;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -59,8 +60,25 @@ services.AddHttpContextAccessor();
 
 services.AddSignalR();
 
+services.AddOpenTelemetryMetrics(b =>
+{
+    b.AddAspNetCoreInstrumentation()
+        .AddHttpClientInstrumentation()
+        .
+        .AddRuntimeMetrics(options =>
+        {
+            options.AssembliesEnabled = true;
+            options.GcEnabled = true;
+            options.JitEnabled = true;
+            options.ProcessEnabled = true;
+            options.ThreadingEnabled = true;
+        })
+        .AddPrometheusExporter();
+});
+
 var app = builder.Build();
 // Configure the HTTP request pipeline.
+app.UseOpenTelemetryPrometheusScrapingEndpoint();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
