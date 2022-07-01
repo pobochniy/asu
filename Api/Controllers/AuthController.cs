@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Api.Middleware;
 using Api.SignalR;
 using Atheneum.Dto.Chat;
 using Atheneum.Enums;
@@ -14,6 +15,7 @@ namespace Api.Controllers;
 
 [Route("api/[controller]/[action]")]
 [AllowAnonymous]
+[ValidateRequest]
 public class AuthController : ControllerBase
 {
     private readonly IHubContext<ChatHub, IChatHub> _hub;
@@ -29,8 +31,6 @@ public class AuthController : ControllerBase
     [Produces(typeof(UserDto))]
     public async Task<IActionResult> Register([FromBody] RegisterDto model)
     {
-        if (!ModelState.IsValid) return UnprocessableEntity(ModelState);
-
         try
         {
             await _service.Register(model);
@@ -51,8 +51,6 @@ public class AuthController : ControllerBase
     [Produces(typeof(UserDto))]
     public async Task<IActionResult> LogIn([FromBody]LoginDto model)
     {
-        if (!ModelState.IsValid) return UnprocessableEntity(ModelState);
-
         try
         {
             var user = await _service.LogIn(model);
@@ -63,7 +61,7 @@ public class AuthController : ControllerBase
         catch (UnauthorizedAccessException)
         {
             ModelState.AddModelError("", "Неправильное имя пользователя или пароль");
-            return BadRequest(ModelState);
+            return UnprocessableEntity(ModelState);
         }
         catch (Exception e)
         {

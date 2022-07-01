@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers
 {
     [Route("api/[controller]/[action]")]
+    [ValidateRequest]
     public class EpicController : ControllerBase
     {
         private readonly IEpicService _service;
@@ -45,8 +46,6 @@ namespace Api.Controllers
         [AuthorizeRoles(RoleEnum.epicCrud)]
         public async Task<IActionResult> Create([FromBody] EpicDto epicDto)
         {
-            if (!ModelState.IsValid) return UnprocessableEntity(ModelState);
-
             var id = await _service.Create(epicDto);
             return Ok(id);
         }
@@ -65,8 +64,6 @@ namespace Api.Controllers
         [AuthorizeRoles(RoleEnum.epicCrud)]
         public async Task<IActionResult> Update([FromBody] EpicDto epicDto)
         {
-            if (!ModelState.IsValid) return UnprocessableEntity(ModelState);
-
             await _service.Update(epicDto);
 
             var res = await _service.Details(epicDto.Id);
