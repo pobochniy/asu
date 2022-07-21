@@ -6,7 +6,8 @@ dotnet ef --startup-project ./Api.csproj migrations add Init --context Applicati
 dotnet ef migrations add Init
 
 update-database -Project Atheneum
-dotnet ef database update
+(из папки Api)
+dotnet ef database update  
 
 remove-migration
 
