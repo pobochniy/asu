@@ -64,7 +64,6 @@ services.AddOpenTelemetryMetrics(b =>
 {
     b.AddAspNetCoreInstrumentation()
         .AddHttpClientInstrumentation()
-        .
         .AddRuntimeMetrics(options =>
         {
             options.AssembliesEnabled = true;
