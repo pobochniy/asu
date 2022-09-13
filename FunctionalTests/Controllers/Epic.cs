@@ -27,7 +27,7 @@ public class Epic
         });
 
         // Act
-        var response = await client.GetAsync("/api/Epic/Details?id=42");
+        var response = await client.GetAsync($"/api/Epic/Details?id={epic.Id}");
 
         // Assert
         await response.ShouldBeSuccessful();
@@ -117,7 +117,7 @@ public class Epic
 
         // Assert
         await response.ShouldBeSuccessful();
-        var detailsResponse = await client.GetAsync("/api/Epic/Details?id=42");
+        var detailsResponse = await client.GetAsync($"/api/Epic/Details?id={epic.Id}");
         await detailsResponse.ShouldBeSuccessful();
         var detailsResult = await detailsResponse.Content.ReadFromJsonAsync<EpicDto>();
         detailsResult.AssertEquals(epicDto);
