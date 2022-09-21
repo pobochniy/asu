@@ -18,6 +18,7 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+          
       - name: restore
         run: dotnet restore
       - name: build 🏗️
@@ -26,7 +27,35 @@ jobs:
         run: dotnet test --no-restore --no-build -o ${{ env.BUILD_DIR }} ASU.sln
       - name: publish
         run: dotnet publish Api/Api.csproj -c Release -o ${{ env.PUBLISH_DIR }}
-                  
+
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d %H:%M:%S')"
+        
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build Docker image
+        uses: docker/build-push-action@v3
+        with:
+          push: false
+          load: true
+          context: ${{ env.PUBLISH_DIR }}
+          tags: ${{ steps.date.outputs.date }}
+
+      - name: Publish Docker image
+        run: |
+          docker login \
+            --username ${{ secrets.DOCKERHUB_LOGIN }} \
+            --password ${{ secrets.DOCKERHUB_PWD }}
+          
+          docker tag ${{ steps.date.outputs.date }}
+          
+          docker push \
+            ${{ secrets.DOCKER_LOGIN }}/asu-api:${{ steps.date.outputs.date }}
+          
+          echo "### Image tag: ${{ steps.date.outputs.date }}" >> $GITHUB_STEP_SUMMARY      
+          
+          
   JetBrainsInspect:
     runs-on: ubuntu-latest
     env:
