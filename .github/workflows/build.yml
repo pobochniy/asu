@@ -48,10 +48,6 @@ jobs:
             --username ${{ secrets.DOCKERHUB_LOGIN }} \
             --password ${{ secrets.DOCKERHUB_PWD }}
           
-#          docker tag \
-#            ${{ steps.date.outputs.date }} \
-#            ${{ secrets.DOCKER_LOGIN }}/asu-api:${{ steps.date.outputs.date }}
-          
           docker push \
             ${{ secrets.DOCKER_LOGIN }}/asu-api:${{ steps.date.outputs.date }}
           
