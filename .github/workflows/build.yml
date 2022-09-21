@@ -25,7 +25,7 @@ jobs:
       - name: test 🦑
         run: dotnet test --no-restore --no-build -o ${{ env.BUILD_DIR }} ASU.sln
       - name: publish
-        run: dotnet publish Api/Api.csproj -c Release -o ${{ env.publishfolder }}
+        run: dotnet publish Api/Api.csproj -c Release -o ${{ env.PUBLISH_DIR }}
                   
   JetBrainsInspect:
     runs-on: ubuntu-latest
