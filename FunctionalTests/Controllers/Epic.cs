@@ -16,7 +16,6 @@ public class Epic
     [Fact]
     public async Task Details()
     {
-        Assert.False(true); //test gha work
         // Arrange
         var admin = Given.Admin();
         var epic = Given.Epic(admin.Id);
