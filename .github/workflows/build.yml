@@ -26,7 +26,7 @@ jobs:
       - name: test 🦑
         run: dotnet test --no-restore --no-build -o ${{ env.BUILD_DIR }} ASU.sln
       - name: publish
-        run: dotnet publish Api/Api.csproj -c Release -o ${{ env.PUBLISH_DIR }}
+        run: dotnet publish Api/Api.csproj -c Release -o out/api
 
       - name: Get current date
         id: date
@@ -39,7 +39,7 @@ jobs:
         with:
           push: false
           load: true
-          context: ${{ env.PUBLISH_DIR }}
+          context: out/api
           tags: ${{ steps.date.outputs.date }}
 
       - name: Publish Docker image
