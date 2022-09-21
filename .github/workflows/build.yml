@@ -50,10 +50,10 @@ jobs:
           
           docker tag \
             ${{ steps.date.outputs.date }} \
-            ${{ secrets.DOCKER_LOGIN }}/asu-api
+            pobochniy/asu-api
           
           docker push \
-            ${{ secrets.DOCKER_LOGIN }}/asu-api
+            pobochniy/asu-api
           
           echo "### Image tag: ${{ steps.date.outputs.date }}" >> $GITHUB_STEP_SUMMARY      
           
