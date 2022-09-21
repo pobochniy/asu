@@ -2,7 +2,8 @@ name: Build
 
 on: push
 env:
-  ARTIFACT_DIR: publishfolder
+  BUILD_DIR: buildfolder
+  PUBLISH_DIR: publishfolder
   ARTIFACT_NAME: assembly
   DOTNET_VERSION: "6.0.300"
   
@@ -19,26 +20,13 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       - name: restore
         run: dotnet restore
-      - run: mkdir ${{ env.ARTIFACT_DIR }}
       - name: build 🏗️
-        run: dotnet build --no-restore -c Release -o ${{ env.ARTIFACT_DIR }}
-      - name: upload Artifact 🧙🏼‍
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ env.ARTIFACT_NAME }}
-          path: ${{ env.ARTIFACT_DIR }}
-          if-no-files-found: error
-          retention-days: 1
-          
-  Tests:
-    runs-on: ubuntu-latest
-    needs: Build
-    steps:
-      - name: checkout 🔮
-        uses: actions/checkout@v3
+        run: dotnet build --no-restore -c Release -o ${{ env.BUILD_DIR }}
       - name: test 🦑
-        run: dotnet test
-        
+        run: dotnet test --no-restore --no-build -o ${{ env.BUILD_DIR }} ASU.sln
+      - name: publish
+        run: dotnet publish Api/Api.csproj -c Release -o ${{ env.publishfolder }}
+                  
   JetBrainsInspect:
     runs-on: ubuntu-latest
     env:
