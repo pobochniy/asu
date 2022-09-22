@@ -58,28 +58,28 @@ jobs:
           echo "### Image tag: ${{ steps.date.outputs.date }}" >> $GITHUB_STEP_SUMMARY      
           
           
-#  JetBrainsInspect:
-#    runs-on: ubuntu-latest
-#    env:
-#      DOTNET_VERSION: "6.0.300"
-#    steps:
-#      - name: checkout 🙈🙉🙊
-#        uses: actions/checkout@v3
-#      - uses: actions/setup-dotnet@v2
-#        with:
-#          dotnet-version: ${{ env.DOTNET_VERSION }}
-#      - name: Install JetBrains GlobalTools
-#        run: dotnet tool install -g JetBrains.ReSharper.GlobalTools
-#      - name: Inspect
-#        env:
-#          Q_RESULTS: ".runs[].results[]"
-#          Q_CONTENTS: "{message:.message.text, file:.locations[0].physicalLocation.artifactLocation.uri, region: .locations[0].physicalLocation.region}"
-#          Q_NOTICE: '"::notice file=\(.file),line=\(.region.startLine),endLine=\(.region.endLine),col=\(.region.startColumn),endColumn=\(.region.endColumn)::\(.message)"'
-#        run: |
-#          mkdir inspect-out
-#          echo "::group::Inspect code"
-#          jb inspectcode --dotnetcoresdk=$DOTNET_VERSION -f=sarif -o=inspect-out/report.json ASU.sln
-#          echo "::endgroup::"
-#          jq "$Q_RESULTS | $Q_CONTENTS | $Q_NOTICE" -r inspect-out/report.json
+  JetBrainsInspect:
+    runs-on: ubuntu-latest
+    env:
+      DOTNET_VERSION: "6.0.300"
+    steps:
+      - name: checkout 🙈🙉🙊
+        uses: actions/checkout@v3
+      - uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Install JetBrains GlobalTools
+        run: dotnet tool install -g JetBrains.ReSharper.GlobalTools
+      - name: Inspect
+        env:
+          Q_RESULTS: ".runs[].results[]"
+          Q_CONTENTS: "{message:.message.text, file:.locations[0].physicalLocation.artifactLocation.uri, region: .locations[0].physicalLocation.region}"
+          Q_NOTICE: '"::notice file=\(.file),line=\(.region.startLine),endLine=\(.region.endLine),col=\(.region.startColumn),endColumn=\(.region.endColumn)::\(.message)"'
+        run: |
+          mkdir inspect-out
+          echo "::group::Inspect code"
+          jb inspectcode --dotnetcoresdk=$DOTNET_VERSION -f=sarif -o=inspect-out/report.json ASU.sln
+          echo "::endgroup::"
+          jq "$Q_RESULTS | $Q_CONTENTS | $Q_NOTICE" -r inspect-out/report.json
     
     
