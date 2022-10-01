@@ -45,7 +45,7 @@ jobs:
           context: ${{ env.PUBLISH_DIR }}
           tags: pobochniy/asu-api:${GITHUB_REF_NAME}-${{ steps.date.outputs.date }}
         
-      echo "### Image tag: ${{ steps.date.outputs.date }}" >> $GITHUB_STEP_SUMMARY      
+          echo "### Image tag: ${{ steps.date.outputs.date }}" >> $GITHUB_STEP_SUMMARY      
           
 #          
 #  JetBrainsInspect:
