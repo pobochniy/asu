@@ -50,7 +50,7 @@ jobs:
           
           docker tag \
             ${{ steps.date.outputs.date }} \
-            pobochniy/asu-api
+            pobochniy/asu-api:${GITHUB_REF_NAME}-${{ steps.date.outputs.date }}
           
           docker push \
             pobochniy/asu-api
