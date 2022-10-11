@@ -1,11 +1,11 @@
 using Api.Middleware;
 using Atheneum.Entity;
+using Atheneum.EntityDeployment;
 using Atheneum.Services;
 using Atheneum.Interface;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using OpenTelemetry.Metrics;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,12 +41,19 @@ services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 
 var connString = config.GetConnectionString("AppConnection");
-var serverVersion = new MySqlServerVersion(new Version(8, 0, 28));
+var serverVersion = new MySqlServerVersion(new Version(8, 0, 30));
 services.AddDbContext<ApplicationContext>(opt => opt.UseMySql(
     connString,
     serverVersion,
     x => x.MigrationsAssembly("Atheneum")
 ));
+
+var connString2 = config.GetConnectionString("DeploymentConnection");
+services.AddDbContext<DeploymentContext>(opt => opt.UseMySql(
+    connString2,
+    serverVersion,
+    x => x.MigrationsAssembly("Atheneum")
+)); 
 
 services.AddTransient<RolesValidation>();
 services.AddTransient<IAuthService, AuthService>();
@@ -56,6 +63,7 @@ services.AddTransient<IUsersService, UsersService>();
 services.AddTransient<IEpicService, EpicServiceService>();
 services.AddTransient<ISprint, SprintService>();
 services.AddTransient<ITimeTracking, TimeTrackingService>();
+services.AddTransient<IDeploymentService, DeploymentService>();
 services.AddHttpContextAccessor();
 
 services.AddSignalR();

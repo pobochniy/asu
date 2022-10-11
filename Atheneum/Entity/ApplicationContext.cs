@@ -18,7 +18,7 @@ namespace Atheneum.Entity
         public DbSet<CashFlow> CashFlow { get; set; }
         public DbSet<HourlyPay> HourlyPay { get; set; }
 
-        public ApplicationContext(DbContextOptions options)
+        public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
         }
