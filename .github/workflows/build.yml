@@ -57,7 +57,10 @@ jobs:
           github_token: ${{ secrets.github_token }}
           # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
           reporter: github-check
-          pattern: '**/*.md **/*.txt'
+          patterns: '**/*.md **/*.txt'
+          language:
+            description: 'language of LanguageTool'
+            default: 'ru-RU'
           # Change reporter level if you need.
           level: info
 
