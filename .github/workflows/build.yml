@@ -58,7 +58,7 @@ jobs:
           # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
           reporter: github-check
           patterns: '**/*.md **/*.txt'
-#          language: 'ru-RU'
+          language: 'ru'
           # Change reporter level if you need.
 #          level: info
 
