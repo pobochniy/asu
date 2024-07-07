@@ -1,0 +1,49 @@
+<div class="col-md-offset-3 col-md-6">
+  <form class="form-horizontal" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <h4>Creating a new user.</h4>
+    <hr>
+    <div class="form-group row">
+      <label class="col-md-3 control-label" for="username">Username *:</label>
+      <div class="col-md-9">
+        <input class="form-control" type="text" formControlName="username" />
+        <form-validation [model]="registerForm.controls['username']" fieldName="username"></form-validation>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-3 control-label" for="password">Password *:</label>
+      <div class="col-md-9">
+        <input class="form-control" type="password" formControlName="password" />
+        <form-validation [model]="registerForm.controls['password']" fieldName="password"></form-validation>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-3 control-label" for="passwordConfirm">Confirm password *:</label>
+      <div class="col-md-9">
+        <input class="form-control" type="password" formControlName="passwordConfirm" />
+        <div *ngIf="!registerForm.controls['passwordConfirm'].pristine && registerForm.hasError('PassNotSame')" class="error-msg">
+          <div class="text-danger">Password and password confirmation must match!</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-3 control-label" for="phone">Phone:</label>
+      <div class="col-md-9">
+        <input class="form-control" type="text" formControlName="phone" />
+        <form-validation [model]="registerForm.controls['phone']" fieldName="phone"></form-validation>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-3 control-label" for="email">Email:</label>
+      <div class="col-md-9">
+        <input class="form-control" type="text" formControlName="email" />
+        <form-validation [model]="registerForm.controls['email']" fieldName="email"></form-validation>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-offset-3 col-md-9">
+        <input type="submit" value="Register" class="btn btn-primary">
+      </div>
+    </div>
+  </form>
+</div>

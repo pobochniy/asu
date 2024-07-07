@@ -1,0 +1,34 @@
+<table class="table table-striped issue_card">
+
+  <tr>
+    <td class="row col-xs-2"><shared-enums-icon-type [type]="issue.type"></shared-enums-icon-type></td>
+    <td class="row col-xs-8">{{issue.summary}}</td>
+    <td class="row col-xs-2"><img class="avatar" src="https://sun1-90.userapi.com/s/v1/if2/NkcjImR8i_Q-fCPk95QFbPoKuupD7Gx6A4Q1HQ-L-SsVJ5MXWI8Ops4dssYqELjgVqT7kaRaHl9FdNucUF7kQX4c.jpg?size=200x0&quality=96&crop=317,0,1713,1714&ava=1" /></td>
+  </tr>
+
+  <tr>
+    <td class="row col-xs-2"></td>
+    <td class="row col-xs-8"><epic-name [epicId]="issue?.epicLink"></epic-name></td>
+    <td class="row col-xs-2"></td>
+  </tr>
+
+  <tr>
+    <td class="row col-xs-2"></td>
+    <td class="row col-xs-8">{{issue.description}}</td>
+    <td class="row col-xs-2"></td>
+  </tr>
+
+  <tr>
+    <td class="row col-xs-2"></td>
+    <td class="row col-xs-8"><shared-user-name [userId]="issue?.assignee" id="assignee"></shared-user-name></td>
+    <td class="row col-xs-2"></td>
+  </tr>
+
+  <tr>
+    <td class="row col-xs-2"></td>
+    <td class="row col-xs-8"><shared-user-name [userId]="issue.reporter" id="reporter"></shared-user-name></td>
+    <td class="row col-xs-2"></td>
+  </tr>
+
+</table>
+

@@ -1,0 +1,13 @@
+.navbar {
+  background: #fff;
+  border: none;
+  border-radius: 0;
+  margin-left: 0px;
+  padding-left: 0px;
+}
+
+.navbar-btn {
+  box-shadow: none;
+  outline: none;
+  border: none;
+}

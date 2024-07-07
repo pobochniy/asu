@@ -1,0 +1,46 @@
+<form class="form-horizontal" (ngOnSubmit)="ngOnInit()">
+  <h4>Issues</h4>
+  <div class="form-group row">
+    <div class="col-md-1 col-md-10">
+      <a [routerLink]='["/issue/edit", 0]'>
+        <input type="submit" value="Create new Issue" class="btn btn-primary" [disabled]="!userService.hasRole(roles.issueCrud)">
+      </a>
+    </div>
+  </div>
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th>T</th>
+        <th>Assignee</th>
+        <th>Reporter</th>
+        <th>Summary</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Priority</th>
+<!--        <th>Est. Time</th>-->
+        <th>Due Date</th>
+        <th>Epic Link</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let el of dataSource">
+        <td><shared-enums-icon-type [type]="el.type"></shared-enums-icon-type></td>
+        <td><shared-user-name [userId]="el.assignee"></shared-user-name></td>
+        <td><shared-user-name [userId]="el.reporter"></shared-user-name></td>
+        <td>{{el.summary}}</td>
+        <td>{{el.description}}</td>
+        <td>{{GetStatus(el.status)}}</td>
+        <td>{{GetPriority(el.priority)}}</td>
+<!--        <td class="mw-100 text-center">{{el.estimatedTime}}</td>-->
+        <td class="mw-120 text-center">{{el.dueDate | date:'yyyy-MM-dd'}}</td>
+        <td class="mw-100 text-center">{{el.epicLink}}</td>
+        <td>
+          <a [routerLink]='["/issue/edit", el.id]'>
+            <input type="submit" value="Edit" class="btn btn-primary" [disabled]="!userService.hasRole(roles.issueCrud)">
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>

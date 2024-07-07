@@ -1,0 +1,6 @@
+<div *ngIf="model['errors'] && !model['pristine']" class="error-msg">
+  <div class="text-danger" [hidden]="!model['errors']['required']">{{fieldName}} is required.</div>
+  <div class="text-danger" *ngIf="model['errors']['minlength']" [hidden]="!(model['errors']['minlength']['actualLength'] < model['errors']['minlength']['requiredLength'])">
+    Min Length {{model['errors']['minlength']['requiredLength']}}
+  </div>
+</div>

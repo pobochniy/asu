@@ -1,0 +1,73 @@
+<shared-time-tracking-popup [epicId]="epic.id"></shared-time-tracking-popup>
+<div class="">
+  <h4>
+    Epic {{epic?.name}}
+    <a [routerLink]="['/epic/edit', epic.id]">
+      <input type="submit" value="Edit" class="btn btn-info btn-sm" [disabled]="!userService.hasRole(roles.epicCrud)">
+    </a>
+    <input type="submit" value="TimeTrack" class="btn btn-info btn-sm" (click)="showTimeTrack()">
+  </h4>
+
+  <div class="row form-group">
+    <div class="col-lg-3">
+      <label class="mr-2" for="assignee">Assignee</label>
+      <b><shared-user-name [userId]="epic.assignee" id="assignee"></shared-user-name></b>
+    </div>
+    <div class="col-lg-3">
+      <label class="mr-2" for="reporter">Reporter</label>
+      <b><shared-user-name [userId]="epic.reporter" id="reporter"></shared-user-name></b>
+    </div>
+    <div class="col-lg-3">
+      <label class="mr-2">Priority</label><b>{{GetPriority(epic.priority)}}</b>
+    </div>
+    <div class="col-lg-3">
+      <label class="mr-2">Due Date</label><b>{{datepipe.transform(epic.dueDate, 'yyyy-MM-dd')}}</b>
+    </div>
+  </div>
+  <div class="md-form">
+    <textarea class="form-control md-textarea rounded-0" style="cursor:default; resize:none;" rows="10" disabled="disabled">{{epic.description}}</textarea>
+  </div>
+  <br>
+  <br>
+  <div class="container-fluid">
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>T</th>
+          <th>Assignee</th>
+          <th>Summary</th>
+          <th>Status</th>
+          <th>Priority</th>
+<!--          <th>Estimated Time</th>-->
+          <th>Due Date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let el of issues">
+          <td>
+            <shared-enums-icon-type [type]="el.type"></shared-enums-icon-type>
+          </td>
+          <td>
+            <shared-user-name [userId]="el.assignee"></shared-user-name>
+          </td>
+          <td>{{el.summary}}</td>
+          <td>{{GetStatus(el.status)}}</td>
+          <td>{{GetPriority(el.priority)}}</td>
+<!--          <td>{{el.estimatedTime}}</td>-->
+          <td>{{el.dueDate | date:'yyyy-MM-dd'}}</td>
+          <td>
+            <a [routerLink]="['/issue/edit', el.id]">
+              <input type="submit" value="Edit" class="btn btn-primary" [disabled]="!userService.hasRole(roles.epicCrud)">
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!userService.hasRole(roles.issueRead)">
+      Нет прав для просмотра Issue
+    </div>
+  </div>
+</div>
+
+

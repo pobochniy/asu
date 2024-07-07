@@ -1,0 +1,35 @@
+form {
+  padding-right: 40px;
+}
+
+textarea {
+  min-height: 120px;
+}
+
+.fa {
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  /*-webkit-mask: url('~src\assets\icons\bug-solid.svg') no-repeat center;*/
+  /*mask: url('~src\assets\icons\bug-solid.svg') no-repeat center;*/
+}
+
+.select-img-type > label > input:checked ~ .checkmark {
+  border: 2px solid #2196F3 !important;
+}
+
+.select-img-type .checkmark {
+  display: inline-block;
+  cursor: pointer;
+  padding: 2px;
+  border: 2px solid transparent;
+  margin: 5px;
+}
+
+.select-img-type > label > input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
