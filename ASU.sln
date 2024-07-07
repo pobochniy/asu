@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionalTests", "Function
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{6973C905-0CF1-4FA8-8746-D00F18C5B092}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASU.Web", "ASU.Web\ASU.Web.csproj", "{032351B6-1532-418B-9910-C131CE069103}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{6973C905-0CF1-4FA8-8746-D00F18C5B092}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6973C905-0CF1-4FA8-8746-D00F18C5B092}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6973C905-0CF1-4FA8-8746-D00F18C5B092}.Release|Any CPU.Build.0 = Release|Any CPU
+		{032351B6-1532-418B-9910-C131CE069103}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{032351B6-1532-418B-9910-C131CE069103}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{032351B6-1532-418B-9910-C131CE069103}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{032351B6-1532-418B-9910-C131CE069103}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
