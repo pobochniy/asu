@@ -11,11 +11,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="web\src\assets\fonts\fontawesome\metadata\icons.json" />
-      <None Include="web\src\assets\fonts\fontawesome\metadata\shims.json" />
-    </ItemGroup>
-
-    <ItemGroup>
       <_ContentIncludedByDefault Remove="web2\angular.json" />
       <_ContentIncludedByDefault Remove="web2\package-lock.json" />
       <_ContentIncludedByDefault Remove="web2\package.json" />

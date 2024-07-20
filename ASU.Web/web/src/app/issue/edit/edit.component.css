@@ -10,8 +10,6 @@ textarea {
   width: 20px;
   height: 20px;
   background-color: red;
-  /*-webkit-mask: url('~src\assets\icons\bug-solid.svg') no-repeat center;*/
-  /*mask: url('~src\assets\icons\bug-solid.svg') no-repeat center;*/
 }
 
 .select-img-type > label > input:checked ~ .checkmark {

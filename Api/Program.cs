@@ -78,7 +78,7 @@ services.AddOpenTelemetryMetrics(b =>
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.UseOpenTelemetryPrometheusScrapingEndpoint();
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseCors("AllowSpecificOrigin");
