@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { TimeTrackingApiService } from '../api/time-tracking-api.service';
 import { timeTrackingFormModel } from '../form-models/time-tracking-form.model';
@@ -13,33 +13,15 @@ export class TimeTrackingPopupComponent implements OnInit {
 
   public timeTrackingForm = timeTrackingFormModel;
   public isVisible = false;
-  public model!: TimeTrackingModel;
   public sbj!: Subject<TimeTrackingModel>;
-  public selectionList = [{ id: 1, name: 'epic1', type: 'Epics' },
-    { id: 2, name: 'epic2', type: 'Epics' },
-    { id: 3, name: 'epic3', type: 'Epics' },
-    { id: 4, name: 'issue1', type: 'Issues' },
-    { id: 5, name: 'issue2', type: 'Issues' },
-    { id: 6, name: 'issue3', type: 'Issues' }];
 
   @Input('epicId') epicId?: number;
   @Input('issueId') issueId?: number;
 
-  constructor(private api: TimeTrackingApiService) { }
+  constructor(private api: TimeTrackingApiService
+              , private cdRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    debugger
-    //if (this.epicId || this.issueId) {
-    //  this.epics = [this.epicId ? this.epicId : this.issueId];
-    //}
-    //else {
-    this.selectionList = [{ id:1, name:'epic1', type: 'Epics'},
-      { id: 2, name: 'epic2', type: 'Epics' },
-      { id: 3, name: 'epic3', type: 'Epics' },
-      { id: 4, name: 'issue1', type: 'Issues' },
-      { id: 5, name: 'issue2', type: 'Issues' },
-      { id: 6, name: 'issue3', type: 'Issues' }];
-    //}
   }
 
   public toggle() {
@@ -49,14 +31,24 @@ export class TimeTrackingPopupComponent implements OnInit {
   public show(model: TimeTrackingModel): Observable<TimeTrackingModel> {
     this.sbj = new Subject<TimeTrackingModel>();
     this.isVisible = true;
-    this.model = model;
+    this.timeTrackingForm.patchValue({
+      id: model.id
+      , Date: (model.date || new Date()).toISOString().substr(0,10)
+      , from: (model.from || new Date()).toISOString().substr(11,5)
+      , to: (model.to || new Date()).toISOString().substr(11,5)
+      , Comment: model.comment || ''
+      , userId: model.userId || undefined
+      , IssueId: model.issueId
+      , EpicId: model.epicId
+      , issueEpicName: model.issueEpicName
+    });
 
-    this.model.date = new Date();
+    this.cdRef.detectChanges();
     return this.sbj;
   }
 
   public create() {
-    this.api.Create(this.model).then(x => {
+    this.api.Create(this.timeTrackingForm).then(x => {
       this.isVisible = false;
       this.sbj.next(x!);
     }).catch(y => {

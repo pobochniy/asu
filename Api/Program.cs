@@ -1,4 +1,5 @@
 using Api.Middleware;
+using Api.Middleware.Converters;
 using Atheneum.Entity;
 using Atheneum.Services;
 using Atheneum.Interface;
@@ -36,7 +37,13 @@ services
         };
     });
 
-services.AddControllers();
+services
+    .AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+        options.JsonSerializerOptions.Converters.Add(new TimeOnlyJsonConverter());
+    });
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 

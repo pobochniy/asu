@@ -25,17 +25,17 @@ public class TimeTracking
     /// <summary>
     /// День на который списывать время
     /// </summary>
-    public DateTime Date { get; set; }
+    public DateOnly Date { get; set; }
 
     /// <summary>
     /// Время "с"
     /// </summary>
-    public DateTime From { get; set; }
+    public TimeOnly From { get; set; }
 
     /// <summary>
     /// Время "по"
     /// </summary>
-    public DateTime To { get; set; }
+    public TimeOnly To { get; set; }
 
     /// <summary>
     /// Описание работы

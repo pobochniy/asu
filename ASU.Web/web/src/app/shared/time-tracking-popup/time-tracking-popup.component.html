@@ -1,40 +1,30 @@
-<form class="form-horizontal" [formGroup]="timeTrackingForm" (ngSubmit)="onSubmit()">
+<form
+  class="form-horizontal" [formGroup]="timeTrackingForm" (ngSubmit)="onSubmit()">
   <div class="modal fade" id="staticBackdrop" [class.show]="isVisible" [style.display]="isVisible ? 'block' : 'none'" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">{{timeTrackingForm.controls['issueEpicName'].value || ''}}</h5>
           <button type="button" class="close" (click)="toggle()" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="md-form">
-            <ngx-select [allowClear]="true"
-                        [items]="selectionList"
-                        optionValueField="id"
-                        optionTextField="name"
-                        optGroupOptionsField="type"
-                        optGroupLabelField ="type"
-                        [disabled]="false"
-                        placeholder="Select issue">
-            </ngx-select>
-            <label for="Comment">Selector</label>
+            <label for="comment">Comment</label>
+            <input class="form-control" id="comment" type="text" formControlName="Comment" />
           </div>
-          <div class="md-form">
-            <input type="text" id="Comment" class="form-control">
-            <label for="Comment">Comment</label>
+          <div class="md-form row">
+            <label for="Date" class="col">Date</label>
+            <input type="date" formControlName="Date" id="Date" class="form-control col">
           </div>
-          <div class="md-form">
-            <input type="date" formControlName="date" id="Date" class="form-control">
-            <label for="Date">Date</label>
+          <div class="md-form row">
+            <label for="startTime" class="col">Start time</label>
+            <input type="time" formControlName="from" id="startTime" class="form-control col">
           </div>
-          <div class="md-form">
-            <label for="startTime">Start time</label>
-            <input type="time" formControlName="from" id="startTime" class="form-control">
-
-            <label for="finishTime">Finish time</label>
-            <input type="time" formControlName="to" id="finishTime" class="form-control">
+          <div class="md-form row">
+            <label for="finishTime" class="col">Finish time</label>
+            <input type="time" formControlName="to" id="finishTime" class="form-control col">
           </div>
         </div>
         <div class="modal-footer">

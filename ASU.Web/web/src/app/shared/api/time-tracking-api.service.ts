@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
 import { TimeTrackingModel } from "../models/time-tracking.model";
 import { BaseApiService } from './base-api.service';
+import {FormGroup} from "@angular/forms";
 
 @Injectable()
 export class TimeTrackingApiService extends BaseApiService {
@@ -12,7 +13,7 @@ export class TimeTrackingApiService extends BaseApiService {
     return this.get<TimeTrackingModel>('Details').toPromise();
   }
 
-  public async Create(model: TimeTrackingModel) {
-    return this.post<TimeTrackingModel>('Create', model).toPromise();
+  public async Create(model: FormGroup) {
+    return this.post<TimeTrackingModel>('Create', model.value).toPromise();
   }
 }
