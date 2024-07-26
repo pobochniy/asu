@@ -1,30 +1,41 @@
-import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  UntypedFormControl,
+  ValidationErrors,
+  ValidatorFn,
+  Validators
+} from "@angular/forms";
 
 /* Модель списания времени */
 export let timeTrackingFormModel = new FormGroup({
 
-  id : new FormControl(null, [Validators.required]),
+  id : new FormControl<number|undefined>(undefined),
 
   /** День на который списывать время */
-  date: new FormControl(null, [Validators.required]),
+  Date: new UntypedFormControl(null, [Validators.required]),
 
   /** Время "с" */
-  from: new FormControl(null, [Validators.required]),
+  from: new UntypedFormControl(null, [Validators.required]),
 
   /** Время "по" */
-  to: new FormControl(null, [Validators.required]),
+  to: new UntypedFormControl(null, [Validators.required]),
 
   /** Описание работы */
-  comment: new FormControl(null, [Validators.required]),
+  Comment: new FormControl<string>(''),
 
   /** Пользователь, потративший время */
-  userId: new FormControl(null, [Validators.required]),
+  userId: new UntypedFormControl({value: undefined}),
 
   /** Задача, на которую потрачено время */
-  issueId: new FormControl(null, [Validators.required]),
+  IssueId: new UntypedFormControl({value: undefined}),
 
   /** Эпик, на который потрачено время */
-  epicId: new FormControl(null, [Validators.required]),
+  EpicId: new UntypedFormControl({value: undefined}),
+
+  /** Эпик, на который потрачено время */
+  issueEpicName: new FormControl<string>(''),
 }, { validators: checkTime });
 
 function checkTime(): ValidatorFn {

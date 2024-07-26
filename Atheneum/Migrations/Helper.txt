@@ -1,13 +1,11 @@
 ﻿средства - диспетчер пакетов NuGet - консоль
 
-add-migration [NAME] -Project Atheneum
-dotnet ef --startup-project ./Api.csproj migrations add Init --context ApplicationContext
-(из папки Api)
-dotnet ef migrations add Init
+(из корня)
+dotnet ef migrations add TimeTrackingDateOnly --startup-project Api --project Atheneum 
 
 update-database -Project Atheneum
-(из папки Api)
-dotnet ef database update  
+(из корня)
+dotnet ef database update --startup-project Api --project Atheneum 
 
 remove-migration
 

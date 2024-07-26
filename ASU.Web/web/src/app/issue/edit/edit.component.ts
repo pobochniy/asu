@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef, ViewChild} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EpicApiService } from '../../shared/api/epic-api.service';
 import { IssueApiService } from '../../shared/api/issue-api.service';
@@ -11,6 +11,8 @@ import { UserRoleEnum } from '../../shared/enums/user-role.enum';
 import { issueFormModel } from '../../shared/form-models/issue-form.model';
 import { EpicModel } from '../../shared/models/epic.model';
 import { UserProfileModel } from '../../shared/models/user-profile.model';
+import {TimeTrackingModel} from "../../shared/models/time-tracking.model";
+import {TimeTrackingPopupComponent} from "../../shared/time-tracking-popup/time-tracking-popup.component";
 
 @Component({
   selector: 'edit-issue',
@@ -20,6 +22,7 @@ import { UserProfileModel } from '../../shared/models/user-profile.model';
 })
 export class EditComponent implements OnInit {
 
+  @ViewChild(TimeTrackingPopupComponent) timePopup!: TimeTrackingPopupComponent;
   public issueForm = issueFormModel;
   public profiles: UserProfileModel[] = [];
   public epics: EpicModel[] = [];
@@ -91,6 +94,10 @@ export class EditComponent implements OnInit {
     if (!this.issueForm.value.id) this.storageRestore();
   }
 
+  public get IssueId() {
+    return this.issueForm?.controls['id']?.value || 0;
+  }
+
   async onSubmit() {
     Object.keys(this.issueForm.controls).forEach(key => {
       this.issueForm.get(key)?.markAsDirty();
@@ -130,6 +137,16 @@ export class EditComponent implements OnInit {
     const strVal = localStorage.getItem(`issue-last-${name}`);
     const val = fieldtype == 'number' ? +(strVal || 0) : strVal;
     if (val) this.issueForm.patchValue({[name]: val});
+  }
+
+  public showTimeTrack() {
+    if (this.IssueId == 0) return;
+
+    const model = new TimeTrackingModel();
+    model.issueId = this.IssueId;
+    model.issueEpicName = this.issueForm?.controls['summary']?.value || "";
+    this.timePopup.show(model).subscribe((x: any) => {
+    });
   }
 }
 

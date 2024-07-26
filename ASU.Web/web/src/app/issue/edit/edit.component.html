@@ -1,3 +1,7 @@
+<shared-time-tracking-popup [issueId]="IssueId"></shared-time-tracking-popup>
+<input type="submit" value="TimeTrack" class="btn btn-info btn-sm" (click)="showTimeTrack()">
+
+
 <form class="form-horizontal" [formGroup]="issueForm" (ngSubmit)="onSubmit()">
   <h4>{{this.issueForm.value['id'] || 0 > 0 ? 'Update ' : 'Create new '}}Issue</h4>
 
@@ -108,3 +112,8 @@
     </div>
   </div>
 </form>
+
+<!--<div class="alert alert-danger" role="alert">-->
+<!--  <div id="alert-content"></div>-->
+<!--  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>-->
+<!--</div>-->

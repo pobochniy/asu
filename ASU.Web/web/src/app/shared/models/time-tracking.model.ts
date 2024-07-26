@@ -1,25 +1,28 @@
 export class TimeTrackingModel {
 
-  public id: number = 0;
+  public id?: number;
 
   /** День на который списывать время */
-  public date!: Date;
+  public date?: Date;
 
   /** Время "с" */
-  public from!: Date;
+  public from?: Date;
 
   /** Время "по" */
-  public to!: Date;
+  public to?: Date;
 
   /** Описание работы */
-  public comment!: string;
+  public comment?: string;
 
   /** Пользователь, потративший время */
-  public userId!: string;
+  public userId?: string;
 
   /** Задача, на которую потрачено время */
   public issueId?: number;
 
   /** Эпик, на который потрачено время */
   public epicId?: number;
+
+  /** Наименование задачи или эпика */
+  public issueEpicName: string = '';
 }

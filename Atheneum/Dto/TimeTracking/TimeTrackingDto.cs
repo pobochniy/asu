@@ -12,25 +12,25 @@ namespace Atheneum.Dto.TimeTracking
         /// <summary>
         /// Идентификатор TimeTracking
         /// </summary>
-        public long Id { get; set; }
+        public long? Id { get; set; }
 
         /// <summary>
         /// День на который списывать время
         /// </summary>
         [DateTodayOrYesterday]
-        public DateTime Date { get; set; }
+        public DateOnly? Date { get; set; }
 
         /// <summary>
         /// Время "с"
         /// </summary>
         [Required]
-        public DateTime From { get; set; }
+        public TimeOnly? From { get; set; }
 
         /// <summary>
         /// Время "по"
         /// </summary>
         [Required]
-        public DateTime To { get; set; }
+        public TimeOnly? To { get; set; }
 
         /// <summary>
         /// Описание работы
@@ -41,8 +41,8 @@ namespace Atheneum.Dto.TimeTracking
         /// <summary>
         /// Пользователь, потративший время
         /// </summary>
-        [CurrentUser]
-        public Guid UserId { get; set; }
+        // [CurrentUser]
+        public Guid? UserId { get; set; }
 
         /// <summary>
         /// Задача, на которую потрачено время
