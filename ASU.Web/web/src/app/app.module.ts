@@ -17,6 +17,7 @@ import {SprintModule} from "./sprint/sprint.module";
 import {AlertsService} from "./shared/alerts/alerts.service";
 import {AlertsComponent} from "./shared/alerts/alerts.component";
 import {ReportsModule} from "./reports/reports.module";
+import {ProfilesModule} from "./profiles/profiles.module";
 
 const routes: Routes = [{ path: '', component: HomeComponent, pathMatch: 'full' }];
 
@@ -31,6 +32,7 @@ const routes: Routes = [{ path: '', component: HomeComponent, pathMatch: 'full' 
     BrowserModule,
     EpicModule,
     ReportsModule,
+    ProfilesModule,
     IssueModule,
     NavModule,
     RoleManagementModule,

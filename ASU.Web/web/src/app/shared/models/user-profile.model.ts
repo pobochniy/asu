@@ -12,6 +12,12 @@ export class UserProfileModel {
   /** Телефон */
   public phone?: string;
 
+  /** Накопления */
+  public cash?: string;
+
+  /** Описание */
+  public comment?: string;
+
   constructor(obj: any = {}) {
     this.id = obj.id;
     this.email = obj.email;

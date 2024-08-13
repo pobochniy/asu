@@ -1,0 +1,37 @@
+<form
+  class="form-horizontal" [formGroup]="hourlyPayForm">
+  <div class="modal fade" id="staticBackdrop" [class.show]="isVisible" [style.display]="isVisible ? 'block' : 'none'" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Добавить почасовую ставку</h5>
+          <button type="button" class="close" (click)="toggle()" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="md-form row">
+            <label for="startedDate" class="col">Дата начала</label>
+            <input type="date" formControlName="startedDate" id="startedDate" class="form-control col">
+          </div>
+          <div class="md-form row">
+            <label for="cash" class="col">Ставка кр/час</label>
+            <input type="number" formControlName="cash"
+                   (keyup)="calcMonthPay()"
+                   id="cash" class="form-control col">
+          </div>
+          <div class="md-form row">
+            <label for="monthlyCash" class="col">В месяц это (тыс руб)</label>
+            <input type="number" id="monthlyCash" class="form-control col"
+                   [value]="monthlyPay"
+                   (keyup)="calcHourPay($event)">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="toggle()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="create()">Ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

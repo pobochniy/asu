@@ -31,13 +31,11 @@ namespace Atheneum.Dto.HourlyPay
         /// <summary>
         /// Id пользователя создавшего запись 
         /// </summary>
-        [Required]
         public Guid UserIdCreated { get; set; }
 
         /// <summary>
         /// Дата создания записи
         /// </summary>
-        [Required]
         public DateTime CreatedDate { get; set; }
     }
 }

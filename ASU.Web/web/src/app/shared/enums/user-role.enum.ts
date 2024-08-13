@@ -9,5 +9,8 @@ export enum UserRoleEnum {
   epicRead,
 
   sprintCrud = 30,
-  sprintRead
+  sprintRead,
+
+  hourlyPayCrud = 40,
+  hourlyPayRead
 }

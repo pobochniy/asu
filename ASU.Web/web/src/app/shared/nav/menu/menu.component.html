@@ -23,6 +23,9 @@
     <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: true }">
       <a [routerLink]='["/"]'><i class="fas fa-home"></i>Home</a>
     </li>
+    <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" >
+      <a [routerLink]='["/profiles"]'><i class="fas fa-user-tag"></i>Profile</a>
+    </li>
     <li *ngIf="userService.hasRole(roles.issueRead) || userService.hasRole(roles.issueCrud)" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" >
       <a [routerLink]='["/issue"]'><i class="far fa-id-card"></i>Issue</a>
     </li>

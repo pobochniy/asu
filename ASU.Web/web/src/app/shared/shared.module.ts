@@ -10,6 +10,7 @@ import {ChatUserNameComponent} from './chat-user-name/chat-user-name.component';
 import {NgxSelectModule} from 'ngx-select-ex';
 import {provideHttpClient} from '@angular/common/http';
 import {TimeTrackingPopupComponent} from "./time-tracking-popup/time-tracking-popup.component";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import {TimeTrackingPopupComponent} from "./time-tracking-popup/time-tracking-po
     TimeTrackingPopupComponent,
   ],
   exports: [
+    RouterModule,
     FormValidationComponent,
     ReactiveFormsModule,
     CommonModule,
