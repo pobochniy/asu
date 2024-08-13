@@ -1,18 +1,19 @@
 import {Component, OnInit, ChangeDetectorRef, ViewChild} from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { EpicApiService } from '../../shared/api/epic-api.service';
-import { IssueApiService } from '../../shared/api/issue-api.service';
-import { UsersApiService } from '../../shared/api/users-api.service';
-import { UserService } from '../../shared/core/user.service';
-import { IssuePriorityEnum } from '../../shared/enums/issue-priority.enum';
-import { IssueTypeEnum } from '../../shared/enums/issue-type.enum';
-import { SizeEnum } from '../../shared/enums/size.enum';
-import { UserRoleEnum } from '../../shared/enums/user-role.enum';
-import { issueFormModel } from '../../shared/form-models/issue-form.model';
-import { EpicModel } from '../../shared/models/epic.model';
-import { UserProfileModel } from '../../shared/models/user-profile.model';
+import {Router, ActivatedRoute} from '@angular/router';
+import {EpicApiService} from '../../shared/api/epic-api.service';
+import {IssueApiService} from '../../shared/api/issue-api.service';
+import {UsersApiService} from '../../shared/api/users-api.service';
+import {UserService} from '../../shared/core/user.service';
+import {IssuePriorityEnum} from '../../shared/enums/issue-priority.enum';
+import {IssueTypeEnum} from '../../shared/enums/issue-type.enum';
+import {SizeEnum} from '../../shared/enums/size.enum';
+import {UserRoleEnum} from '../../shared/enums/user-role.enum';
+import {issueFormModel} from '../../shared/form-models/issue-form.model';
+import {EpicModel} from '../../shared/models/epic.model';
+import {UserProfileModel} from '../../shared/models/user-profile.model';
 import {TimeTrackingModel} from "../../shared/models/time-tracking.model";
 import {TimeTrackingPopupComponent} from "../../shared/time-tracking-popup/time-tracking-popup.component";
+import {AlertsService} from "../../shared/alerts/alerts.service";
 
 @Component({
   selector: 'edit-issue',
@@ -32,11 +33,6 @@ export class EditComponent implements OnInit {
   public SizeType = SizeEnum;
   public roles = UserRoleEnum;
 
-  public getCheckedType(val: number): boolean {
-    //console.log(val, this.issueForm.controls['type'].value, (this.issueForm.controls['type'].value || 0) == val);
-    return (this.issueForm.controls['type'].value || 0) == val;
-  }
-
   constructor(private service: IssueApiService
     , private userApiService: UsersApiService
     , private epicApiService: EpicApiService
@@ -44,7 +40,9 @@ export class EditComponent implements OnInit {
     , private route: ActivatedRoute
     , private cdRef: ChangeDetectorRef
     , public userService: UserService
-  ) { }
+    , private alertsService: AlertsService
+  ) {
+  }
 
   async ngOnInit() {
 
@@ -75,23 +73,28 @@ export class EditComponent implements OnInit {
     //console.log('ngOnInit', this.issueForm.controls['type'].value);
     for (var n in IssueTypeEnum) {
       if (typeof IssueTypeEnum[n] === 'number') {
-        this.issueTypes.push({ id: <any>IssueTypeEnum[n], name: n });
+        this.issueTypes.push({id: <any>IssueTypeEnum[n], name: n});
       }
     }
 
     for (var n in IssuePriorityEnum) {
       if (typeof IssuePriorityEnum[n] === 'number') {
-        this.issuePriority.push({ id: <any>IssuePriorityEnum[n], name: n });
+        this.issuePriority.push({id: <any>IssuePriorityEnum[n], name: n});
       }
     }
 
     for (var n in SizeEnum) {
       if (typeof SizeEnum[n] === 'number') {
-        this.issueSize.push({ id: <any>SizeEnum[n], name: n });
+        this.issueSize.push({id: <any>SizeEnum[n], name: n});
       }
     }
 
     if (!this.issueForm.value.id) this.storageRestore();
+  }
+
+  public getCheckedType(val: number): boolean {
+    //console.log(val, this.issueForm.controls['type'].value, (this.issueForm.controls['type'].value || 0) == val);
+    return (this.issueForm.controls['type'].value || 0) == val;
   }
 
   public get IssueId() {
@@ -107,17 +110,17 @@ export class EditComponent implements OnInit {
       if (this.issueForm.valid) {
         if (this.issueForm.value['id'] || 0 > 0) {
           await this.service.Update(this.issueForm);
-        }
-        else {
+        } else {
           this.storageSave();
           await this.service.Create(this.issueForm);
         }
 
-        this.router.navigateByUrl('/issue/list');
+        this.alertsService.push("success", 'success', 3000);
+
+        await this.router.navigateByUrl('/issue/list');
       }
-    }
-    catch{
-      alert('Возникли непредвиденные ошибки. Попробуйте ввести другие значения или сообщите программисту');
+    } catch {
+      this.alertsService.push("danger", 'Возникли непредвиденные ошибки. Попробуйте ввести другие значения или сообщите программисту');
     }
   }
 
