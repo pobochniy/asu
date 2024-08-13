@@ -1,6 +1,7 @@
 using Atheneum.Dto.TimeTracking;
 using Atheneum.Extentions.Auth;
 using Atheneum.Interface;
+using Atheneum.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +11,9 @@ namespace Api.Controllers
     [Authorize]
     public class TimeTrackingController : ControllerBase
     {
-        private readonly ITimeTracking _service;
+        private readonly TimeTrackingService _service;
 
-        public TimeTrackingController(ITimeTracking context)
+        public TimeTrackingController(TimeTrackingService context)
         {
             this._service = context;
         }

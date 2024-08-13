@@ -9,13 +9,13 @@ using Atheneum.Entity;
 
 namespace Atheneum.Services
 {
-    public class TimeTrackingService : ITimeTracking
+    public class TimeTrackingService
     {
-        private ApplicationContext db;
+        private readonly ApplicationContext _db;
 
         public TimeTrackingService(ApplicationContext context)
         {
-            db = context;
+            _db = context;
         }
 
         public async Task<long> Create(TimeTrackingDto dto)
@@ -31,14 +31,14 @@ namespace Atheneum.Services
                 IssueId = dto.IssueId,
                 EpicId = dto.EpicId
             };
-            await db.TimeTracking.AddAsync(timeTracking);
-            await db.SaveChangesAsync();
+            await _db.TimeTracking.AddAsync(timeTracking);
+            await _db.SaveChangesAsync();
             return timeTracking.Id;
         }
 
         public async Task<TimeTrackingDto> Details(long id)
         {
-            var timeTracking = await db.TimeTracking.FindAsync(id);
+            var timeTracking = await _db.TimeTracking.FindAsync(id);
             var timeTrackingDto = new TimeTrackingDto
             {
                 Id = timeTracking.Id,
@@ -55,11 +55,12 @@ namespace Atheneum.Services
 
         public async Task Update(TimeTrackingDto timeTrackingDto)
         {
-            var timeTracking = await db.TimeTracking.FindAsync(timeTrackingDto.Id);
+            var timeTracking = await _db.TimeTracking.FindAsync(timeTrackingDto.Id);
             if (timeTracking.UserId != timeTrackingDto.UserId)
             {
                 throw new InvalidOperationException("Возможно редактирование только своих задач");
             }
+
             timeTracking.Date = timeTrackingDto.Date.Value;
             timeTracking.From = timeTrackingDto.From.Value;
             timeTracking.To = timeTrackingDto.To.Value;
@@ -68,31 +69,39 @@ namespace Atheneum.Services
             timeTracking.IssueId = timeTrackingDto.IssueId;
             timeTracking.EpicId = timeTrackingDto.EpicId;
 
-            await db.SaveChangesAsync();
+            await _db.SaveChangesAsync();
         }
 
         public async Task Delete(long id)
         {
-            var i = await db.TimeTracking.FindAsync(id);
-            db.TimeTracking.Remove(i);
-            await db.SaveChangesAsync();
+            var i = await _db.TimeTracking.FindAsync(id);
+            _db.TimeTracking.Remove(i);
+            await _db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<TimeTrackingDto>> GetList()
+        public async Task<IEnumerable<TimeTrackingDto>> GetList(DateOnly? from = null, DateOnly? to = null, Guid? userId = null)
         {
-            var timeTracking = await db.TimeTracking.Select(x => new TimeTrackingDto
-            {
-                Id = x.Id,
-                Date = x.Date,
-                From = x.From,
-                To = x.To,
-                Comment = x.Comment,
-                UserId = x.UserId,
-                IssueId = x.IssueId,
-                EpicId = x.EpicId
-            }).ToArrayAsync();
+            from ??= DateOnly.FromDateTime(DateTime.Now.AddDays(-7));
+            var query = _db.TimeTracking.AsQueryable();
+
+            if (userId.HasValue) query = query.Where(x => x.UserId == userId);
+            query = query.Where(x => x.Date >= from.Value);
+            if (userId.HasValue) query = query.Where(x => x.Date <= to.Value);
+
+            var timeTracking = await query
+                .Select(x => new TimeTrackingDto
+                {
+                    Id = x.Id,
+                    Date = x.Date,
+                    From = x.From,
+                    To = x.To,
+                    Comment = x.Comment,
+                    UserId = x.UserId,
+                    IssueId = x.IssueId,
+                    EpicId = x.EpicId
+                }).ToArrayAsync();
+
             return timeTracking;
         }
-
     }
 }

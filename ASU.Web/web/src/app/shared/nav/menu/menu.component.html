@@ -35,6 +35,9 @@
     <li *ngIf="userService.hasRole(roles.roleManagement)" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" >
       <a [routerLink]='["/rolemanagement"]'><i class="fas fa-user-tag"></i>Role Management</a>
     </li>
+    <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]="{ exact: false }" >
+      <a [routerLink]='["/reports"]'><i class="fas fa-user-tag"></i>Reports</a>
+    </li>
   </ul>
 
 </nav>

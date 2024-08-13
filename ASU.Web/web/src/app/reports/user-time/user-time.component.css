@@ -1,0 +1,14 @@
+fieldset {
+  border:1px solid lightslategray;
+  margin: 5px;
+  padding: 5px;
+  max-width: 500px;
+}
+legend {
+  padding: 0.2em 0.5em;
+  color: lightslategray;
+  font-size: 90%;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -16,4 +16,8 @@ export class TimeTrackingApiService extends BaseApiService {
   public async Create(model: FormGroup) {
     return this.post<TimeTrackingModel>('Create', model.value).toPromise();
   }
+
+  public async GetList() {
+    return this.get<TimeTrackingModel[]>('GetList').toPromise();
+  }
 }

@@ -62,7 +62,7 @@ services.AddTransient<IIssue, IssueService>();
 services.AddTransient<IUsersService, UsersService>();
 services.AddTransient<IEpicService, EpicServiceService>();
 services.AddTransient<ISprint, SprintService>();
-services.AddTransient<ITimeTracking, TimeTrackingService>();
+services.AddTransient<TimeTrackingService>();
 services.AddHttpContextAccessor();
 
 services.AddSignalR();
