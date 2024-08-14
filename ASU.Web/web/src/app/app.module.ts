@@ -14,13 +14,16 @@ import {EpicModule} from "./epic/epic.module";
 import {IssueModule} from "./issue/issue.module";
 import {provideRouter, RouterModule, Routes} from "@angular/router";
 import {SprintModule} from "./sprint/sprint.module";
+import {AlertsService} from "./shared/alerts/alerts.service";
+import {AlertsComponent} from "./shared/alerts/alerts.component";
 
 const routes: Routes = [{ path: '', component: HomeComponent, pathMatch: 'full' }];
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    AlertsComponent
   ],
   imports: [
     AuthModule,
@@ -33,7 +36,7 @@ const routes: Routes = [{ path: '', component: HomeComponent, pathMatch: 'full' 
     SprintModule,
     RouterModule
   ],
-  providers: [provideRouter(routes), UsersApiService, UserService, ChatService, NavTabsService],
+  providers: [provideRouter(routes), UsersApiService, UserService, ChatService, NavTabsService, AlertsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

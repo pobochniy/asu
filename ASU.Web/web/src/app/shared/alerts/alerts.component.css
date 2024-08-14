@@ -1,0 +1,13 @@
+#alerts-container {
+  position: fixed;
+  bottom: 5px;
+  width: 95%;
+  margin: 0 2.5%;
+}
+
+.alert-content {
+  display: inline;
+}
+.btn-close {
+  float: right;
+}
