@@ -32,7 +32,6 @@ export class HourlyPayPopupComponent {
       , startedDate: new Date().toISOString().substring(0, 10)
     });
 
-    // this.cdRef.detectChanges();
     return this.sbj;
   }
 
