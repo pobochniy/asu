@@ -31,6 +31,29 @@ namespace Api.Controllers
             return await _service.GetList();
         }
 
+        [HttpGet]
+        public async Task<IEnumerable<UserTimeTrackingDto>> UserTracking()
+        {
+            var timeTracks = await _service.GetList();
+
+            var res = timeTracks
+                .GroupBy(t => t.Date,
+                    t => t,
+                    (k, v) => new UserTimeTrackingDto
+                    {
+                        Date = k.Value,
+                        TimeTracks = v.Select(x => new TimeTracksDto
+                        {
+                            From = x.From.Value,
+                            To = x.To.Value,
+                            Comment = x.Comment,
+                            IssueId = x.IssueId,
+                            EpicId = x.EpicId
+                        }).ToArray()
+                    });
+            return res;
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] TimeTrackingDto timeTracking)
         {
@@ -57,6 +80,7 @@ namespace Api.Controllers
             {
                 return BadRequest(ModelState);
             }
+
             timeTracking.UserId = HttpContext.User.GetUserId();
             await _service.Update(timeTracking);
 
