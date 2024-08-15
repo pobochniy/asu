@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
-import { TimeTrackingModel, UserTracking } from "../models/time-tracking.model";
+import { TimeTrackingModel, IUserTracking } from "../models/time-tracking.model";
 import { BaseApiService } from './base-api.service';
 import {FormGroup} from "@angular/forms";
 
@@ -18,6 +18,6 @@ export class TimeTrackingApiService extends BaseApiService {
   }
 
   public async UserTracking() {
-    return this.get<UserTracking[]>('UserTracking').toPromise();
+    return this.get<IUserTracking[]>('UserTracking').toPromise();
   }
 }

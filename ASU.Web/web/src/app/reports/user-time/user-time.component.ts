@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AlertsService} from "../../shared/alerts/alerts.service";
 import {TimeTrackingApiService} from "../../shared/api/time-tracking-api.service";
-import {UserTracking} from "../../shared/models/time-tracking.model";
+import {IUserTracking} from "../../shared/models/time-tracking.model";
 
 @Component({
   selector: 'reports-user-time',
@@ -9,7 +9,7 @@ import {UserTracking} from "../../shared/models/time-tracking.model";
   styleUrl: './user-time.component.css'
 })
 export class UserTimeComponent implements OnInit {
-  public dataSource: UserTracking[] = [];
+  public dataSource: IUserTracking[] = [];
 
   constructor(public alerts: AlertsService,
               private api: TimeTrackingApiService) {

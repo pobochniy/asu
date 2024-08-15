@@ -27,23 +27,16 @@ export class TimeTrackingModel {
   public issueEpicName: string = '';
 }
 
-
-export class UserTracking {
-  public date: string;
-  public timeTracks: TimeTracks[] = []
-  public totalTimeTracks: string;
+export interface IUserTracking {
+  date: string;
+  timeTracks: ITimeTracks[];
+  totalTimeTracks: string;
 }
 
-export class TimeTracks {
-  public from: string;
-  public to: string;
-  public comment: string;
-  public issueId?: number;
-  public epicId?: number;
-
-  constructor(obj: any = {}) {
-    this.from = obj.from.substring(0, 5);
-    this.to = obj.to.substring(0, 5);
-    this.comment = obj.comment;
-  }
+export interface ITimeTracks {
+  from: string;
+  to: string;
+  comment: string;
+  issueId?: number;
+  epicId?: number;
 }
