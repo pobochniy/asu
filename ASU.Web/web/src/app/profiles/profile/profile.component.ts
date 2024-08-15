@@ -7,6 +7,7 @@ import {HourlyPayModel} from "../../shared/models/hourly-pay.model";
 import {HourlyPayApiService} from "../../shared/api/hourly-pay-api.service";
 import {HourlyPayPopupComponent} from "../hourly-pay-popup/hourly-pay-popup.component";
 import {ActivatedRoute, Router} from "@angular/router";
+import {UserRoleEnum} from "../../shared/enums/user-role.enum";
 
 @Component({
   selector: 'app-profile',
@@ -20,11 +21,12 @@ export class ProfileComponent implements OnInit {
   public profiles: UserProfileModel[] = [];
   public currentUser: UserProfileModel | undefined;
   public hourlyPays: HourlyPayModel[] | undefined;
+  public roles = UserRoleEnum;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               public alerts: AlertsService,
-              private userService: UserService,
+              public userService: UserService,
               private profilesService: UsersApiService,
               private hourlyPayApi: HourlyPayApiService) {
   }
