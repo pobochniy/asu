@@ -16,7 +16,7 @@ public class UserTimeTrackingDto
     {
         get
         {
-            var totalMinutes = TimeTracks.Sum(x => (x.To - x.From).Minutes);
+            var totalMinutes = TimeTracks.Sum(x => (x.To - x.From).TotalMinutes);
             
             return TimeSpan.FromMinutes(totalMinutes).ToString(@"hh\:mm");
         }

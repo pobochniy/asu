@@ -86,7 +86,7 @@ namespace Atheneum.Services
 
             if (userId.HasValue) query = query.Where(x => x.UserId == userId);
             query = query.Where(x => x.Date >= from.Value);
-            if (userId.HasValue) query = query.Where(x => x.Date <= to.Value);
+            if (to.HasValue) query = query.Where(x => x.Date <= to.Value);
 
             var timeTracking = await query
                 .Select(x => new TimeTrackingDto
