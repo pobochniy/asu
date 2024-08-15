@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthApiService } from '../../shared/api/auth-api.service';
-import { UserService } from '../../shared/core/user.service';
-import { loginFormModel } from '../../shared/form-models/login-form.model';
-import { ChatService } from '../../shared/chat/chat.service';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {AuthApiService} from '../../shared/api/auth-api.service';
+import {UserService} from '../../shared/core/user.service';
+import {loginFormModel} from '../../shared/form-models/login-form.model';
+import {ChatService} from '../../shared/chat/chat.service';
+import {AlertsService} from "../../shared/alerts/alerts.service";
 
 @Component({
   selector: 'login-auth',
@@ -17,19 +18,19 @@ export class LoginComponent {
   constructor(private service: AuthApiService
     , private router: Router
     , private userService: UserService
-    , private chatService: ChatService) { }
+    , private chatService: ChatService
+    , private alerts: AlertsService) {
+  }
 
   async onSubmit() {
     try {
       if (this.loginForm.valid) {
-        let usr = await this.service.login(this.loginForm);
-        this.userService.User = usr;
-        this.chatService.connectionWebSocket();
-        this.router.navigateByUrl('/');
+        this.userService.User = await this.service.login(this.loginForm);
+        // this.chatService.connectionWebSocket();
+        await this.router.navigateByUrl('/');
       }
-    }
-    catch (Exception) {
-      alert("не подходит");
+    } catch (e) {
+      this.alerts.push("danger", "не подходит");
     }
   }
 }

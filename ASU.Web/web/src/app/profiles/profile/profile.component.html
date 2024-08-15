@@ -19,7 +19,7 @@
   </div>
   <div class="col-md-6">
     <p *ngFor="let profile of profiles">
-      {{profile.userName}} <a [routerLink]='["/profiles/user", {userId: profile.id}]'>[i]</a>
+      {{profile.userName}} <a [routerLink]='["/profiles/user", profile.id]'>[i]</a>
     </p>
   </div>
 </div>

@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ProfileComponent} from './profile/profile.component';
 import {provideRouter, Routes} from "@angular/router";
-import {UsersApiService} from "../shared/api/users-api.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "../shared/shared.module";
 import {HourlyPayApiService} from "../shared/api/hourly-pay-api.service";
@@ -13,7 +12,7 @@ const routes: Routes = [{
   path: 'profiles', children: [
     {path: '', redirectTo: 'user', pathMatch: 'full'},
     {path: 'user', component: ProfileComponent},
-    {path: 'user:/userId', component: ProfileComponent},
+    {path: 'user/:userId', component: ProfileComponent},
   ]
 }];
 

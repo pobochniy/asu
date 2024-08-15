@@ -47,10 +47,9 @@ public class HourlyPayController : ControllerBase
 
     [HttpGet]
     [AuthorizeRoles(RoleEnum.hourlyPayRead, RoleEnum.hourlyPayCrud)]
-    public async Task<IEnumerable<HourlyPayDto>> GetList()
+    public async Task<IEnumerable<HourlyPayDto>> GetList(Guid? userId)
     {
-        var userId = User.GetUserId();
-        return await _service.GetList(userId);
+        return await _service.GetList(userId ?? User.GetUserId());
     }
 
     /*[HttpPost]

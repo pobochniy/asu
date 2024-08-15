@@ -79,7 +79,7 @@ namespace Atheneum.Services
             await _db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<TimeTrackingDto>> GetList(DateOnly? from = null, DateOnly? to = null, Guid? userId = null)
+        public async Task<IEnumerable<TimeTrackingDto>> GetList(Guid? userId, DateOnly? from = null, DateOnly? to = null)
         {
             from ??= DateOnly.FromDateTime(DateTime.Now.AddDays(-7));
             var query = _db.TimeTracking.AsQueryable();

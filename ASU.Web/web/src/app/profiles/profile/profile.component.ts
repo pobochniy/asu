@@ -1,13 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {UsersApiService} from "../../shared/api/users-api.service";
-import {AlertsService} from "../../shared/alerts/alerts.service";
 import {UserService} from "../../shared/core/user.service";
 import {UserProfileModel} from "../../shared/models/user-profile.model";
 import {HourlyPayModel} from "../../shared/models/hourly-pay.model";
 import {HourlyPayApiService} from "../../shared/api/hourly-pay-api.service";
 import {HourlyPayPopupComponent} from "../hourly-pay-popup/hourly-pay-popup.component";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {UserRoleEnum} from "../../shared/enums/user-role.enum";
+
 
 @Component({
   selector: 'app-profile',
@@ -24,8 +24,6 @@ export class ProfileComponent implements OnInit {
   public roles = UserRoleEnum;
 
   constructor(private route: ActivatedRoute,
-              private router: Router,
-              public alerts: AlertsService,
               public userService: UserService,
               private profilesService: UsersApiService,
               private hourlyPayApi: HourlyPayApiService) {
@@ -36,19 +34,27 @@ export class ProfileComponent implements OnInit {
   }
 
   async ngOnInit() {
+    const that = this;
+    this.route
+      .params
+      .subscribe(async (evt) => {
+        const id = that.route.snapshot.paramMap.get('userId') || '';
+        that.profiles = await that.profilesService.GetProfiles() || [];
+        that.currentUser = that.profiles
+          .filter(x => x.id == (id !== '' ? id : that.userService.User?.id))
+          .at(0);
 
-    const id = this.route.snapshot.paramMap.get('userId') || '';
-
-    this.profiles = await this.profilesService.GetProfiles() || [];
-    this.currentUser = this.profiles.filter(x => id !== '' ? id : x.id == this.userService.User?.id).at(0);
-
-    this.hourlyPays = await this.hourlyPayApi.GetList() || [];
+        if (that.userService.hasRole(that.roles.hourlyPayRead)) {
+          that.hourlyPays = await that.hourlyPayApi.GetList(id) || [];
+        }
+      })
   }
 
   createHourlyPay() {
     this.hourlyPayPopup.show().subscribe(async (x: any) => {
       this.hourlyPays = undefined;
-      this.hourlyPays = await this.hourlyPayApi.GetList() || [];
+      const id = this.route.snapshot.paramMap.get('userId') || '';
+      this.hourlyPays = await this.hourlyPayApi.GetList(id) || [];
     });
   }
 }

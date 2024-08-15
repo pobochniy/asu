@@ -11,8 +11,8 @@ export class HourlyPayApiService extends BaseApiService {
     super('HourlyPay', http)
   }
 
-  public async GetList() {
-    return this.get<HourlyPayModel[]>('GetList').toPromise();
+  public async GetList(userId: string) {
+    return this.get<HourlyPayModel[]>(`GetList?userId=${userId}`).toPromise();
   }
 
   public async Create(model: FormGroup) {
