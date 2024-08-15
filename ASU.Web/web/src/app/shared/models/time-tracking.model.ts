@@ -26,3 +26,17 @@ export class TimeTrackingModel {
   /** Наименование задачи или эпика */
   public issueEpicName: string = '';
 }
+
+export interface IUserTracking {
+  date: string;
+  timeTracks: ITimeTracks[];
+  totalTimeTracks: string;
+}
+
+export interface ITimeTracks {
+  from: string;
+  to: string;
+  comment: string;
+  issueId?: number;
+  epicId?: number;
+}
