@@ -1,0 +1,11 @@
+<reports-menu></reports-menu>
+<div *ngIf="dataSource">
+  <div *ngFor="let userDates of dataSource">
+    <fieldset>
+      <legend>{{userDates.date}} ({{userDates.totalTimeTracks}})</legend>
+      <div *ngFor="let track of userDates.timeTracks">
+        <p>{{track.from.substring(0,5)}}-{{track.to.substring(0,5)}} {{track.comment}}</p>
+      </div>
+    </fieldset>
+  </div>
+</div>

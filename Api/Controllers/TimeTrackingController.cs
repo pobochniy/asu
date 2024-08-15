@@ -1,6 +1,7 @@
 using Atheneum.Dto.TimeTracking;
 using Atheneum.Extentions.Auth;
 using Atheneum.Interface;
+using Atheneum.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +11,9 @@ namespace Api.Controllers
     [Authorize]
     public class TimeTrackingController : ControllerBase
     {
-        private readonly ITimeTracking _service;
+        private readonly TimeTrackingService _service;
 
-        public TimeTrackingController(ITimeTracking context)
+        public TimeTrackingController(TimeTrackingService context)
         {
             this._service = context;
         }
@@ -28,6 +29,29 @@ namespace Api.Controllers
         public async Task<IEnumerable<TimeTrackingDto>> GetList()
         {
             return await _service.GetList();
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<UserTimeTrackingDto>> UserTracking()
+        {
+            var timeTracks = await _service.GetList();
+
+            var res = timeTracks
+                .GroupBy(t => t.Date,
+                    t => t,
+                    (k, v) => new UserTimeTrackingDto
+                    {
+                        Date = k.Value,
+                        TimeTracks = v.Select(x => new TimeTracksDto
+                        {
+                            From = x.From.Value,
+                            To = x.To.Value,
+                            Comment = x.Comment,
+                            IssueId = x.IssueId,
+                            EpicId = x.EpicId
+                        }).ToArray()
+                    });
+            return res;
         }
 
         [HttpPost]
@@ -56,6 +80,7 @@ namespace Api.Controllers
             {
                 return BadRequest(ModelState);
             }
+
             timeTracking.UserId = HttpContext.User.GetUserId();
             await _service.Update(timeTracking);
 

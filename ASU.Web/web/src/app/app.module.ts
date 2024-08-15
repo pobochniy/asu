@@ -16,6 +16,7 @@ import {provideRouter, RouterModule, Routes} from "@angular/router";
 import {SprintModule} from "./sprint/sprint.module";
 import {AlertsService} from "./shared/alerts/alerts.service";
 import {AlertsComponent} from "./shared/alerts/alerts.component";
+import {ReportsModule} from "./reports/reports.module";
 
 const routes: Routes = [{ path: '', component: HomeComponent, pathMatch: 'full' }];
 
@@ -29,6 +30,7 @@ const routes: Routes = [{ path: '', component: HomeComponent, pathMatch: 'full' 
     AuthModule,
     BrowserModule,
     EpicModule,
+    ReportsModule,
     IssueModule,
     NavModule,
     RoleManagementModule,
