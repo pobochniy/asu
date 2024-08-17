@@ -15,7 +15,7 @@ export class HourlyPayPopupComponent {
   public isVisible = false;
   public sbj!: Subject<number>;
   public monthlyPay: number = 0;
-  private hoursInMonth = 159;
+  private hoursInMonth = 120;
 
   @Input('userId') userId?: string;
 
