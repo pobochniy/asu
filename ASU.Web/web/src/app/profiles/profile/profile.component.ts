@@ -38,7 +38,7 @@ export class ProfileComponent implements OnInit {
     this.route
       .params
       .subscribe(async (evt) => {
-        const id = that.route.snapshot.paramMap.get('userId') || '';
+        const id = evt['userId'] || '';
         that.profiles = await that.profilesService.GetProfiles() || [];
         that.currentUser = that.profiles
           .filter(x => x.id == (id !== '' ? id : that.userService.User?.id))
