@@ -1,0 +1,26 @@
+<app-hourly-pay-popup [userId]="currentUser?.id"></app-hourly-pay-popup>
+<h4>Профиль</h4>
+
+<div class="form-group row">
+  <div class="col-md-6">
+    <div *ngIf="currentUser">
+      <p>{{currentUser.userName}} {{currentUser.cash}}</p>
+      <p>{{currentUser.email}}</p>
+      <p>{{currentUser.phone}}</p>
+      <p>{{currentUser.comment}}</p>
+    </div>
+    <hr />
+    <div *ngIf="hourlyPays !== undefined && userService.hasRole(roles.hourlyPayRead)">
+      <a *ngIf="userService.hasRole(roles.hourlyPayCrud)" (click)="createHourlyPay()" class="link link-info">Добавить ставку сотрудника</a>
+      <div *ngFor="let hourlyPay of hourlyPays">
+        <p>с {{dateAsString(hourlyPay.startedDate)}} ставка {{hourlyPay.cash}} монет (<shared-user-name [userId]="hourlyPay.userIdCreated"></shared-user-name>)</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <p *ngFor="let profile of profiles">
+      {{profile.userName}} <a [routerLink]='["/profiles/user", profile.id]'>[i]</a>
+    </p>
+  </div>
+</div>
+

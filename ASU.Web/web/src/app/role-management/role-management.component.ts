@@ -81,7 +81,10 @@ export class RoleManagementComponent implements OnInit {
       new UserRoleInfoModel(UserRoleEnum.epicCrud, 'Редактирование, содание, удаление Epic', 'epic'),
 
       new UserRoleInfoModel(UserRoleEnum.sprintRead, 'Просмотр Sprint', 'sprint'),
-      new UserRoleInfoModel(UserRoleEnum.sprintCrud, 'Редактирование, содание, удаление Sprint', 'sprint')
+      new UserRoleInfoModel(UserRoleEnum.sprintCrud, 'Редактирование, содание, удаление Sprint', 'sprint'),
+
+      new UserRoleInfoModel(UserRoleEnum.hourlyPayRead, 'Просмотр ставок', 'hourlyPay'),
+      new UserRoleInfoModel(UserRoleEnum.hourlyPayCrud, 'Редактирование ставок', 'hourlyPay'),
     ]
   }
 

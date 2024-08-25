@@ -2,7 +2,7 @@
 using Atheneum.Dto.HourlyPay;
 using Atheneum.Enums;
 using Atheneum.Extentions.Auth;
-using Atheneum.Interface;
+using Atheneum.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -10,9 +10,9 @@ namespace Api.Controllers;
 [Route("api/[controller]/[action]")]
 public class HourlyPayController : ControllerBase
 {
-    private readonly IHourlyPayService _service;
+    private readonly HourlyPayService _service;
 
-    public HourlyPayController(IHourlyPayService service)
+    public HourlyPayController(HourlyPayService service)
     {
         this._service = service;
     }
@@ -49,7 +49,7 @@ public class HourlyPayController : ControllerBase
     [AuthorizeRoles(RoleEnum.hourlyPayRead, RoleEnum.hourlyPayCrud)]
     public async Task<IEnumerable<HourlyPayDto>> GetList(Guid? userId)
     {
-        return await _service.GetList(userId);
+        return await _service.GetList(userId ?? User.GetUserId());
     }
 
     /*[HttpPost]

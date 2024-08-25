@@ -19,6 +19,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<TimeTrackingDto> Details([FromQuery] long id)
         {
             var res = await _service.Details(id);
@@ -26,15 +27,19 @@ namespace Api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IEnumerable<TimeTrackingDto>> GetList()
         {
-            return await _service.GetList();
+            var userId = HttpContext.User.GetUserId();
+            return await _service.GetList(userId);
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IEnumerable<UserTimeTrackingDto>> UserTracking()
         {
-            var timeTracks = await _service.GetList();
+            var userId = HttpContext.User.GetUserId();
+            var timeTracks = await _service.GetList(userId);
 
             var res = timeTracks
                 .GroupBy(t => t.Date,
@@ -55,6 +60,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] TimeTrackingDto timeTracking)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);

@@ -10,25 +10,25 @@ using System.Threading.Tasks;
 
 namespace Atheneum.Services
 {
-    public class UsersService : IUsersService
+    public class UsersService
     {
-        private ApplicationContext db;
+        private readonly ApplicationContext _db;
 
         public UsersService(ApplicationContext context)
         {
-            db = context;
+            _db = context;
         }
 
         public async Task<IEnumerable<Profile>> GetProfiles()
         {
-            var res = await db.Profiles.ToArrayAsync();
+            var res = await _db.Profiles.ToArrayAsync();
 
             return res;
         }
 
         public async Task<UserEditDto> Details(Guid id)
         {
-            var profile = await db.Profiles.FindAsync(id);
+            var profile = await _db.Profiles.FindAsync(id);
 
             var userdto = new UserEditDto
             {
@@ -43,19 +43,19 @@ namespace Atheneum.Services
 
         public async Task Edit(UserEditDto userdto)
         {
-            var profile = await db.Profiles.SingleAsync(x => x.Id == userdto.Id);
+            var profile = await _db.Profiles.SingleAsync(x => x.Id == userdto.Id);
 
             profile.UserName = userdto.UserName;
             profile.Email = userdto.Email;
             profile.PhoneNumber = userdto.Phone;
             profile.Comment = userdto.Comment;
 
-            await db.SaveChangesAsync();
+            await _db.SaveChangesAsync();
         }
 
         public async Task SetAvatar(Guid userId, byte[] img)
         {
-            var avatar = await db.Avatar.FindAsync(userId);
+            var avatar = await _db.Avatar.FindAsync(userId);
 
             if (avatar == null)
             {
@@ -63,17 +63,17 @@ namespace Atheneum.Services
 
                 avatar.UserId = userId;
 
-                await db.Avatar.AddAsync(avatar);
+                await _db.Avatar.AddAsync(avatar);
             }
 
             avatar.ImgData = img;
 
-            await db.SaveChangesAsync();
+            await _db.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<RoleEnum>> GetRoles(Guid userId)
         {
-            var query = db.UserInRole
+            var query = _db.UserInRole
                 .Where(x => x.UserId == userId)
                 .Select(x => x.RoleId);
 
@@ -83,12 +83,12 @@ namespace Atheneum.Services
 
         public async Task SetRoles(Guid userId, IEnumerable<RoleEnum> roles)
         {
-            var currentRoles = await db.UserInRole
+            var currentRoles = await _db.UserInRole
                 .Where(x => x.UserId == userId)
                 .ToArrayAsync();
 
-            db.UserInRole.RemoveRange(currentRoles);
-            await db.SaveChangesAsync();
+            _db.UserInRole.RemoveRange(currentRoles);
+            await _db.SaveChangesAsync();
 
             foreach (var role in roles)
             {
@@ -98,9 +98,9 @@ namespace Atheneum.Services
                     RoleId = role
                 };
 
-                db.UserInRole.Add(userInRole);
+                _db.UserInRole.Add(userInRole);
             }
-            await db.SaveChangesAsync();
+            await _db.SaveChangesAsync();
         }
     }
 }

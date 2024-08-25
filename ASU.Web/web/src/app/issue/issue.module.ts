@@ -11,7 +11,6 @@ import { EditComponent } from './edit/edit.component';
   imports: [
     SharedModule,
     IssueRoutingModule,
-    RouterModule,
     NgxSelectModule,
     FormsModule
   ],

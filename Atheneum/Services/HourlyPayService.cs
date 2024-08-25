@@ -1,6 +1,5 @@
 ﻿using Atheneum.Dto.HourlyPay;
 using Atheneum.Entity;
-using Atheneum.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Atheneum.Services
 {
-    public class HourlyPayService : IHourlyPayService
+    public class HourlyPayService
     {
         readonly ApplicationContext _db;
 
