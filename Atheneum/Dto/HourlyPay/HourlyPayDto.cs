@@ -20,7 +20,7 @@ namespace Atheneum.Dto.HourlyPay
         /// Дата начала действия ставки
         /// </summary>
         [Required]
-        public DateTime StartedDate { get; set; }
+        public DateOnly StartedDate { get; set; }
 
         /// <summary>
         /// Стоимость часа сотрудника

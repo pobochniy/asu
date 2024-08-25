@@ -64,6 +64,7 @@ services.AddTransient<HourlyPayService>();
 services.AddTransient<IEpicService, EpicServiceService>();
 services.AddTransient<ISprint, SprintService>();
 services.AddTransient<TimeTrackingService>();
+services.AddTransient<ClosePeriodService>();
 services.AddHttpContextAccessor();
 
 services.AddSignalR();

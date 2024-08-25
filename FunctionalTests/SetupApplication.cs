@@ -6,6 +6,7 @@ using Atheneum.Dto.Auth;
 using Atheneum.Entity;
 using FunctionalTests.ArrangeEntityBuilders;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FunctionalTests;
@@ -20,7 +21,10 @@ public static class SetupApplicationExt
             builder.ConfigureServices(services =>
             {
                 services.AddDbContext<ApplicationContext>(options =>
-                    options.UseInMemoryDatabase("Testing_" + dbName));
+                    options
+                        .UseInMemoryDatabase("Testing_" + dbName)
+                        .ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning))
+                    );
 
                 var sp = services.BuildServiceProvider();
 

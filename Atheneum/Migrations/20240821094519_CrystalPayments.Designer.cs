@@ -3,6 +3,7 @@ using System;
 using Atheneum.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Atheneum.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240821094519_CrystalPayments")]
+    partial class CrystalPayments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -217,8 +219,6 @@ namespace Atheneum.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("HourlyPay");
                 });
@@ -453,17 +453,6 @@ namespace Atheneum.Migrations
                     b.Navigation("CrystalProfitPeriod");
                 });
 
-            modelBuilder.Entity("Atheneum.Entity.HourlyPay", b =>
-                {
-                    b.HasOne("Atheneum.Entity.User", "User")
-                        .WithMany("HourlyPays")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Atheneum.Entity.Profile", b =>
                 {
                     b.HasOne("Atheneum.Entity.User", "User")
@@ -546,8 +535,6 @@ namespace Atheneum.Migrations
             modelBuilder.Entity("Atheneum.Entity.User", b =>
                 {
                     b.Navigation("Avatar");
-
-                    b.Navigation("HourlyPays");
 
                     b.Navigation("Profile");
 
