@@ -1,0 +1,17 @@
+<app-close-period-popup></app-close-period-popup>
+<reports-menu></reports-menu>
+<div *ngIf="dataSource">
+  <h4>Закрытые периоды
+      <input type="submit" value="Add period [+]" class="btn btn-primary" (click)="showPopup()">
+  </h4>
+  <div *ngFor="let period of dataSource">
+    <fieldset>
+      <legend>{{period.from}}  -  {{period.to}}</legend>
+      <div *ngFor="let payments of period.payments">
+        <p>
+          <shared-user-name [userId]="payments.userId"></shared-user-name>
+          - {{payments.cash}}</p>
+      </div>
+    </fieldset>
+  </div>
+</div>

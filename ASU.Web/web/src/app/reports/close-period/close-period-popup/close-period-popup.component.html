@@ -1,0 +1,32 @@
+<form
+  class="form-horizontal" [formGroup]="closePeriodForm">
+  <div class="modal fade" id="staticBackdrop" [class.show]="isVisible"
+       [style.display]="isVisible ? 'block' : 'none'"
+       data-backdrop="static" data-keyboard="false" tabindex="-1"
+       aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Закрыть период</h5>
+          <button type="button" class="close" (click)="toggle()" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="md-form row">
+            <label for="from" class="col">From</label>
+            <input type="date" formControlName="from" id="from" class="form-control col">
+          </div>
+          <div class="md-form row">
+            <label for="to" class="col">To</label>
+            <input type="date" formControlName="to" id="to" class="form-control col">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="toggle()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="calculate()">Ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

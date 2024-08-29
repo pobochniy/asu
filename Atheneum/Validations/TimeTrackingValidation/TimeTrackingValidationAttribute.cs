@@ -127,7 +127,9 @@ internal class NoMoreThanTenHoursADay : ValidationAttribute
     }
 }
 
-// Дата сегодняшняя или вчерашняя
+/// <summary>
+/// Дата сегодняшняя или вчерашняя
+/// </summary>
 internal class DateTodayOrYesterday : ValidationAttribute
 {
     protected override ValidationResult IsValid(object value, ValidationContext validationContext)
