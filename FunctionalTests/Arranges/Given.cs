@@ -12,7 +12,8 @@ public static class Given
 {
     public static async Task<HttpClient> ApiClient(Action<ApplicationContext>? dbArrange = null)
     {
-        var client = await new ApiApplicationFactory<Program>().SetupApplication(dbArrange, Guid.NewGuid().ToString());
+        var client = await new ApiApplicationFactory<Program>()
+            .SetupApplication(dbArrange, Guid.NewGuid().ToString());
         return client;
     }
     

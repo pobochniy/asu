@@ -17,6 +17,8 @@ namespace Atheneum.Entity
         public DbSet<SprintIssues> SprintIssues { get; set; }
         public DbSet<CashFlow> CashFlow { get; set; }
         public DbSet<HourlyPay> HourlyPay { get; set; }
+        public DbSet<CrystalProfitPeriod> CrystalProfitPeriods { get; set; }
+        public DbSet<CrystalPayment> CrystalPayments { get; set; }
 
         public ApplicationContext(DbContextOptions options)
             : base(options)
@@ -35,6 +37,7 @@ namespace Atheneum.Entity
             builder.ApplyConfiguration(new SprintConfiguration());
             builder.ApplyConfiguration(new CashFlowConfiguration());
             builder.ApplyConfiguration(new HourlyPayConfiguration());
+            builder.ApplyConfiguration(new CrystalPaymentConfiguration());
         }
     }
 }

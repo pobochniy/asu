@@ -50,6 +50,27 @@ public class UserBuilder
         _profile.User.UserInRoles = allRoles;
         return this;
     }
+    
+    public UserBuilder WithHourlyPay(DateOnly startedDate, decimal cash)
+    {
+        _profile.User.HourlyPays.Add(new HourlyPay
+        {
+            Cash = cash,
+            StartedDate = startedDate
+        });
+        return this;
+    }
+    
+    public UserBuilder WithTimeTracking(DateOnly date, TimeOnly from, TimeOnly to)
+    {
+        _profile.User.TimeTrackings.Add(new TimeTracking
+        {
+            Date = date,
+            From = from,
+            To = to
+        });
+        return this;
+    }
 
     public UserBuilder WithRoles(ICollection<RoleEnum> roles)
     {

@@ -24,7 +24,7 @@ namespace Atheneum.Entity
         /// <summary>
         /// Дата начала действия ставки
         /// </summary>
-        public DateTime StartedDate { get; set; }
+        public DateOnly StartedDate { get; set; }
 
         /// <summary>
         /// Стоимость часа сотрудника
@@ -40,6 +40,8 @@ namespace Atheneum.Entity
         /// Дата создания записи
         /// </summary>
         public DateTime CreatedDate { get; set; }
+        
+        public virtual User User { get; set; }
     }
 
     public class HourlyPayConfiguration : IEntityTypeConfiguration<HourlyPay>
@@ -48,6 +50,12 @@ namespace Atheneum.Entity
         {
             builder
               .HasIndex(u => u.Id);
+            
+            builder
+                .HasOne(sc => sc.User)
+                .WithMany(s => s.HourlyPays)
+                .HasForeignKey(sc => sc.UserId);
+            
             builder
                 .Property(e => e.StartedDate)
                 .HasColumnType("Date");

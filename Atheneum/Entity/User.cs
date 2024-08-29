@@ -28,13 +28,14 @@ public class User
     public virtual ICollection<UserInRole> UserInRoles { get; set; }
 
     public virtual ICollection<TimeTracking> TimeTrackings { get; set; }
+    public virtual ICollection<HourlyPay> HourlyPays { get; set; }
 
 
     public User()
     {
         TimeTrackings = new List<TimeTracking>();
-
         UserInRoles = new List<UserInRole>();
+        HourlyPays = new List<HourlyPay>();
     }
 }
 
