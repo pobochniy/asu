@@ -85,6 +85,9 @@ export class RoleManagementComponent implements OnInit {
 
       new UserRoleInfoModel(UserRoleEnum.hourlyPayRead, 'Просмотр ставок', 'hourlyPay'),
       new UserRoleInfoModel(UserRoleEnum.hourlyPayCrud, 'Редактирование ставок', 'hourlyPay'),
+
+      new UserRoleInfoModel(UserRoleEnum.finPeriodRead, 'Просмотр финансовых периодов', 'finPeriod'),
+      new UserRoleInfoModel(UserRoleEnum.finPeriodEdit, 'Редактирование финансовых периодов', 'finPeriod'),
     ]
   }
 

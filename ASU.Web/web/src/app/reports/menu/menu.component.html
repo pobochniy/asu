@@ -1,4 +1,5 @@
 <p>
   <a [routerLink]="['/reports/user-time']">[User]</a>
-  <a [routerLink]="['/reports/close-period']">[Period]</a>
+  <a *ngIf="userService.hasRole(roles.finPeriodRead)"
+     [routerLink]="['/reports/close-period']">[Period]</a>
 </p>

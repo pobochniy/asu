@@ -1,4 +1,6 @@
+using Api.Middleware;
 using Atheneum.Dto.ClosePeriod;
+using Atheneum.Enums;
 using Atheneum.Extentions.Auth;
 using Atheneum.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -18,6 +20,7 @@ public class ClosePeriodController: ControllerBase
     }
 
     [HttpPost]
+    [AuthorizeRoles(RoleEnum.finPeriodEdit)]
     public async Task<IActionResult> Calculate([FromBody]DatePeriodDto dto)
     {
         if(!ModelState.IsValid) return UnprocessableEntity(ModelState);
@@ -26,6 +29,7 @@ public class ClosePeriodController: ControllerBase
     }
     
     [HttpGet]
+    [AuthorizeRoles(RoleEnum.finPeriodEdit, RoleEnum.finPeriodRead)]
     public async Task<IActionResult> GetList()
     {
         var res = await _service.GetList();

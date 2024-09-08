@@ -2,7 +2,10 @@
 <reports-menu></reports-menu>
 <div *ngIf="dataSource">
   <h4>Закрытые периоды
-      <input type="submit" value="Add period [+]" class="btn btn-primary" (click)="showPopup()">
+      <input *ngIf="userService.hasRole(roles.finPeriodRead)"
+             type="submit" value="Add period [+]"
+             class="btn btn-primary"
+             (click)="showPopup()">
   </h4>
   <div *ngFor="let period of dataSource">
     <fieldset>

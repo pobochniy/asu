@@ -12,5 +12,8 @@ export enum UserRoleEnum {
   sprintRead,
 
   hourlyPayCrud = 40,
-  hourlyPayRead
+  hourlyPayRead,
+
+  finPeriodEdit = 50,
+  finPeriodRead,
 }
