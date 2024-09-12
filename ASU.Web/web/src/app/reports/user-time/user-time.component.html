@@ -1,5 +1,6 @@
 <reports-menu></reports-menu>
 <div *ngIf="dataSource">
+  <h4>Списанное время</h4>
   <div *ngFor="let userDates of dataSource">
     <fieldset>
       <legend>{{userDates.date}} ({{userDates.totalTimeTracks}})</legend>
