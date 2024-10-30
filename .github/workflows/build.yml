@@ -15,7 +15,6 @@ jobs:
     steps:
       - name: checkout 🛎️
         uses: actions/checkout@v2
-        using: 'node17'
       - name: setup dotnet
         uses: actions/setup-dotnet@v2
         with:
