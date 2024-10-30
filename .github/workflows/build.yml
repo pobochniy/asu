@@ -1,6 +1,7 @@
-on: push
-branches:
-  - master
+on: 
+  push:
+    branches:
+      - master
 env:
   BUILD_DIR: buildfolder
   PUBLISH_DIR: publishfolder
