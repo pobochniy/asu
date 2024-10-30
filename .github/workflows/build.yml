@@ -1,14 +1,16 @@
 on: push
+branches:
+  - master
 env:
   BUILD_DIR: buildfolder
   PUBLISH_DIR: publishfolder
   ARTIFACT_NAME: assembly
-  DOTNET_VERSION: "6.0.300"
+  DOTNET_VERSION: "8.0.x"
 
 jobs:
 
-  Build:
-    runs-on: ubuntu-latest
+  Api:
+    runs-on: self-hosted
     steps:
       - name: checkout 🛎️
         uses: actions/checkout@v3
@@ -29,43 +31,19 @@ jobs:
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(date +'%Y_%m_%d__%H_%M_%S')"
+        
+      - name: Build docker image
+        run: docker build --tag asu-api:${{ steps.date.outputs.date }} ${{ env.PUBLISH_DIR }}/.
 
-      - name: Login to DockerHub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_LOGIN }}
-          password: ${{ secrets.DOCKERHUB_PWD }}
+      - name: remove old container
+        run: >
+          if [ $( docker ps -a | grep "asu-api" | wc -l ) -gt 0 ]; then 
+            docker rm $(docker stop $(docker ps -a | grep "asu-api" | cut -d " " -f 1)) 
+          else
+            echo 'container does not exists'
+          fi
 
-      - name: Build Docker image
-        uses: docker/build-push-action@v3
-        with:
-          push: true
-          context: ${{ env.PUBLISH_DIR }}
-          tags: pobochniy/asu-api:${{ steps.date.outputs.date }}
-          labels: ${GITHUB_REF_NAME}
+      - name: run new container
+        run: docker run --restart unless-stopped -p 5000:5050 -d --name aapi --network nginx-proxy-man --env ASPNETCORE_ENVIRONMENT=Release asu-api:${{ steps.date.outputs.date }}
 
-          echo "### Image tag: ${{ steps.date.outputs.date }}" >> $GITHUB_STEP_SUMMARY
 
-  JetBrainsInspect:
-    runs-on: ubuntu-latest
-    env:
-      DOTNET_VERSION: "6.0.300"
-    steps:
-      - name: checkout 🙈🙉🙊
-        uses: actions/checkout@v3
-      - uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-      - name: Install JetBrains GlobalTools
-        run: dotnet tool install -g JetBrains.ReSharper.GlobalTools
-      - name: Inspect
-        env:
-          Q_RESULTS: ".runs[].results[]"
-          Q_CONTENTS: "{message:.message.text, file:.locations[0].physicalLocation.artifactLocation.uri, region: .locations[0].physicalLocation.region}"
-          Q_NOTICE: '"::notice file=\(.file),line=\(.region.startLine),endLine=\(.region.endLine),col=\(.region.startColumn),endColumn=\(.region.endColumn)::\(.message)"'
-        run: |
-          mkdir inspect-out
-          echo "::group::Inspect code"
-          jb inspectcode --dotnetcoresdk=$DOTNET_VERSION -f=sarif -o=inspect-out/report.json ASU.sln
-          echo "::endgroup::"
-          jq "$Q_RESULTS | $Q_CONTENTS | $Q_NOTICE" -r inspect-out/report.json
