@@ -12,6 +12,7 @@ jobs:
 
   Api:
     runs-on: self-hosted
+    using: 'node17'
     steps:
       - name: checkout 🛎️
         uses: actions/checkout@v2
