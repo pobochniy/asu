@@ -14,7 +14,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: checkout 🛎️
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
       - name: setup dotnet
         uses: actions/setup-dotnet@v2
         with:
