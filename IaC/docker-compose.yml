@@ -1,0 +1,41 @@
+# first run manually: docker network create nginx-proxy-man
+version: '3'
+
+services:
+  webserver:
+    image: nginx:latest
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    volumes:
+      - ./projects/web:/etc/nginx/html
+      - ./nginx/conf:/etc/nginx/conf.d:ro
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
+    networks:
+      - nginx-proxy-man    # network outside
+
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
+
+  database:
+    image: mysql:8.0.30
+    restart: always
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: "<type_root_password>"
+      MYSQL_DATABASE: asudb
+      MYSQL_USER: user_write
+      MYSQL_PASSWORD: "<type_password>"
+    ports:
+      - "3317:3306"
+    networks:
+      - nginx-proxy-man
+
+networks:
+  nginx-proxy-man:
+    external: true
