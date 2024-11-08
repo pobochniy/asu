@@ -85,6 +85,13 @@ services.AddOpenTelemetryMetrics(b =>
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+    db.Database.Migrate();
+}
+
 // Configure the HTTP request pipeline.
 app.UseOpenTelemetryPrometheusScrapingEndpoint();
 // app.UseHttpsRedirection();
