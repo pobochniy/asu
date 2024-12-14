@@ -1,10 +1,11 @@
 <shared-time-tracking-popup [epicId]="epic.id"></shared-time-tracking-popup>
 <div class="">
   <h4>
-    Epic {{epic?.name}}
+    {{epic?.name}}
     <a [routerLink]="['/epic/edit', epic.id]">
       <input type="submit" value="Edit" class="btn btn-info btn-sm" [disabled]="!userService.hasRole(roles.epicCrud)">
     </a>
+    &nbsp;
     <input type="submit" value="TimeTrack" class="btn btn-info btn-sm" (click)="showTimeTrack()">
   </h4>
 

@@ -104,7 +104,6 @@ export class ChatWindowComponent implements OnInit {
   //}
 
   //onEnter(e: any) {
-  //  debugger;
   //  if (!e.shiftKey || !e.ctrlKey) {
   //    e.preventDefault()
   //    this.send();

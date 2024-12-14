@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EpicApiService } from '../../shared/api/epic-api.service';
 import { UsersApiService } from '../../shared/api/users-api.service';
@@ -7,6 +7,8 @@ import { IssuePriorityEnum } from '../../shared/enums/issue-priority.enum';
 import { UserRoleEnum } from '../../shared/enums/user-role.enum';
 import { epicFormModel } from '../../shared/form-models/epic-form.model';
 import { UserProfileModel } from '../../shared/models/user-profile.model';
+import {TimeTrackingModel} from "../../shared/models/time-tracking.model";
+import {TimeTrackingPopupComponent} from "../../shared/time-tracking-popup/time-tracking-popup.component";
 
 @Component({
   selector: 'edit-epic',
@@ -16,10 +18,15 @@ import { UserProfileModel } from '../../shared/models/user-profile.model';
 })
 export class EditComponent implements OnInit {
 
+  @ViewChild(TimeTrackingPopupComponent) timePopup!: TimeTrackingPopupComponent;
   public epicForm = epicFormModel;
   public profiles: UserProfileModel[] = [];
   public epicPriority: { id: number; name: string }[] = [];
   public roles = UserRoleEnum;
+
+  public get EpicId() {
+    return this.epicForm?.controls['id']?.value || 0;
+  }
 
   constructor(private service: EpicApiService
     , private userApiService: UsersApiService
@@ -39,22 +46,27 @@ export class EditComponent implements OnInit {
     }
 
     const id = +(this.route.snapshot.paramMap.get('id') || 0);
+    if (id) {
+      this.epicForm.patchValue({['id']: id});
+    }
 
-    const epic = await this.service.Details(id);
+    if (!this.epicForm.value['id'] || this.epicForm.value['id'] == 0) {
+      this.storageRestore();
+    } else {
+      const epic = await this.service.Details(id);
 
-    this.epicForm.setValue({
-      id: epic.id
-      , assignee: epic.assignee
-      , reporter: epic.reporter
-      , priority: epic.priority
-      , name: epic.name
-      , description: epic.description
-      , dueDate: epic.dueDate ? epic.dueDate?.substr(0, 10) : new Date()
-    });
+      this.epicForm.setValue({
+        id: epic.id
+        , assignee: epic.assignee
+        , reporter: epic.reporter
+        , priority: epic.priority
+        , name: epic.name
+        , description: epic.description
+        , dueDate: epic.dueDate ? epic.dueDate?.substr(0, 10) : new Date()
+      });
+    }
 
-    if (!this.epicForm.value['id'] || this.epicForm.value['id'] == 0) this.storageRestore();
-
-    this.cdRef.detectChanges()
+    this.cdRef.detectChanges();
   }
 
   async onSubmit() {
@@ -72,7 +84,7 @@ export class EditComponent implements OnInit {
           await this.service.Create(this.epicForm);
         }
 
-        this.router.navigateByUrl('/epic/list');
+        await this.router.navigateByUrl('/epic/list');
       }
     }
     catch{
@@ -93,7 +105,20 @@ export class EditComponent implements OnInit {
   getStorageValue(name: string, fieldtype: string = 'string') {
     const strVal = localStorage.getItem(`epic-last-${name}`);
     const val = fieldtype == 'number' ? +(strVal || 0) : strVal;
-    if (val) this.epicForm.patchValue({[name]: val});
+    if (val) {
+      this.epicForm.patchValue({[name]: val});
+      this.cdRef.detectChanges();
+    }
+  }
+
+  public showTimeTrack() {
+    if (this.EpicId == 0) return;
+
+    const model = new TimeTrackingModel();
+    model.epicId = this.EpicId;
+    model.issueEpicName = this.epicForm?.controls['name']?.value || "";
+    this.timePopup.show(model).subscribe((x: any) => {
+    });
   }
 }
 

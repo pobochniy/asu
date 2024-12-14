@@ -2,7 +2,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 export let epicFormModel = new FormGroup({
 
-  id: new FormControl(null, [Validators.required]),
+  id: new FormControl(0, [Validators.required]),
 
   assignee: new FormControl(null, null),
 

@@ -15,7 +15,7 @@ export let issueFormModel = new FormGroup({
   summary: new FormControl(null, [Validators.required]),
 
   /** Описание */
-  description: new FormControl(null, null),
+  description: new FormControl(null, [Validators.required]),
 
   /** Тип */
   type: new FormControl(null, [Validators.required]),

@@ -4,25 +4,20 @@
     <h4>Use a local account to log in.</h4>
     <hr>
     <div class="form-group row">
-      <label class="col-md-2 control-label" for="login">Login, Email or Phone</label>
-      <div class="col-md-10">
+      <label class="col-md-4 control-label" for="login">Login, Email or Phone</label>
+      <div class="col-md-8">
         <input class="form-control" type="text" id="login" formControlName="login" />
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-md-2 control-label" for="password">Password</label>
-      <div class="col-md-10">
-        <input class="form-control" type="text" id="password" formControlName="password" />
-        <div *ngIf="loginForm.controls['password']['errors'] && !loginForm.controls['password']['pristine']" class="error-msg">
-          <div [hidden]="!loginForm.controls['password']['errors']['required']">Password is required.</div>
-          <div [hidden]="loginForm.controls['password']['errors']['minlength'] && !(loginForm.controls['password']['errors']['minlength']['actualLength'] < loginForm.controls['password']['errors']['minlength']['requiredLength'])">
-            Min Length 3
-          </div>
-        </div>
+      <label class="col-md-4 control-label" for="password">Password</label>
+      <div class="col-md-8">
+        <input class="form-control" type="password" id="password" formControlName="password" />
+        <form-validation [model]="loginForm.controls['password']" fieldName="password"></form-validation>
       </div>
     </div>
     <div class="form-group row">
-      <div class="col-md-offset-2 col-md-10">
+      <div class="mx-auto col-md-1">
         <input type="submit" value="Log in" class="btn btn-primary"><!--[disabled]="!loginForm.valid"-->
       </div>
     </div>

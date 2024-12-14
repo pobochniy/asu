@@ -14,7 +14,6 @@ export class ChatUserNameComponent implements OnChanges {
 
   @Output() addPrivatTo = new EventEmitter<{userName: string, isPrivat: boolean}>();
   addPrivatToChild(userName: string, isPrivat: boolean) {
-    debugger
     this.addPrivatTo.emit({ userName, isPrivat });
   }
 
